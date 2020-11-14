@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Glados">
+      <UniqueIdentifier>{BF8856B5-AB2A-818B-94E5-94DF802608DC}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Glados\vendor">
+      <UniqueIdentifier>{3CF25E13-A8B2-DA49-71ED-23C7DD6C1F26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Glados\vendor\glm">
+      <UniqueIdentifier>{8B3AE1B1-F750-DF47-40C8-6A69AC1DB0CF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Glados\vendor\glm\detail">
+      <UniqueIdentifier>{ED8754EF-D9AC-A36F-02F8-88FFEE7BA28D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Glados\vendor\glm\simd">
+      <UniqueIdentifier>{C7E58599-B3DF-AEEB-9C4C-45FC88E51458}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Glados\vendor\imgui">
+      <UniqueIdentifier>{A6BC3EAF-121E-1CBD-9B8B-626F07EC527C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Glados\vendor\imgui\example_glfw_opengl3">
+      <UniqueIdentifier>{876789F3-73E4-7C36-9C61-7D4A883D19CA}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Glados\vendor\stb_image">
+      <UniqueIdentifier>{D69DAAC2-42D5-F259-4BDF-567DB7951953}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{2DAB880B-99B4-887C-2230-9F7C8E38947C}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Glados\vendor\glm\simd\common.h">
+      <Filter>Glados\vendor\glm\simd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Glados\vendor\glm\simd\exponential.h">
+      <Filter>Glados\vendor\glm\simd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Glados\vendor\glm\simd\geometric.h">
+      <Filter>Glados\vendor\glm\simd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Glados\vendor\glm\simd\integer.h">
+      <Filter>Glados\vendor\glm\simd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Glados\vendor\glm\simd\matrix.h">
+      <Filter>Glados\vendor\glm\simd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Glados\vendor\glm\simd\neon.h">
+      <Filter>Glados\vendor\glm\simd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Glados\vendor\glm\simd\packing.h">
+      <Filter>Glados\vendor\glm\simd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Glados\vendor\glm\simd\platform.h">
+      <Filter>Glados\vendor\glm\simd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Glados\vendor\glm\simd\trigonometric.h">
+      <Filter>Glados\vendor\glm\simd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Glados\vendor\glm\simd\vector_relational.h">
+      <Filter>Glados\vendor\glm\simd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Glados\vendor\imgui\example_glfw_opengl3\imgui_impl_glfw.h">
+      <Filter>Glados\vendor\imgui\example_glfw_opengl3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Glados\vendor\imgui\example_glfw_opengl3\imgui_impl_opengl3.h">
+      <Filter>Glados\vendor\imgui\example_glfw_opengl3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Glados\vendor\imgui\imconfig.h">
+      <Filter>Glados\vendor\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Glados\vendor\imgui\imgui.h">
+      <Filter>Glados\vendor\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Glados\vendor\imgui\imgui_internal.h">
+      <Filter>Glados\vendor\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Glados\vendor\imgui\imstb_rectpack.h">
+      <Filter>Glados\vendor\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Glados\vendor\imgui\imstb_textedit.h">
+      <Filter>Glados\vendor\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Glados\vendor\imgui\imstb_truetype.h">
+      <Filter>Glados\vendor\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Glados\vendor\stb_image\stb_image.h">
+      <Filter>Glados\vendor\stb_image</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Glados\vendor\glm\detail\glm.cpp">
+      <Filter>Glados\vendor\glm\detail</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Glados\vendor\imgui\example_glfw_opengl3\imgui_impl_glfw.cpp">
+      <Filter>Glados\vendor\imgui\example_glfw_opengl3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Glados\vendor\imgui\example_glfw_opengl3\imgui_impl_opengl3.cpp">
+      <Filter>Glados\vendor\imgui\example_glfw_opengl3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Glados\vendor\imgui\imgui.cpp">
+      <Filter>Glados\vendor\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Glados\vendor\imgui\imgui_demo.cpp">
+      <Filter>Glados\vendor\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Glados\vendor\imgui\imgui_draw.cpp">
+      <Filter>Glados\vendor\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Glados\vendor\imgui\imgui_widgets.cpp">
+      <Filter>Glados\vendor\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Glados\vendor\stb_image\stb_image.cpp">
+      <Filter>Glados\vendor\stb_image</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Sandbox.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
