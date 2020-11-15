@@ -1,6 +1,5 @@
 #include "gladospch.h"
 #include "GDApplication.h"
-
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
@@ -12,7 +11,6 @@ namespace Glados {
 	{
         Renderer::Init();
         window = glfwCreateWindow(width, height, title.c_str(), NULL, NULL);
-        LOG("Welcome to Glados!");
 	}
 
 	Application::~Application()
@@ -37,9 +35,9 @@ namespace Glados {
         glfwSwapInterval(1);
 
         if (glewInit() != GLEW_OK)
-            std::cout << "Error!" << std::endl;
+            GD_CORE_ERROR("Error: GLEW_NOT_OK");
 
-        std::cout << glGetString(GL_VERSION) << std::endl;
+        GD_CORE_INFO(glGetString(GL_VERSION));
 
         Renderer renderer;
 

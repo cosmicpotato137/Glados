@@ -1,13 +1,3 @@
--- include dirs and link libs for opengl
-function glSetup()
-	includedirs {
-		"Dependencies/GLFW/include",
-		"Dependencies/glew-2.2.0/include"
-	}
-
-	links { "glew32s", "glfw3", "opengl32" }
-	libdirs { "Dependencies/GLFW/lib-vc2019", "Dependencies/glew-2.2.0/lib/Release/Win32" }
-end
 
 -- workspace settings
 workspace "Glados"
@@ -49,6 +39,23 @@ workspace "Glados"
 -- output dir for all projects
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
+-- include directories relative to workspace
+IncludeDir = {}
+IncludeDir["GLFW"] = "Glados/vendor/GLFW/include"
+
+include "Glados/vendor/GLFW"
+
+-- include dirs and link libs for opengl
+function glSetup()
+	includedirs {
+		"Dependencies/glew-2.2.0/include"
+	}
+
+	links { "glew32s", "opengl32" }
+	libdirs { "Dependencies/glew-2.2.0/lib/Release/Win32" }
+end
+
+
 project "Glados"
 	location "Glados"
 	kind "SharedLib"
@@ -60,15 +67,17 @@ project "Glados"
 	-- precompiled headers
 	pchheader "gladospch.h"
 	pchsource "Glados/src/gladospch.cpp"
-	
+
 	glSetup()
+
+	defines "SPDLOG_COMPILED_LIB"
 
 	files 
 	{
 		"%{prj.name}/src/**.h",
 		"%{prj.name}/src/**.cpp",
-		"%{prj.name}/vendor/**.cpp",
-		"%{prj.name}/vendor/**.h"
+		"%{prj.name}/vendor/imgui/**.h",
+		"%{prj.name}/vendor/imgui/**.cpp"
 	}
 
 	removefiles
@@ -76,18 +85,22 @@ project "Glados"
 		"%{prj.name}/src/Archives/**",
 		"%{prj.name}/src/Tests/**",
 		"%{prj.name}/src/Application.cpp",
-		"%{prj.name}/vendor/imgui/misc/**.cpp",
-		"%{prj.name}/vendor/imgui/misc/**.h"
+		"%{prj.name}/vendor/imgui/imgui/misc/**.h",
+		"%{prj.name}/vendor/imgui/imgui/misc/**.cpp"
 	}
 
 	includedirs
 	{
 		"%{prj.name}/src",
 		"%{prj.name}/src/ObjScripts",
-		"%{prj.name}/vendor",
-		"%{prj.name}/vendor/imgui",
+		"%{prj.name}/vendor/spdlog/include",
+		"%{prj.name}/vendor/glm",
 		"%{prj.name}/vendor/stb_image",
+		"%{prj.name}/vendor/imgui",
+		"%{IncludeDir.GLFW}"
 	}
+
+	links "GLFW"
 
 	filter "system:windows"
 		staticruntime "off"
