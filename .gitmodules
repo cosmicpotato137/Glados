@@ -1,3 +1,6 @@
 [submodule "Glados/vendor/GLFW"]
 	path = Glados/vendor/GLFW
 	url = https://github.com/msunde137/glfw
+[submodule "Glados/vendor/imgui"]
+	path = Glados/vendor/imgui
+	url = https://github.com/msunde137/imgui
