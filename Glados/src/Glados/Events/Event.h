@@ -11,7 +11,7 @@ namespace Glados {
 	enum class EventType
 	{
 		None = 0,
-		WindowClose, WindowResize, WindowFocus, WindowLostFocus, WindowMoved,
+		WindowClose = 1, WindowResize = 2, WindowFocus, WindowLostFocus, WindowMoved,
 		AppTick, AppUpdate, AppRender,
 		KeyPressed, KeyReleased,
 		MouseButtonPressed, MouseButtonReleased, MouseMoved, MouseScrolled
@@ -65,18 +65,19 @@ namespace Glados {
 	public:
 		EventDispatcher(Event& e)
 			: m_Event(e)
-		{				
+		{
 		}
 		
 		template<typename T>
 		bool Dispatch(EventFn<T> func)
 		{
-			if (m_Event.GetEventType() == T::GetStaticType());
+			if (T::GetStaticType() == m_Event.GetEventType())
 			{
+				GD_CORE_ASSERT(T::GetStaticType() == m_Event.GetEventType(), "something's wrong");
 				m_Event.m_Handled = func(*(T*)&m_Event);
 				return true;
 			}
-			return false
+			return false;
 		}
 
 	private:

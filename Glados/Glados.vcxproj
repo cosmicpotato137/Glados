@@ -79,7 +79,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>gladospch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>GLEW_STATIC;GD_PLATFORM_WINDOWS;GD_WIN32;GD_DEBUG;GD_BUILD_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>GLEW_STATIC;GD_PLATFORM_WINDOWS;GD_WIN32;GD_DEBUG;GD_BUILD_DLL;GD_ENABLE_ASSERTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\Dependencies\glew-2.2.0\include;src;src\Glados\ObjScripts;vendor\spdlog\include;vendor\glm;vendor\stb_image;vendor\GLFW\include;vendor\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
@@ -160,7 +160,6 @@
     <ClInclude Include="src\Glados\Core\GDApplication.h" />
     <ClInclude Include="src\Glados\Core\GDLog.h" />
     <ClInclude Include="src\Glados\Core\Window.h" />
-    <ClInclude Include="src\Glados\Core\WindowsWindow.h" />
     <ClInclude Include="src\Glados\Events\ApplicationEvent.h" />
     <ClInclude Include="src\Glados\Events\Event.h" />
     <ClInclude Include="src\Glados\Events\KeyEvent.h" />
@@ -174,13 +173,13 @@
     <ClInclude Include="src\Glados\Shader.h" />
     <ClInclude Include="src\Glados\Texture.h" />
     <ClInclude Include="src\Glados\VertexArray.h" />
+    <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\gladospch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Glados\Buffer.cpp" />
     <ClCompile Include="src\Glados\Core\GDApplication.cpp" />
     <ClCompile Include="src\Glados\Core\GDLog.cpp" />
-    <ClCompile Include="src\Glados\Core\WindowsWindow.cpp" />
     <ClCompile Include="src\Glados\Material.cpp" />
     <ClCompile Include="src\Glados\ObjAttrib.cpp" />
     <ClCompile Include="src\Glados\ObjScripts\CameraMove.cpp" />
@@ -189,6 +188,7 @@
     <ClCompile Include="src\Glados\Shader.cpp" />
     <ClCompile Include="src\Glados\Texture.cpp" />
     <ClCompile Include="src\Glados\VertexArray.cpp" />
+    <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\gladospch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>

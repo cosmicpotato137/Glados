@@ -5,7 +5,7 @@
 
 namespace Glados {
 
-	class WindowsWindow : public Window
+	class GLADOS_API WindowsWindow : public Window
 	{
 	public:
 		WindowsWindow(const WindowProps& props);
@@ -24,13 +24,14 @@ namespace Glados {
 		virtual void Init(const WindowProps& props);
 		virtual void Shutdown();
 	private:
-		GLFWwindow* window;
+		GLFWwindow* m_Window;
 
 		struct WindowData
 		{
 			std::string Title;
 			unsigned int Width;
 			unsigned int Height;
+			bool VSync;
 
 			EventCallbackFn EventCallback;
 		};

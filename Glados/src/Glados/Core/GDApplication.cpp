@@ -6,84 +6,64 @@
 
 //#include "Renderer.h"
 
+
 namespace Glados {
 
-	Application::Application(unsigned int width, unsigned int height, const std::string& title)
+#define BIND_EVENT_FN(x) std::bind(&x, this, std::placeholders::_1)
+
+	Application::Application()
 	{
         Renderer::Init();
-        window = glfwCreateWindow(width, height, title.c_str(), NULL, NULL);
+		m_Window = Window::Create();
+		m_Window->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
 	}
 
 	Application::~Application()
 	{
-        delete window;
+		delete m_Window;
 	}
 
 	void Application::Run()
 	{
-        /* Create a windowed mode window and its OpenGL context */
-        // width, height, name, fullscreen, ...
-        if (!window)
-        {
-            // close the library
-            glfwTerminate();
-            return;
-        }
-
-        /* Make the window's context current */
-        glfwMakeContextCurrent(window);
-
-        glfwSwapInterval(1);
-
+		// init gl library
+		// TODO: abstract this!
         if (glewInit() != GLEW_OK)
             GD_CORE_ERROR("Error: GLEW_NOT_OK");
 
         GD_CORE_INFO(glGetString(GL_VERSION));
 
-        Renderer renderer;
-
-		while (!glfwWindowShouldClose(window))
+		glClearColor(1, 0, 1, 1);
+		while (m_Running)
 		{
-            /* Render here */
-
-            // Start the Dear ImGui frame
-            //ImGui_ImplOpenGL3_NewFrame();
-            //ImGui_ImplGlfw_NewFrame();
-            //ImGui::NewFrame();
-
-
-            // TODO: implement layers
-            //if (currentTest)
-            //{
-            //    if (!ImGui::IsAnyWindowFocused())
-            //    {
-            //    }
-            //    currentTest->OnUpdate(0.0f);
-            //    currentTest->OnRender();
-
-            //    ImGui::Begin("Test");
-            //    if (currentTest != testMenu && ImGui::Button("<-"))
-            //    {
-            //        delete currentTest;
-            //        currentTest = testMenu;
-            //    }
-            //    currentTest->OnImGuiRender();
-            //    ImGui::End();
-            //}
-
-            //// imgui rendering
-            //ImGui::Render();
-            //ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-
-            /* Swap front and back buffers */
-            glfwSwapBuffers(window);
-
-            /* Poll for and process events */
-            glfwPollEvents();
-
-            // resets color of window
-            renderer.Clear();
+			m_Window->OnUpdate();
+			glClear(GL_COLOR_BUFFER_BIT);
 		}
 	}
 
+	void Application::OnEvent(Event& e)
+	{
+		EventDispatcher dispatcher(e);
+		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(Application::OnWindowClose));
+		dispatcher.Dispatch<KeyPressedEvent>(BIND_EVENT_FN(Application::OnKeyPressed));
+		GD_CORE_TRACE("{0}", e);
+	}
+
+	bool Application::OnWindowClose(WindowCloseEvent& e)
+	{
+		m_Running = false;
+		return true;
+	}
+
+	bool Application::OnKeyPressed(KeyPressedEvent& e)
+	{
+		switch (e.GetKeyCode())
+		{
+		case GLFW_KEY_ESCAPE:
+			m_Running = false;
+		default:
+			break;
+		}
+
+		return true;
+	}
 }

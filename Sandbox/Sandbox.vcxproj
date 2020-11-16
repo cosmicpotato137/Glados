@@ -79,7 +79,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>GLEW_STATIC;GD_PLATFORM_WINDOWS;GD_WIN32;GD_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Dependencies\glew-2.2.0\include;..\Glados\src;..\Glados\Hazel;..\Glados\Platform;..\Glados\vendor;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Dependencies\glew-2.2.0\include;..\Glados\src;src\Glados\ObjScripts;..\Glados\vendor;..\Glados\vendor\spdlog\include;..\Glados\vendor\glm;..\Glados\vendor\stb_image;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -97,7 +97,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>GLEW_STATIC;GD_PLATFORM_WINDOWS;GD_WIN32;GD_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Dependencies\glew-2.2.0\include;..\Glados\src;..\Glados\Hazel;..\Glados\Platform;..\Glados\vendor;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Dependencies\glew-2.2.0\include;..\Glados\src;src\Glados\ObjScripts;..\Glados\vendor;..\Glados\vendor\spdlog\include;..\Glados\vendor\glm;..\Glados\vendor\stb_image;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -119,7 +119,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>GLEW_STATIC;GD_PLATFORM_WINDOWS;GD_WIN32;GD_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Dependencies\glew-2.2.0\include;..\Glados\src;..\Glados\Hazel;..\Glados\Platform;..\Glados\vendor;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Dependencies\glew-2.2.0\include;..\Glados\src;src\Glados\ObjScripts;..\Glados\vendor;..\Glados\vendor\spdlog\include;..\Glados\vendor\glm;..\Glados\vendor\stb_image;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>

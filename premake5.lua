@@ -106,6 +106,9 @@ project "Glados"
 			("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "Sandbox")
 		}
 
+	filter "configurations:Debug"
+		defines "GD_ENABLE_ASSERTS"
+
 
 project "Sandbox"
 	location "Sandbox"
@@ -133,9 +136,11 @@ project "Sandbox"
 	includedirs
 	{
 		"Glados/src",
-		"Glados/Hazel",
-		"Glados/Platform",
-		"Glados/vendor"
+		"%{prj.name}/src/Glados/ObjScripts",
+		"Glados/vendor",
+		"Glados/vendor/spdlog/include",
+		"Glados/vendor/glm",
+		"Glados/vendor/stb_image"
 	}
 
 	filter "system:windows"

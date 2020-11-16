@@ -4,7 +4,6 @@ class Sandbox : public Glados::Application
 {
 public:
 	Sandbox()
-		: Application(960, 540, "Sandbox")
 	{
 	}
 

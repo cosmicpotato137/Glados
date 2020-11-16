@@ -13,6 +13,12 @@
     <Filter Include="Glados\ObjScripts">
       <UniqueIdentifier>{F17C4CCD-5D93-4A63-A60A-D68412601BEB}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Platform">
+      <UniqueIdentifier>{2AC788B4-1694-E3BF-3FAD-D1672BD9184E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows">
+      <UniqueIdentifier>{64FBD71A-50F4-F66C-7926-DCF1657ED678}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Glados.h" />
@@ -35,9 +41,6 @@
       <Filter>Glados\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Glados\Core\Window.h">
-      <Filter>Glados\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Glados\Core\WindowsWindow.h">
       <Filter>Glados\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Glados\Events\ApplicationEvent.h">
@@ -79,6 +82,9 @@
     <ClInclude Include="src\Glados\VertexArray.h">
       <Filter>Glados</Filter>
     </ClInclude>
+    <ClInclude Include="src\Platform\Windows\WindowsWindow.h">
+      <Filter>Platform\Windows</Filter>
+    </ClInclude>
     <ClInclude Include="src\gladospch.h" />
   </ItemGroup>
   <ItemGroup>
@@ -89,9 +95,6 @@
       <Filter>Glados\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\Glados\Core\GDLog.cpp">
-      <Filter>Glados\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Glados\Core\WindowsWindow.cpp">
       <Filter>Glados\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\Glados\Material.cpp">
@@ -117,6 +120,9 @@
     </ClCompile>
     <ClCompile Include="src\Glados\VertexArray.cpp">
       <Filter>Glados</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp">
+      <Filter>Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\gladospch.cpp" />
   </ItemGroup>

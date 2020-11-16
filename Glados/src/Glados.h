@@ -2,9 +2,9 @@
 
 //for use by Hazel applications
 
-#include "core/GDApplication.h"
-#include "core/GDLog.h"
+#include "Glados/Core/GDApplication.h"
+#include "Glados/Core/GDLog.h"
 
 //------------Entry Point--------------
-#include "core/EntryPoint.h"
+#include "Glados/Core/EntryPoint.h"
 //-------------------------------------
