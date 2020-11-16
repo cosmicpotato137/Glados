@@ -83,7 +83,8 @@
       <AdditionalIncludeDirectories>..\Dependencies\glew-2.2.0\include;src;src\Glados\ObjScripts;vendor\spdlog\include;vendor\glm;vendor\stb_image;vendor\GLFW\include;vendor\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
-      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <AdditionalOptions>/MDd %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -109,7 +110,8 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
-      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <AdditionalOptions>/MD %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -136,7 +138,8 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
-      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <AdditionalOptions>/MD %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -159,6 +162,8 @@
     <ClInclude Include="src\Glados\Core\EntryPoint.h" />
     <ClInclude Include="src\Glados\Core\GDApplication.h" />
     <ClInclude Include="src\Glados\Core\GDLog.h" />
+    <ClInclude Include="src\Glados\Core\Layer.h" />
+    <ClInclude Include="src\Glados\Core\LayerStack.h" />
     <ClInclude Include="src\Glados\Core\Window.h" />
     <ClInclude Include="src\Glados\Events\ApplicationEvent.h" />
     <ClInclude Include="src\Glados\Events\Event.h" />
@@ -180,6 +185,8 @@
     <ClCompile Include="src\Glados\Buffer.cpp" />
     <ClCompile Include="src\Glados\Core\GDApplication.cpp" />
     <ClCompile Include="src\Glados\Core\GDLog.cpp" />
+    <ClCompile Include="src\Glados\Core\Layer.cpp" />
+    <ClCompile Include="src\Glados\Core\LayerStack.cpp" />
     <ClCompile Include="src\Glados\Material.cpp" />
     <ClCompile Include="src\Glados\ObjAttrib.cpp" />
     <ClCompile Include="src\Glados\ObjScripts\CameraMove.cpp" />

@@ -44,8 +44,8 @@ namespace Glados {
 #define GD_CORE_FATAL(...)	::Glados::Log::GetCoreLogger()->fatal(__VA_ARGS__)
 
 // client Log macros
-#define GD_TRACE(...)		::Glados::Log::GetCoreLogger()->trace(__VA_ARGS__)
-#define GD_INFO(...)		::Glados::Log::GetCoreLogger()->info(__VA_ARGS__)
-#define GD_WARN(...)		::Glados::Log::GetCoreLogger()->warn(__VA_ARGS__)
-#define GD_ERROR(...)		::Glados::Log::GetCoreLogger()->error(__VA_ARGS__)
-#define GD_FATAL(...)		::Glados::Log::GetCoreLogger()->fatal(__VA_ARGS__)
+#define GD_TRACE(...)		::Glados::Log::GetClientLogger()->trace(__VA_ARGS__)
+#define GD_INFO(...)		::Glados::Log::GetClientLogger()->info(__VA_ARGS__)
+#define GD_WARN(...)		::Glados::Log::GetClientLogger()->warn(__VA_ARGS__)
+#define GD_ERROR(...)		::Glados::Log::GetClientLogger()->error(__VA_ARGS__)
+#define GD_FATAL(...)		::Glados::Log::GetClientLogger()->fatal(__VA_ARGS__)

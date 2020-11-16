@@ -40,6 +40,12 @@
     <ClInclude Include="src\Glados\Core\GDLog.h">
       <Filter>Glados\Core</Filter>
     </ClInclude>
+    <ClInclude Include="src\Glados\Core\Layer.h">
+      <Filter>Glados\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Glados\Core\LayerStack.h">
+      <Filter>Glados\Core</Filter>
+    </ClInclude>
     <ClInclude Include="src\Glados\Core\Window.h">
       <Filter>Glados\Core</Filter>
     </ClInclude>
@@ -95,6 +101,12 @@
       <Filter>Glados\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\Glados\Core\GDLog.cpp">
+      <Filter>Glados\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Glados\Core\Layer.cpp">
+      <Filter>Glados\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Glados\Core\LayerStack.cpp">
       <Filter>Glados\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\Glados\Material.cpp">

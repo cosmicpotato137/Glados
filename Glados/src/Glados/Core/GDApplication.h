@@ -6,6 +6,7 @@
 #include "Glados/Events/ApplicationEvent.h"
 #include "Glados/Events/MouseEvent.h"
 #include "Glados/Events/KeyEvent.h"
+#include "LayerStack.h"
 
 class GLFWwindow;
 
@@ -16,6 +17,8 @@ namespace Glados {
 	private:
 		Window* m_Window;
 		bool m_Running = true;
+		LayerStack m_LayerStack;
+
 	public:
 		Application();
 		virtual ~Application();
@@ -23,6 +26,9 @@ namespace Glados {
 		void Run();
 
 		void OnEvent(Event& e);
+
+		void PushLayer(Layer* layer);
+		void PushOverlay(Layer* overlay);
 
 	private:
 		bool OnWindowClose(WindowCloseEvent& e);

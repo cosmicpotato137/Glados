@@ -40,6 +40,8 @@ namespace Glados {
 	{
 		friend class EventDispatcher;
 	public:
+		bool Handled = false;
+	public:
 		// methods to be overriden in subclasses
 		virtual EventType GetEventType() const = 0;
 		virtual const char* GetName() const = 0;
@@ -51,9 +53,6 @@ namespace Glados {
 		{
 			return GetCategoryFlags() & c;
 		}
-
-	protected:
-		bool m_Handled = false;
 	};
 
 	// used for handling events
@@ -74,7 +73,7 @@ namespace Glados {
 			if (T::GetStaticType() == m_Event.GetEventType())
 			{
 				GD_CORE_ASSERT(T::GetStaticType() == m_Event.GetEventType(), "something's wrong");
-				m_Event.m_Handled = func(*(T*)&m_Event);
+				m_Event.Handled = func(*(T*)&m_Event);
 				return true;
 			}
 			return false;

@@ -24,14 +24,17 @@ workspace "Glados"
 
 	filter "configurations:Debug"
 		defines "GD_DEBUG"
+		buildoptions "/MDd"
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "GD_RELEASE"
+		buildoptions "/MD"
 		optimize "On"
 
 	filter "configurations:Dist"
 		defines "GD_DIST"
+		buildoptions "/MD"
 		optimize "On"
 
 	filter {}
@@ -98,7 +101,7 @@ project "Glados"
 	links { "GLFW", "ImGui" }
 
 	filter "system:windows"
-		staticruntime "off"
+		staticruntime "On"
 		defines	"GD_BUILD_DLL"
 
 		postbuildcommands
