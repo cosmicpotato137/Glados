@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Core/Core.h"
+#include "Glados/Core/Core.h"
 #include <string>
 
-namespace Hazel {
+namespace Glados {
 
 	// Events are currently blocking 
 

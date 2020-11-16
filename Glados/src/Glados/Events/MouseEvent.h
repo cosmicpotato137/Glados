@@ -1,12 +1,12 @@
 #pragma once
 
-#include "hzpch.h"
+#include "gladospch.h"
 
 #include "Event.h"
 
-namespace Hazel {
+namespace Glados {
 
-	class HAZEL_API MouseMovedEvent : public Event
+	class GLADOS_API MouseMovedEvent : public Event
 	{
 	public:
 		MouseMovedEvent(float x, float y)
@@ -31,7 +31,7 @@ namespace Hazel {
 		float m_MouseX, m_MouseY;
 	};
 
-	class HAZEL_API MouseScrollEvent : public Event
+	class GLADOS_API MouseScrollEvent : public Event
 	{
 	public:
 		MouseScrollEvent(float xOffset, float yOffset)
@@ -56,7 +56,7 @@ namespace Hazel {
 		float m_XOffset, m_YOffset;
 	};
 
-	class HAZEL_API MouseButtonEvent : public Event
+	class GLADOS_API MouseButtonEvent : public Event
 	{
 	public:
 		inline int GetMouseButton() { return m_Button; }
@@ -71,7 +71,7 @@ namespace Hazel {
 		int m_Button;
 	};
 
-	class HAZEL_API MouseButtonPressedEvent : public MouseButtonEvent
+	class GLADOS_API MouseButtonPressedEvent : public MouseButtonEvent
 	{
 	public:
 		MouseButtonPressedEvent(int button)
@@ -89,7 +89,7 @@ namespace Hazel {
 		EVENT_CLASS_TYPE(MouseButtonPressed)
 	};
 
-	class HAZEL_API MouseButtonReleasedEvent : public MouseButtonEvent
+	class GLADOS_API MouseButtonReleasedEvent : public MouseButtonEvent
 	{
 	public:
 		MouseButtonReleasedEvent(int button)

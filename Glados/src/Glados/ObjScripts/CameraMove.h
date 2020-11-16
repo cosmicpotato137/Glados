@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Core/Core.h"
-#include "ObjAttrib.h"
+#include "Glados/Core/Core.h"
+#include "Glados/ObjAttrib.h"
 
 class GLADOS_API CameraMove : public Glados::ObjAttrib
 {

@@ -4,7 +4,7 @@
 
 #include "Event.h"
 
-namespace Hazel {
+namespace Glados {
 
 	class GLADOS_API WindowResizeEvent : public Event
 	{

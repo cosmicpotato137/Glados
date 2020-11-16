@@ -1,9 +1,10 @@
 #include "gladospch.h"
 #include "GDApplication.h"
+#include "Glados/Renderer.h"
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-#include "Renderer.h"
+//#include "Renderer.h"
 
 namespace Glados {
 

@@ -1,7 +1,7 @@
 #include "gladospch.h"
 
 #include "Object.h"
-#include "imgui/imgui.h"
+#include "imgui.h"
 
 namespace Glados {
 

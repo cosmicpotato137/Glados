@@ -1,12 +1,12 @@
 #pragma once
 
-#include "hzpch.h"
+#include "gladospch.h"
 
 #include "Event.h"
 
-namespace Hazel {
+namespace Glados {
 
-	class HAZEL_API KeyEvent : public Event
+	class GLADOS_API KeyEvent : public Event
 	{
 	public:
 		inline int GetKeyCode() const { return m_KeyCode; }
@@ -20,7 +20,7 @@ namespace Hazel {
 		int m_KeyCode;
 	};
 
-	class HAZEL_API KeyPressedEvent : public KeyEvent
+	class GLADOS_API KeyPressedEvent : public KeyEvent
 	{
 	public:
 		KeyPressedEvent(int keycode, int repeatCount)
@@ -40,7 +40,7 @@ namespace Hazel {
 		int m_RepeatCount;
 	};
 
-	class HAZEL_API KeyReleasedEvent : public KeyEvent
+	class GLADOS_API KeyReleasedEvent : public KeyEvent
 	{
 	public:
 		KeyReleasedEvent(int keycode)

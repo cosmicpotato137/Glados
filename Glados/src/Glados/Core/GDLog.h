@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Core/Core.h"
-#include <iostream>
+#include "gladospch.h"
+#include "Glados/Core/Core.h"
 #include <GL/glew.h>
 #include "spdlog/spdlog.h"
 #include "spdlog/fmt/ostr.h"

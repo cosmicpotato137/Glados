@@ -1,132 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="src">
-      <UniqueIdentifier>{2DAB880B-99B4-887C-2230-9F7C8E38947C}</UniqueIdentifier>
+    <Filter Include="Glados">
+      <UniqueIdentifier>{BF8856B5-AB2A-818B-94E5-94DF802608DC}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Core">
-      <UniqueIdentifier>{A5D31CCF-91A0-77DA-BAB9-6582A6E5AC68}</UniqueIdentifier>
+    <Filter Include="Glados\Core">
+      <UniqueIdentifier>{77FCAD79-E3B1-266F-6CA6-2046D85A1D73}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Events">
-      <UniqueIdentifier>{7162C20E-5D1A-045C-C621-DDB7B2F89E4C}</UniqueIdentifier>
+    <Filter Include="Glados\Events">
+      <UniqueIdentifier>{C30741A2-2FC8-BCD8-F802-0656648201B5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\ObjScripts">
-      <UniqueIdentifier>{9F7E37FB-8B4C-2B01-74E0-9B27604D0766}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="vendor">
-      <UniqueIdentifier>{B3738122-9F15-ACF8-88D0-BF4C74113349}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="vendor\imgui">
-      <UniqueIdentifier>{5D3BD0F0-499E-5F95-F223-984BDE652B18}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="vendor\imgui\imgui">
-      <UniqueIdentifier>{879A0465-737E-C5BA-DCDE-BF0DC8E1AF3C}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="vendor\imgui\imgui\example_glfw_opengl3">
-      <UniqueIdentifier>{08FC48BC-748B-0AA7-7D87-EBBEE99545B3}</UniqueIdentifier>
+    <Filter Include="Glados\ObjScripts">
+      <UniqueIdentifier>{F17C4CCD-5D93-4A63-A60A-D68412601BEB}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Buffer.h">
-      <Filter>src</Filter>
+    <ClInclude Include="src\Glados.h" />
+    <ClInclude Include="src\Glados\Buffer.h">
+      <Filter>Glados</Filter>
     </ClInclude>
-    <ClInclude Include="src\BufferLayout.h">
-      <Filter>src</Filter>
+    <ClInclude Include="src\Glados\BufferLayout.h">
+      <Filter>Glados</Filter>
     </ClInclude>
-    <ClInclude Include="src\Core\Core.h">
-      <Filter>src\Core</Filter>
+    <ClInclude Include="src\Glados\Core\Core.h">
+      <Filter>Glados\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Core\EntryPoint.h">
-      <Filter>src\Core</Filter>
+    <ClInclude Include="src\Glados\Core\EntryPoint.h">
+      <Filter>Glados\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Core\GDApplication.h">
-      <Filter>src\Core</Filter>
+    <ClInclude Include="src\Glados\Core\GDApplication.h">
+      <Filter>Glados\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Core\GDLog.h">
-      <Filter>src\Core</Filter>
+    <ClInclude Include="src\Glados\Core\GDLog.h">
+      <Filter>Glados\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Events\ApplicationEvent.h">
-      <Filter>src\Events</Filter>
+    <ClInclude Include="src\Glados\Core\Window.h">
+      <Filter>Glados\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Events\Event.h">
-      <Filter>src\Events</Filter>
+    <ClInclude Include="src\Glados\Core\WindowsWindow.h">
+      <Filter>Glados\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Events\KeyEvent.h">
-      <Filter>src\Events</Filter>
+    <ClInclude Include="src\Glados\Events\ApplicationEvent.h">
+      <Filter>Glados\Events</Filter>
     </ClInclude>
-    <ClInclude Include="src\Events\MouseEvent.h">
-      <Filter>src\Events</Filter>
+    <ClInclude Include="src\Glados\Events\Event.h">
+      <Filter>Glados\Events</Filter>
     </ClInclude>
-    <ClInclude Include="src\GDMath.h">
-      <Filter>src</Filter>
+    <ClInclude Include="src\Glados\Events\KeyEvent.h">
+      <Filter>Glados\Events</Filter>
     </ClInclude>
-    <ClInclude Include="src\Glados.h">
-      <Filter>src</Filter>
+    <ClInclude Include="src\Glados\Events\MouseEvent.h">
+      <Filter>Glados\Events</Filter>
     </ClInclude>
-    <ClInclude Include="src\Material.h">
-      <Filter>src</Filter>
+    <ClInclude Include="src\Glados\GDMath.h">
+      <Filter>Glados</Filter>
     </ClInclude>
-    <ClInclude Include="src\ObjAttrib.h">
-      <Filter>src</Filter>
+    <ClInclude Include="src\Glados\Material.h">
+      <Filter>Glados</Filter>
     </ClInclude>
-    <ClInclude Include="src\ObjScripts\CameraMove.h">
-      <Filter>src\ObjScripts</Filter>
+    <ClInclude Include="src\Glados\ObjAttrib.h">
+      <Filter>Glados</Filter>
     </ClInclude>
-    <ClInclude Include="src\Object.h">
-      <Filter>src</Filter>
+    <ClInclude Include="src\Glados\ObjScripts\CameraMove.h">
+      <Filter>Glados\ObjScripts</Filter>
     </ClInclude>
-    <ClInclude Include="src\Renderer.h">
-      <Filter>src</Filter>
+    <ClInclude Include="src\Glados\Object.h">
+      <Filter>Glados</Filter>
     </ClInclude>
-    <ClInclude Include="src\Shader.h">
-      <Filter>src</Filter>
+    <ClInclude Include="src\Glados\Renderer.h">
+      <Filter>Glados</Filter>
     </ClInclude>
-    <ClInclude Include="src\Texture.h">
-      <Filter>src</Filter>
+    <ClInclude Include="src\Glados\Shader.h">
+      <Filter>Glados</Filter>
     </ClInclude>
-    <ClInclude Include="src\VertexArray.h">
-      <Filter>src</Filter>
+    <ClInclude Include="src\Glados\Texture.h">
+      <Filter>Glados</Filter>
     </ClInclude>
-    <ClInclude Include="src\gladospch.h">
-      <Filter>src</Filter>
+    <ClInclude Include="src\Glados\VertexArray.h">
+      <Filter>Glados</Filter>
     </ClInclude>
+    <ClInclude Include="src\gladospch.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Buffer.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="src\Glados\Buffer.cpp">
+      <Filter>Glados</Filter>
     </ClCompile>
-    <ClCompile Include="src\Core\GDApplication.cpp">
-      <Filter>src\Core</Filter>
+    <ClCompile Include="src\Glados\Core\GDApplication.cpp">
+      <Filter>Glados\Core</Filter>
     </ClCompile>
-    <ClCompile Include="src\Core\GDLog.cpp">
-      <Filter>src\Core</Filter>
+    <ClCompile Include="src\Glados\Core\GDLog.cpp">
+      <Filter>Glados\Core</Filter>
     </ClCompile>
-    <ClCompile Include="src\Material.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="src\Glados\Core\WindowsWindow.cpp">
+      <Filter>Glados\Core</Filter>
     </ClCompile>
-    <ClCompile Include="src\ObjAttrib.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="src\Glados\Material.cpp">
+      <Filter>Glados</Filter>
     </ClCompile>
-    <ClCompile Include="src\ObjScripts\CameraMove.cpp">
-      <Filter>src\ObjScripts</Filter>
+    <ClCompile Include="src\Glados\ObjAttrib.cpp">
+      <Filter>Glados</Filter>
     </ClCompile>
-    <ClCompile Include="src\Object.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="src\Glados\ObjScripts\CameraMove.cpp">
+      <Filter>Glados\ObjScripts</Filter>
     </ClCompile>
-    <ClCompile Include="src\Renderer.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="src\Glados\Object.cpp">
+      <Filter>Glados</Filter>
     </ClCompile>
-    <ClCompile Include="src\Shader.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="src\Glados\Renderer.cpp">
+      <Filter>Glados</Filter>
     </ClCompile>
-    <ClCompile Include="src\Texture.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="src\Glados\Shader.cpp">
+      <Filter>Glados</Filter>
     </ClCompile>
-    <ClCompile Include="src\VertexArray.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="src\Glados\Texture.cpp">
+      <Filter>Glados</Filter>
     </ClCompile>
-    <ClCompile Include="src\gladospch.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="src\Glados\VertexArray.cpp">
+      <Filter>Glados</Filter>
     </ClCompile>
+    <ClCompile Include="src\gladospch.cpp" />
   </ItemGroup>
 </Project>

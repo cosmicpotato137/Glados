@@ -79,8 +79,8 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>gladospch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>IMGUI_IMPL_OPENGL_LOADER_GLEW;GLEW_STATIC;GD_PLATFORM_WINDOWS;GD_WIN32;GD_DEBUG;SPDLOG_COMPILED_LIB;GD_BUILD_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Dependencies\glew-2.2.0\include;src;src\ObjScripts;vendor\spdlog\include;vendor\glm;vendor\stb_image;vendor\imgui;vendor\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>GLEW_STATIC;GD_PLATFORM_WINDOWS;GD_WIN32;GD_DEBUG;GD_BUILD_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\Dependencies\glew-2.2.0\include;src;src\Glados\ObjScripts;vendor\spdlog\include;vendor\glm;vendor\stb_image;vendor\GLFW\include;vendor\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -102,8 +102,8 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>gladospch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>IMGUI_IMPL_OPENGL_LOADER_GLEW;GLEW_STATIC;GD_PLATFORM_WINDOWS;GD_WIN32;GD_RELEASE;SPDLOG_COMPILED_LIB;GD_BUILD_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Dependencies\glew-2.2.0\include;src;src\ObjScripts;vendor\spdlog\include;vendor\glm;vendor\stb_image;vendor\imgui;vendor\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>GLEW_STATIC;GD_PLATFORM_WINDOWS;GD_WIN32;GD_RELEASE;GD_BUILD_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\Dependencies\glew-2.2.0\include;src;src\Glados\ObjScripts;vendor\spdlog\include;vendor\glm;vendor\stb_image;vendor\GLFW\include;vendor\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -129,8 +129,8 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>gladospch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>IMGUI_IMPL_OPENGL_LOADER_GLEW;GLEW_STATIC;GD_PLATFORM_WINDOWS;GD_WIN32;GD_DIST;SPDLOG_COMPILED_LIB;GD_BUILD_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Dependencies\glew-2.2.0\include;src;src\ObjScripts;vendor\spdlog\include;vendor\glm;vendor\stb_image;vendor\imgui;vendor\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>GLEW_STATIC;GD_PLATFORM_WINDOWS;GD_WIN32;GD_DIST;GD_BUILD_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\Dependencies\glew-2.2.0\include;src;src\Glados\ObjScripts;vendor\spdlog\include;vendor\glm;vendor\stb_image;vendor\GLFW\include;vendor\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -152,40 +152,43 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\Buffer.h" />
-    <ClInclude Include="src\BufferLayout.h" />
-    <ClInclude Include="src\Core\Core.h" />
-    <ClInclude Include="src\Core\EntryPoint.h" />
-    <ClInclude Include="src\Core\GDApplication.h" />
-    <ClInclude Include="src\Core\GDLog.h" />
-    <ClInclude Include="src\Events\ApplicationEvent.h" />
-    <ClInclude Include="src\Events\Event.h" />
-    <ClInclude Include="src\Events\KeyEvent.h" />
-    <ClInclude Include="src\Events\MouseEvent.h" />
-    <ClInclude Include="src\GDMath.h" />
     <ClInclude Include="src\Glados.h" />
-    <ClInclude Include="src\Material.h" />
-    <ClInclude Include="src\ObjAttrib.h" />
-    <ClInclude Include="src\ObjScripts\CameraMove.h" />
-    <ClInclude Include="src\Object.h" />
-    <ClInclude Include="src\Renderer.h" />
-    <ClInclude Include="src\Shader.h" />
-    <ClInclude Include="src\Texture.h" />
-    <ClInclude Include="src\VertexArray.h" />
+    <ClInclude Include="src\Glados\Buffer.h" />
+    <ClInclude Include="src\Glados\BufferLayout.h" />
+    <ClInclude Include="src\Glados\Core\Core.h" />
+    <ClInclude Include="src\Glados\Core\EntryPoint.h" />
+    <ClInclude Include="src\Glados\Core\GDApplication.h" />
+    <ClInclude Include="src\Glados\Core\GDLog.h" />
+    <ClInclude Include="src\Glados\Core\Window.h" />
+    <ClInclude Include="src\Glados\Core\WindowsWindow.h" />
+    <ClInclude Include="src\Glados\Events\ApplicationEvent.h" />
+    <ClInclude Include="src\Glados\Events\Event.h" />
+    <ClInclude Include="src\Glados\Events\KeyEvent.h" />
+    <ClInclude Include="src\Glados\Events\MouseEvent.h" />
+    <ClInclude Include="src\Glados\GDMath.h" />
+    <ClInclude Include="src\Glados\Material.h" />
+    <ClInclude Include="src\Glados\ObjAttrib.h" />
+    <ClInclude Include="src\Glados\ObjScripts\CameraMove.h" />
+    <ClInclude Include="src\Glados\Object.h" />
+    <ClInclude Include="src\Glados\Renderer.h" />
+    <ClInclude Include="src\Glados\Shader.h" />
+    <ClInclude Include="src\Glados\Texture.h" />
+    <ClInclude Include="src\Glados\VertexArray.h" />
     <ClInclude Include="src\gladospch.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Buffer.cpp" />
-    <ClCompile Include="src\Core\GDApplication.cpp" />
-    <ClCompile Include="src\Core\GDLog.cpp" />
-    <ClCompile Include="src\Material.cpp" />
-    <ClCompile Include="src\ObjAttrib.cpp" />
-    <ClCompile Include="src\ObjScripts\CameraMove.cpp" />
-    <ClCompile Include="src\Object.cpp" />
-    <ClCompile Include="src\Renderer.cpp" />
-    <ClCompile Include="src\Shader.cpp" />
-    <ClCompile Include="src\Texture.cpp" />
-    <ClCompile Include="src\VertexArray.cpp" />
+    <ClCompile Include="src\Glados\Buffer.cpp" />
+    <ClCompile Include="src\Glados\Core\GDApplication.cpp" />
+    <ClCompile Include="src\Glados\Core\GDLog.cpp" />
+    <ClCompile Include="src\Glados\Core\WindowsWindow.cpp" />
+    <ClCompile Include="src\Glados\Material.cpp" />
+    <ClCompile Include="src\Glados\ObjAttrib.cpp" />
+    <ClCompile Include="src\Glados\ObjScripts\CameraMove.cpp" />
+    <ClCompile Include="src\Glados\Object.cpp" />
+    <ClCompile Include="src\Glados\Renderer.cpp" />
+    <ClCompile Include="src\Glados\Shader.cpp" />
+    <ClCompile Include="src\Glados\Texture.cpp" />
+    <ClCompile Include="src\Glados\VertexArray.cpp" />
     <ClCompile Include="src\gladospch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
@@ -193,6 +196,9 @@
   <ItemGroup>
     <ProjectReference Include="vendor\GLFW\GLFW.vcxproj">
       <Project>{154B857C-0182-860D-AA6E-6C109684020F}</Project>
+    </ProjectReference>
+    <ProjectReference Include="vendor\imgui\ImGui.vcxproj">
+      <Project>{C0FF640D-2C14-8DBE-F595-301E616989EF}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

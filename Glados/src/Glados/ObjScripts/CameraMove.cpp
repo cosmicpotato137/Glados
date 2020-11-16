@@ -1,6 +1,6 @@
 #include "gladospch.h"
 #include "CameraMove.h"
-#include "imgui/imgui.h"
+#include "imgui.h"
 
 CameraMove::CameraMove(std::shared_ptr<Glados::Transform> transf, float rotspd)
 	: transf(transf), mousex(0), mousey(0), rotSpeed(rotspd)

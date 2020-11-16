@@ -4,7 +4,7 @@ workspace "Glados"
 	configurations { "Debug", "Release", "Dist" }
 	platforms { "x32" } -- only support Win32 for now
 
-	defines { "IMGUI_IMPL_OPENGL_LOADER_GLEW", "GLEW_STATIC" }
+	defines { "GLEW_STATIC" }
 
 	filter "system:Windows"
 		cppdialect "C++17"
@@ -42,8 +42,10 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 -- include directories relative to workspace
 IncludeDir = {}
 IncludeDir["GLFW"] = "Glados/vendor/GLFW/include"
+IncludeDir["ImGui"] = "Glados/vendor/imgui"
 
 include "Glados/vendor/GLFW"
+include "Glados/vendor/imgui"
 
 -- include dirs and link libs for opengl
 function glSetup()
@@ -54,7 +56,6 @@ function glSetup()
 	links { "glew32s", "opengl32" }
 	libdirs { "Dependencies/glew-2.2.0/lib/Release/Win32" }
 end
-
 
 project "Glados"
 	location "Glados"
@@ -70,37 +71,31 @@ project "Glados"
 
 	glSetup()
 
-	defines "SPDLOG_COMPILED_LIB"
-
 	files 
 	{
 		"%{prj.name}/src/**.h",
 		"%{prj.name}/src/**.cpp",
-		"%{prj.name}/vendor/imgui/**.h",
-		"%{prj.name}/vendor/imgui/**.cpp"
 	}
 
 	removefiles
 	{
 		"%{prj.name}/src/Archives/**",
 		"%{prj.name}/src/Tests/**",
-		"%{prj.name}/src/Application.cpp",
-		"%{prj.name}/vendor/imgui/imgui/misc/**.h",
-		"%{prj.name}/vendor/imgui/imgui/misc/**.cpp"
+		"%{prj.name}/src/Glados/Application.cpp",
 	}
 
 	includedirs
 	{
 		"%{prj.name}/src",
-		"%{prj.name}/src/ObjScripts",
+		"%{prj.name}/src/Glados/ObjScripts",
 		"%{prj.name}/vendor/spdlog/include",
 		"%{prj.name}/vendor/glm",
 		"%{prj.name}/vendor/stb_image",
-		"%{prj.name}/vendor/imgui",
-		"%{IncludeDir.GLFW}"
+		"%{IncludeDir.GLFW}",
+		"%{IncludeDir.ImGui}"
 	}
 
-	links "GLFW"
+	links { "GLFW", "ImGui" }
 
 	filter "system:windows"
 		staticruntime "off"
@@ -138,6 +133,8 @@ project "Sandbox"
 	includedirs
 	{
 		"Glados/src",
+		"Glados/Hazel",
+		"Glados/Platform",
 		"Glados/vendor"
 	}
 

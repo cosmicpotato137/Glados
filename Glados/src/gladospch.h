@@ -14,6 +14,7 @@
 #include <unordered_map>
 #include <unordered_set>
 
+#include "Glados/Core/GDLog.h"
 
 #ifdef GD_PLATFORM_WINDOWS
 #include "Windows.h"
