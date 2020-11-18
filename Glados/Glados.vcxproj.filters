@@ -10,11 +10,17 @@
     <Filter Include="Glados\Events">
       <UniqueIdentifier>{C30741A2-2FC8-BCD8-F802-0656648201B5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Glados\ImGui">
+      <UniqueIdentifier>{2951D8AF-15B4-6754-BE39-A00AAA7B33D7}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Glados\ObjScripts">
       <UniqueIdentifier>{F17C4CCD-5D93-4A63-A60A-D68412601BEB}</UniqueIdentifier>
     </Filter>
     <Filter Include="Platform">
       <UniqueIdentifier>{2AC788B4-1694-E3BF-3FAD-D1672BD9184E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\OpenGL">
+      <UniqueIdentifier>{1E7D2C1D-8A08-9AE1-9319-1DD6FF23F6E1}</UniqueIdentifier>
     </Filter>
     <Filter Include="Platform\Windows">
       <UniqueIdentifier>{64FBD71A-50F4-F66C-7926-DCF1657ED678}</UniqueIdentifier>
@@ -64,6 +70,9 @@
     <ClInclude Include="src\Glados\GDMath.h">
       <Filter>Glados</Filter>
     </ClInclude>
+    <ClInclude Include="src\Glados\ImGui\ImGuiLayer.h">
+      <Filter>Glados\ImGui</Filter>
+    </ClInclude>
     <ClInclude Include="src\Glados\Material.h">
       <Filter>Glados</Filter>
     </ClInclude>
@@ -88,10 +97,15 @@
     <ClInclude Include="src\Glados\VertexArray.h">
       <Filter>Glados</Filter>
     </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\imgui_impl_opengl3.h">
+      <Filter>Platform\OpenGL</Filter>
+    </ClInclude>
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h">
       <Filter>Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\gladospch.h" />
+    <ClInclude Include="src\Glados\Core\Input.h" />
+    <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Glados\Buffer.cpp">
@@ -108,6 +122,9 @@
     </ClCompile>
     <ClCompile Include="src\Glados\Core\LayerStack.cpp">
       <Filter>Glados\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Glados\ImGui\ImGuiLayer.cpp">
+      <Filter>Glados\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="src\Glados\Material.cpp">
       <Filter>Glados</Filter>
@@ -133,9 +150,13 @@
     <ClCompile Include="src\Glados\VertexArray.cpp">
       <Filter>Glados</Filter>
     </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\imgui_impl_opengl3.cpp">
+      <Filter>Platform\OpenGL</Filter>
+    </ClCompile>
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp">
       <Filter>Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\gladospch.cpp" />
+    <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
   </ItemGroup>
 </Project>

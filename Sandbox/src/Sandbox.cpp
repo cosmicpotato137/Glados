@@ -1,5 +1,7 @@
 #include "Glados.h"
 
+using namespace Glados;
+
 class SandboxLayer : public Glados::Layer
 {
 public:
@@ -10,7 +12,6 @@ public:
 
 	void OnUpdate()
 	{
-		GD_INFO("Example Layer Update");
 	}
 
 	void OnEvent(Glados::Event& e) override
@@ -23,8 +24,11 @@ class Sandbox : public Glados::Application
 {
 public:
 	Sandbox()
+		: Application()
 	{
 		PushLayer(new SandboxLayer());
+
+		PushOverlay(new ImGuiLayer());
 	}
 
 	~Sandbox()

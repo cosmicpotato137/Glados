@@ -107,8 +107,8 @@ namespace Glados {
 		GLCall(glBindBuffer(GL_UNIFORM_BUFFER, m_RendererID));
 
 		// make sure data will stay within the index size
-		ASSERT(x < m_Layout->Size() && x >= 0);
-		ASSERT(y < m_NumElements&& y >= 0);
+		GD_ASSERT(x < m_Layout->Size() && x >= 0, "Parameter 'x' out of bounds");
+		GD_ASSERT(y < m_NumElements&& y >= 0, "Parameter 'y' out of bounds");
 		// write to buffer
 		GLCall(glBufferSubData(GL_UNIFORM_BUFFER, m_Layout->ByteSize() * y + (*m_Layout)[x].offset, size, data));
 

@@ -1,7 +1,7 @@
 #include "gladospch.h"
 
-#include "GDLog.h"
 #include <spdlog\sinks\stdout_color_sinks.h>
+#include "glad/glad.h"
 
 namespace Glados {
 

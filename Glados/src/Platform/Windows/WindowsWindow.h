@@ -20,11 +20,13 @@ namespace Glados {
 		void SetVSync(bool enabled) override;
 		bool IsVSync() override;
 
+		virtual inline void* GetNativeWindow() const override { return m_GLFWWindow; }
+
 	private:
 		virtual void Init(const WindowProps& props);
 		virtual void Shutdown();
 	private:
-		GLFWwindow* m_Window;
+		GLFWwindow* m_GLFWWindow;
 
 		struct WindowData
 		{

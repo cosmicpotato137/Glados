@@ -24,17 +24,17 @@ workspace "Glados"
 
 	filter "configurations:Debug"
 		defines "GD_DEBUG"
-		buildoptions "/MDd"
+		runtime "debug"
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "GD_RELEASE"
-		buildoptions "/MD"
+		runtime "release"
 		optimize "On"
 
 	filter "configurations:Dist"
 		defines "GD_DIST"
-		buildoptions "/MD"
+		runtime "release"
 		optimize "On"
 
 	filter {}
@@ -45,19 +45,21 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 -- include directories relative to workspace
 IncludeDir = {}
 IncludeDir["GLFW"] = "Glados/vendor/GLFW/include"
+IncludeDir["Glad"] = "Glados/vendor/Glad/include"
 IncludeDir["ImGui"] = "Glados/vendor/imgui"
 
 include "Glados/vendor/GLFW"
+include "Glados/vendor/Glad"
 include "Glados/vendor/imgui"
 
 -- include dirs and link libs for opengl
 function glSetup()
 	includedirs {
-		"Dependencies/glew-2.2.0/include"
+		"%{IncludeDir.GLFW}",
+		"%{IncludeDir.Glad}"
 	}
 
-	links { "glew32s", "opengl32" }
-	libdirs { "Dependencies/glew-2.2.0/lib/Release/Win32" }
+	links { "GLFW", "Glad", "opengl32" }
 end
 
 project "Glados"
@@ -71,8 +73,6 @@ project "Glados"
 	-- precompiled headers
 	pchheader "gladospch.h"
 	pchsource "Glados/src/gladospch.cpp"
-
-	glSetup()
 
 	files 
 	{
@@ -94,15 +94,16 @@ project "Glados"
 		"%{prj.name}/vendor/spdlog/include",
 		"%{prj.name}/vendor/glm",
 		"%{prj.name}/vendor/stb_image",
-		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.ImGui}"
 	}
 
-	links { "GLFW", "ImGui" }
+	glSetup()
+
+	links { "ImGui" }
 
 	filter "system:windows"
-		staticruntime "On"
-		defines	"GD_BUILD_DLL"
+		staticruntime "Off"
+		defines	{ "GD_BUILD_DLL", "GLFW_INCLUDE_NONE" }
 
 		postbuildcommands
 		{
@@ -121,7 +122,6 @@ project "Sandbox"
 	targetdir ("bin/" .. outputdir .. "%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "%{prj.name}")
 
-	glSetup()
 	links "Glados"
 
 	files
@@ -130,17 +130,13 @@ project "Sandbox"
 		"%{prj.name}/src/**.cpp",
 	}
 
-	removefiles
-	{
-		"Glados/vendor/imgui/misc/**.cpp",
-		"Glados/vendor/imgui/misc/**.h"
-	}
-
 	includedirs
 	{
 		"Glados/src",
-		"%{prj.name}/src/Glados/ObjScripts",
 		"Glados/vendor",
+		"%{IncludeDir.GLFW}",
+		"%{IncludeDir.Glad}",
+		"%{IncludeDir.ImGui}",
 		"Glados/vendor/spdlog/include",
 		"Glados/vendor/glm",
 		"Glados/vendor/stb_image"

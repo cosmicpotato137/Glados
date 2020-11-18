@@ -1,7 +1,5 @@
 #include "gladospch.h"
-
 #include "VertexArray.h"
-#include "core/GDLog.h"
 
 namespace Glados {
 

@@ -1,9 +1,11 @@
 #include "gladospch.h"
 #include "WindowsWindow.h"
+#include "glad/glad.h"
 
 #include "Glados/Events/ApplicationEvent.h"
 #include "Glados/Events/MouseEvent.h"
 #include "Glados/Events/KeyEvent.h"
+
 
 namespace Glados {
 
@@ -14,15 +16,28 @@ namespace Glados {
 		GD_CORE_ERROR("GLFW Error ({0}): {1}", error, description);
 	}
 
+	// creates a new WindowsWindow for application
 	Window* Window::Create(const WindowProps& props)
 	{
 		return new WindowsWindow(props);
+	}
+
+	// platform specific methods
+	void Window::SetClipboardText(void* user_data, const char* text)
+	{
+		glfwSetClipboardString((GLFWwindow*)user_data, text);
+	}
+
+	const char* Window::GetClipboardText(void* user_data)
+	{
+		return glfwGetClipboardString((GLFWwindow*)user_data);
 	}
 
 	WindowsWindow::WindowsWindow(const WindowProps& props)
 	{
 		Init(props);
 	}
+	// ---------------
 
 	WindowsWindow::~WindowsWindow()
 	{
@@ -37,6 +52,7 @@ namespace Glados {
 
 		GD_CORE_INFO("Creating window {0} ({1}, {2})", props.Title, props.Width, props.Height);
 
+		// init glfw
 		if (!s_GLFWInitialized)
 		{
 			//TODO: GLFW terminate on system shutdown
@@ -45,14 +61,21 @@ namespace Glados {
 			glfwSetErrorCallback(GLFWErrorCallback);
 			s_GLFWInitialized = true;
 		}
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-		m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, props.Title.c_str(), nullptr, nullptr);
-		glfwMakeContextCurrent(m_Window);
-		glfwSetWindowUserPointer(m_Window, &m_Data);
+		m_GLFWWindow = glfwCreateWindow((int)props.Width, (int)props.Height, props.Title.c_str(), nullptr, nullptr);
+		glfwMakeContextCurrent(m_GLFWWindow);
+		glfwSetWindowUserPointer(m_GLFWWindow, &m_Data);
 		SetVSync(true);
 
+		// init gl library using glad
+		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+		GD_CORE_ASSERT(status, "Failed to initialize Glad!");
+
 		// set GLFW callbacks
-		glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* window, int width, int height)
+		glfwSetWindowSizeCallback(m_GLFWWindow, [](GLFWwindow* window, int width, int height)
 			{
 				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 				data.Width = width;
@@ -61,14 +84,14 @@ namespace Glados {
 				data.EventCallback(event);
 			});
 
-		glfwSetWindowCloseCallback(m_Window, [](GLFWwindow* window)
+		glfwSetWindowCloseCallback(m_GLFWWindow, [](GLFWwindow* window)
 			{
 				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 				WindowCloseEvent event;
 				data.EventCallback(event);
 			});
 
-		glfwSetKeyCallback(m_Window, [](GLFWwindow* window, int key, int scancode, int action, int mods)
+		glfwSetKeyCallback(m_GLFWWindow, [](GLFWwindow* window, int key, int scancode, int action, int mods)
 			{
 				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 
@@ -95,7 +118,14 @@ namespace Glados {
 				}
 			});
 
-		glfwSetMouseButtonCallback(m_Window, [](GLFWwindow* window, int button, int action, int mods)
+		glfwSetCharCallback(m_GLFWWindow, [](GLFWwindow* window, unsigned int key) 
+			{
+				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+				KeyTypedEvent event(key);
+				data.EventCallback(event);
+			});
+
+		glfwSetMouseButtonCallback(m_GLFWWindow, [](GLFWwindow* window, int button, int action, int mods)
 			{
 				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 
@@ -116,14 +146,14 @@ namespace Glados {
 				}
 			});
 
-		glfwSetScrollCallback(m_Window, [](GLFWwindow* window, double xoffset, double yoffset)
+		glfwSetScrollCallback(m_GLFWWindow, [](GLFWwindow* window, double xoffset, double yoffset)
 			{
 				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 				MouseScrollEvent event((float)xoffset, (float)yoffset);
 				data.EventCallback(event);
 			});
 
-		glfwSetCursorPosCallback(m_Window, [](GLFWwindow* window, double xpos, double ypos)
+		glfwSetCursorPosCallback(m_GLFWWindow, [](GLFWwindow* window, double xpos, double ypos)
 			{
 				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 				MouseMovedEvent event((float)xpos, (float)ypos);
@@ -133,13 +163,13 @@ namespace Glados {
 
 	void WindowsWindow::Shutdown()
 	{
-		glfwDestroyWindow(m_Window);
+		glfwDestroyWindow(m_GLFWWindow);
 	}
 
 	void WindowsWindow::OnUpdate()
 	{
 		glfwPollEvents();
-		glfwSwapBuffers(m_Window);
+		glfwSwapBuffers(m_GLFWWindow);
 	}
 
 	void WindowsWindow::SetVSync(bool enabled)

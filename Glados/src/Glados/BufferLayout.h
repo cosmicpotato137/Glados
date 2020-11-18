@@ -1,9 +1,7 @@
 #pragma once
+#include "gladospch.h"
 #include "Core/Core.h"
-#include <vector>
-
-#include <GL/glew.h>
-#include "core/GDLog.h"
+#include "glad/glad.h"
 #include "glm/glm.hpp"
 
 namespace Glados {
@@ -26,7 +24,7 @@ namespace Glados {
 			case GL_FLOAT_VEC4:		return sizeof(glm::vec4);
 			case GL_FLOAT_MAT4:		return sizeof(glm::mat4);
 			}
-			ASSERT(false);
+			GD_ASSERT(false, "Type not found");
 			return 0;
 		}
 	};

@@ -1,14 +1,11 @@
 #pragma once
-#include "gladospch.h"
-
 #include "Core.h"
+
 #include "Window.h"
 #include "Glados/Events/ApplicationEvent.h"
 #include "Glados/Events/MouseEvent.h"
 #include "Glados/Events/KeyEvent.h"
 #include "LayerStack.h"
-
-class GLFWwindow;
 
 namespace Glados {
 
@@ -18,6 +15,7 @@ namespace Glados {
 		Window* m_Window;
 		bool m_Running = true;
 		LayerStack m_LayerStack;
+		static Application* s_Instance;
 
 	public:
 		Application();
@@ -29,6 +27,9 @@ namespace Glados {
 
 		void PushLayer(Layer* layer);
 		void PushOverlay(Layer* overlay);
+
+		static inline Application& Get() { return *s_Instance; }
+		inline Window& GetWindow() { return *m_Window; }
 
 	private:
 		bool OnWindowClose(WindowCloseEvent& e);

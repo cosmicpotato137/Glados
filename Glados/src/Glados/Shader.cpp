@@ -1,6 +1,4 @@
 #include "gladospch.h"
-
-#include "core/GDLog.h"
 #include "Shader.h"
 #include "Object.h"
 

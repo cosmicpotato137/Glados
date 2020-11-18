@@ -1,10 +1,9 @@
 #pragma once
-
-#include "gladospch.h"
 #include "Glados/Core/Core.h"
-#include <GL/glew.h>
+
 #include "spdlog/spdlog.h"
 #include "spdlog/fmt/ostr.h"
+
 
 #define ASSERT(x) if (!(x)) __debugbreak();
 #define GLCall(x) Glados::GLClearError(); x;\
@@ -36,6 +35,7 @@ namespace Glados {
 
 }
 
+#ifndef GD_DIST
 // core Log macros
 #define GD_CORE_TRACE(...)	::Glados::Log::GetCoreLogger()->trace(__VA_ARGS__)
 #define GD_CORE_INFO(...)	::Glados::Log::GetCoreLogger()->info(__VA_ARGS__)
@@ -44,8 +44,22 @@ namespace Glados {
 #define GD_CORE_FATAL(...)	::Glados::Log::GetCoreLogger()->fatal(__VA_ARGS__)
 
 // client Log macros
+#define GD_FATAL(...)		::Glados::Log::GetClientLogger()->fatal(__VA_ARGS__)
 #define GD_TRACE(...)		::Glados::Log::GetClientLogger()->trace(__VA_ARGS__)
 #define GD_INFO(...)		::Glados::Log::GetClientLogger()->info(__VA_ARGS__)
 #define GD_WARN(...)		::Glados::Log::GetClientLogger()->warn(__VA_ARGS__)
 #define GD_ERROR(...)		::Glados::Log::GetClientLogger()->error(__VA_ARGS__)
 #define GD_FATAL(...)		::Glados::Log::GetClientLogger()->fatal(__VA_ARGS__)
+
+#else
+#define GD_CORE_TRACE(...)
+#define GD_CORE_INFO(...)
+#define GD_CORE_WARN(...)
+#define GD_CORE_ERROR(...)
+#define GD_CORE_FATAL(...)
+
+#define GD_TRACE(...)	
+#define GD_INFO(...)	
+#define GD_WARN(...)	
+#define GD_ERROR(...)	
+#endif

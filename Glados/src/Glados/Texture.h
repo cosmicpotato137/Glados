@@ -1,7 +1,6 @@
 #pragma once
+#include "gladospch.h"
 
-#include "Core/Core.h"
-#include <string>
 
 namespace Glados {
 
