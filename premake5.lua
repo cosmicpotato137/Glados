@@ -66,6 +66,7 @@ project "Glados"
 	location "Glados"
 	kind "SharedLib"
 	language "C++"
+	staticruntime "Off"
 
 	targetdir ("bin/" .. outputdir .. "%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "%{prj.name}")
@@ -102,8 +103,7 @@ project "Glados"
 	links { "ImGui" }
 
 	filter "system:windows"
-		staticruntime "Off"
-		defines	{ "GD_BUILD_DLL", "GLFW_INCLUDE_NONE" }
+	defines	{ "GD_BUILD_DLL", "GLFW_INCLUDE_NONE" }
 
 		postbuildcommands
 		{
@@ -118,6 +118,7 @@ project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp"
 	language "C++"
+	staticruntime "Off"
 
 	targetdir ("bin/" .. outputdir .. "%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "%{prj.name}")
@@ -141,6 +142,3 @@ project "Sandbox"
 		"Glados/vendor/glm",
 		"Glados/vendor/stb_image"
 	}
-
-	filter "system:windows"
-		staticruntime "On"

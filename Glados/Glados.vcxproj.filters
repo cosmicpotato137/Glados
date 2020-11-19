@@ -46,6 +46,9 @@
     <ClInclude Include="src\Glados\Core\GDLog.h">
       <Filter>Glados\Core</Filter>
     </ClInclude>
+    <ClInclude Include="src\Glados\Core\Input.h">
+      <Filter>Glados\Core</Filter>
+    </ClInclude>
     <ClInclude Include="src\Glados\Core\Layer.h">
       <Filter>Glados\Core</Filter>
     </ClInclude>
@@ -100,12 +103,13 @@
     <ClInclude Include="src\Platform\OpenGL\imgui_impl_opengl3.h">
       <Filter>Platform\OpenGL</Filter>
     </ClInclude>
+    <ClInclude Include="src\Platform\Windows\WindowsInput.h">
+      <Filter>Platform\Windows</Filter>
+    </ClInclude>
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h">
       <Filter>Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\gladospch.h" />
-    <ClInclude Include="src\Glados\Core\Input.h" />
-    <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Glados\Buffer.cpp">
@@ -153,10 +157,12 @@
     <ClCompile Include="src\Platform\OpenGL\imgui_impl_opengl3.cpp">
       <Filter>Platform\OpenGL</Filter>
     </ClCompile>
+    <ClCompile Include="src\Platform\Windows\WindowsInput.cpp">
+      <Filter>Platform\Windows</Filter>
+    </ClCompile>
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp">
       <Filter>Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\gladospch.cpp" />
-    <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
   </ItemGroup>
 </Project>

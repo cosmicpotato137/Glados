@@ -37,8 +37,8 @@ namespace Glados {
 				layer->OnUpdate();
 			}
 
-			bool p = Input::IsKeyPressed(GLFW_KEY_SPACE);
-			GD_CORE_INFO("'0' pressed? {0}", p);
+			auto[x, y] = Input::GetMousePos();
+			GD_CORE_INFO("Mouse Pos: ({0}, {1})", x, y);
 
 			m_Window->OnUpdate();
 			glClear(GL_COLOR_BUFFER_BIT);
