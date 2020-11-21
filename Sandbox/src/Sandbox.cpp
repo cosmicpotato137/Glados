@@ -1,23 +1,52 @@
 #include "Glados.h"
+#include "Glados/Core/EntryPoint.h"
+#include "imgui/imgui.h"
+
+#include "Tests/Test.h"
+#include "Tests/TestClearColor.h"
 
 using namespace Glados;
+using namespace test;
 
 class SandboxLayer : public Glados::Layer
 {
+private:
+	Test* m_CurrentTest;
+	TestMenu* m_TestMenu;
 public:
 	SandboxLayer()
-		: Layer("Example")
+		: Layer("Testing Overlay")
+	{
+		m_TestMenu = new TestMenu(m_CurrentTest);
+		m_CurrentTest = m_TestMenu;
+
+		m_TestMenu->RegisterTest<TestClearColor>("Clear Color");
+	}
+
+	void OnAttach() override
 	{
 	}
 
-	void OnUpdate()
+	void OnUpdate(Timestep timestep) override
 	{
+
 	}
 
-	void OnEvent(Glados::Event& e) override
+	void OnImGuiRender() override
 	{
-		GD_TRACE("{0}", e);
+		if (m_CurrentTest)
+		{
+			ImGuiContext* cc = ImGui::GetCurrentContext();
+
+			m_CurrentTest->OnUpdate(0.0f);
+			m_CurrentTest->OnRender();
+
+			ImGui::Begin("Test");
+			ImGui::Button("hi", ImVec2(30, 30));
+			ImGui::End();
+		}
 	}
+
 };
 
 class Sandbox : public Glados::Application
@@ -28,7 +57,7 @@ public:
 	{
 		PushLayer(new SandboxLayer());
 
-		PushOverlay(new ImGuiLayer());
+		//PushOverlay(new ImGuiLayer());
 	}
 
 	~Sandbox()

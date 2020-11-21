@@ -79,7 +79,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>GLEW_STATIC;GD_PLATFORM_WINDOWS;GD_WIN32;GD_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Glados\src;..\Glados\vendor;..\Glados\vendor\GLFW\include;..\Glados\vendor\Glad\include;..\Glados\vendor\imgui;..\Glados\vendor\spdlog\include;..\Glados\vendor\glm;..\Glados\vendor\stb_image;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Glados\vendor\Glad\include;..\Glados\src;..\Glados\vendor;..\Glados\vendor\spdlog\include;..\Glados\vendor\glm;..\Glados\vendor\stb_image;..\Glados\vendor\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -88,6 +88,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -95,7 +96,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>GLEW_STATIC;GD_PLATFORM_WINDOWS;GD_WIN32;GD_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Glados\src;..\Glados\vendor;..\Glados\vendor\GLFW\include;..\Glados\vendor\Glad\include;..\Glados\vendor\imgui;..\Glados\vendor\spdlog\include;..\Glados\vendor\glm;..\Glados\vendor\stb_image;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Glados\vendor\Glad\include;..\Glados\src;..\Glados\vendor;..\Glados\vendor\spdlog\include;..\Glados\vendor\glm;..\Glados\vendor\stb_image;..\Glados\vendor\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -108,6 +109,7 @@
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Dist|Win32'">
@@ -115,7 +117,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>GLEW_STATIC;GD_PLATFORM_WINDOWS;GD_WIN32;GD_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Glados\src;..\Glados\vendor;..\Glados\vendor\GLFW\include;..\Glados\vendor\Glad\include;..\Glados\vendor\imgui;..\Glados\vendor\spdlog\include;..\Glados\vendor\glm;..\Glados\vendor\stb_image;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Glados\vendor\Glad\include;..\Glados\src;..\Glados\vendor;..\Glados\vendor\spdlog\include;..\Glados\vendor\glm;..\Glados\vendor\stb_image;..\Glados\vendor\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -128,10 +130,25 @@
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Tests\Test.h" />
+    <ClInclude Include="src\Tests\TestClearColor.h" />
+    <ClInclude Include="src\Tests\TestPhong.h" />
+    <ClInclude Include="src\Tests\TestTexture.h" />
+    <ClInclude Include="src\Tests\TestTransform.h" />
+    <ClInclude Include="src\Tests\TestUniformBuffer.h" />
+  </ItemGroup>
+  <ItemGroup>
     <ClCompile Include="src\Sandbox.cpp" />
+    <ClCompile Include="src\Tests\Test.cpp" />
+    <ClCompile Include="src\Tests\TestClearColor.cpp" />
+    <ClCompile Include="src\Tests\TestPhong.cpp" />
+    <ClCompile Include="src\Tests\TestTexture.cpp" />
+    <ClCompile Include="src\Tests\TestTransform.cpp" />
+    <ClCompile Include="src\Tests\TestUniformBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Glados\Glados.vcxproj">

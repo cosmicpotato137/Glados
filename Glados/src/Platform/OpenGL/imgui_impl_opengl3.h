@@ -24,6 +24,9 @@
 
 #pragma once
 #include "imgui.h"      // IMGUI_IMPL_API
+// redefinition to export platform specific imgui defs under Glado
+// TODO: is this proper?
+#define IMGUI_IMPL_API  GLADOS_API
 
 // Backend API
 IMGUI_IMPL_API bool     ImGui_ImplOpenGL3_Init(const char* glsl_version = NULL);

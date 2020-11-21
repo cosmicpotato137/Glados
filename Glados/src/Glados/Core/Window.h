@@ -34,6 +34,7 @@ namespace Glados {
 		virtual bool IsVSync() = 0;
 		
 		virtual void* GetNativeWindow() const = 0;
+		virtual float GetWindowTime() const = 0;
 
 		static void SetClipboardText(void* user_data, const char* text);
 		static const char* GetClipboardText(void* user_data);

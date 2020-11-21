@@ -10,6 +10,7 @@ namespace Glados {
 
 	Layer::~Layer()
 	{
+		OnDetach();
 	}
 
 }

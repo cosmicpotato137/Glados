@@ -55,11 +55,10 @@ include "Glados/vendor/imgui"
 -- include dirs and link libs for opengl
 function glSetup()
 	includedirs {
-		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}"
 	}
 
-	links { "GLFW", "Glad", "opengl32" }
+	links { "Glad", "opengl32" }
 end
 
 project "Glados"
@@ -74,6 +73,9 @@ project "Glados"
 	-- precompiled headers
 	pchheader "gladospch.h"
 	pchsource "Glados/src/gladospch.cpp"
+
+	glSetup()
+	links { "ImGui", "GLFW" }
 
 	files 
 	{
@@ -95,12 +97,9 @@ project "Glados"
 		"%{prj.name}/vendor/spdlog/include",
 		"%{prj.name}/vendor/glm",
 		"%{prj.name}/vendor/stb_image",
+		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.ImGui}"
 	}
-
-	glSetup()
-
-	links { "ImGui" }
 
 	filter "system:windows"
 	defines	{ "GD_BUILD_DLL", "GLFW_INCLUDE_NONE" }
@@ -123,7 +122,8 @@ project "Sandbox"
 	targetdir ("bin/" .. outputdir .. "%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "%{prj.name}")
 
-	links "Glados"
+	glSetup()
+	links { "Glados", "ImGui" }
 
 	files
 	{
@@ -135,10 +135,8 @@ project "Sandbox"
 	{
 		"Glados/src",
 		"Glados/vendor",
-		"%{IncludeDir.GLFW}",
-		"%{IncludeDir.Glad}",
-		"%{IncludeDir.ImGui}",
 		"Glados/vendor/spdlog/include",
 		"Glados/vendor/glm",
-		"Glados/vendor/stb_image"
+		"Glados/vendor/stb_image",
+		"%{IncludeDir.ImGui}"
 	}

@@ -1,37 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Glados">
-      <UniqueIdentifier>{BF8856B5-AB2A-818B-94E5-94DF802608DC}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Glados\vendor">
-      <UniqueIdentifier>{3CF25E13-A8B2-DA49-71ED-23C7DD6C1F26}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Glados\vendor\glm">
-      <UniqueIdentifier>{8B3AE1B1-F750-DF47-40C8-6A69AC1DB0CF}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Glados\vendor\glm\detail">
-      <UniqueIdentifier>{ED8754EF-D9AC-A36F-02F8-88FFEE7BA28D}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Glados\vendor\glm\simd">
-      <UniqueIdentifier>{C7E58599-B3DF-AEEB-9C4C-45FC88E51458}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Glados\vendor\imgui">
-      <UniqueIdentifier>{A6BC3EAF-121E-1CBD-9B8B-626F07EC527C}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Glados\vendor\imgui\example_glfw_opengl3">
-      <UniqueIdentifier>{876789F3-73E4-7C36-9C61-7D4A883D19CA}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Glados\vendor\stb_image">
-      <UniqueIdentifier>{D69DAAC2-42D5-F259-4BDF-567DB7951953}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src">
-      <UniqueIdentifier>{2DAB880B-99B4-887C-2230-9F7C8E38947C}</UniqueIdentifier>
+    <Filter Include="Tests">
+      <UniqueIdentifier>{5865280E-C479-50BF-8DFB-F31EF9CE4CF0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Sandbox.cpp">
-      <Filter>src</Filter>
+    <ClInclude Include="src\Tests\Test.h">
+      <Filter>Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tests\TestClearColor.h">
+      <Filter>Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tests\TestPhong.h">
+      <Filter>Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tests\TestTexture.h">
+      <Filter>Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tests\TestTransform.h">
+      <Filter>Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tests\TestUniformBuffer.h">
+      <Filter>Tests</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Sandbox.cpp" />
+    <ClCompile Include="src\Tests\Test.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tests\TestClearColor.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tests\TestPhong.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tests\TestTexture.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tests\TestTransform.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tests\TestUniformBuffer.cpp">
+      <Filter>Tests</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

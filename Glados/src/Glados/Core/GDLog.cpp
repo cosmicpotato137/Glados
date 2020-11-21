@@ -1,6 +1,6 @@
 #include "gladospch.h"
 
-#include <spdlog\sinks\stdout_color_sinks.h>
+#include <spdlog/sinks/stdout_color_sinks.h>
 #include "glad/glad.h"
 
 namespace Glados {
@@ -16,6 +16,7 @@ namespace Glados {
 
         s_ClientLogger = spdlog::stdout_color_mt("APP");
         s_ClientLogger->set_level(spdlog::level::trace);
+        GD_CORE_TRACE("Initialized Core Logger");
     }
 
     void GLClearError()

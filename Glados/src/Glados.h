@@ -4,8 +4,10 @@
 
 #include "Glados/Core/GDApplication.h"
 #include "Glados/Core/GDLog.h"
+
+#include "Glados/Core/Layer.h"
 #include "Glados/ImGui/ImGuiLayer.h"
 
-//------------Entry Point--------------
-#include "Glados/Core/EntryPoint.h"
-//-------------------------------------
+#include "Glados/Core/KeyCodes.h"
+#include "Glados/Core/MouseButtonCodes.h"
+#include "Glados/Core/Input.h"

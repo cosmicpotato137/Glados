@@ -21,6 +21,7 @@ namespace Glados {
 		bool IsVSync() override;
 
 		virtual inline void* GetNativeWindow() const override { return m_GLFWWindow; }
+		virtual float GetWindowTime() const override { return glfwGetTime(); }
 
 	private:
 		virtual void Init(const WindowProps& props);
