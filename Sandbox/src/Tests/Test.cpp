@@ -7,6 +7,10 @@ namespace test {
 	{
 	}
 
+	TestMenu::~TestMenu()
+	{
+	}
+
 	void TestMenu::OnRender()
 	{
 	}

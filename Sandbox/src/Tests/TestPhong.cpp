@@ -107,7 +107,6 @@ namespace test {
 	{
 		GLCall(glClearColor(0, 0, 1, 0));
 		GLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
-
 		m_Teapot->OnRender();
 	}
 
@@ -125,6 +124,28 @@ namespace test {
 		glm::vec4 camera = m_ActiveCamera->GetAttrib<Camera>()->view * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
 		ImGui::Text("Camera Position (%f, %f, %f)", -camera.x, -camera.y, -camera.z);
 		ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+	}
+
+	void TestPhong::OnEvent(Glados::Event& e)
+	{
+		EventDispatcher dispatcher(e);
+		dispatcher.Dispatch<Glados::MouseScrollEvent>(BIND_EVENT_FN(TestPhong::OnMouseScrollEvent));
+		dispatcher.Dispatch<Glados::MouseMovedEvent>(BIND_EVENT_FN(TestPhong::OnMouseMovedEvent));
+
+	}
+
+	bool TestPhong::OnMouseScrollEvent(Glados::MouseScrollEvent& e)
+	{
+		m_ActiveCamera->GetAttrib<CameraMove>()->ScrollUpdate(e.GetXOffset(), e.GetYOffset());
+		return true;
+	}
+
+	bool TestPhong::OnMouseMovedEvent(Glados::MouseMovedEvent& e)
+	{
+
+		m_ActiveCamera->GetAttrib<CameraMove>()->MouseUpdate(
+			Input::IsMouseButtonPressed(GD_MOUSE_BUTTON_LEFT), e.GetX(), e.GetY());
+		return true;
 	}
 
 }

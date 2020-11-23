@@ -4,6 +4,7 @@
 
 #include "Glados/Core/GDApplication.h"
 #include "Glados/Core/GDLog.h"
+#include "Glados/Core/Timestep.h"
 
 #include "Glados/Core/Layer.h"
 #include "Glados/ImGui/ImGuiLayer.h"

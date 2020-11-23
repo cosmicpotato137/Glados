@@ -19,6 +19,16 @@ namespace test {
 		void OnUpdate(float deltaTime) override;
 		void OnRender() override;
 		void OnImGuiRender() override;
+		void OnEvent(Glados::Event& e) override;
+
+		//bool OnMouseButtonPressedEvent(MouseButtonPressedEvent& e);
+		//bool OnMouseButtonReleasedEvent(MouseButtonReleasedEvent& e);
+		bool OnMouseMovedEvent(Glados::MouseMovedEvent& e);
+		bool OnMouseScrollEvent(Glados::MouseScrollEvent& e);
+		//bool OnKeyPressedEvent(KeyPressedEvent& e);
+		//bool OnKeyReleasedEvent(KeyReleasedEvent& e);
+		//bool OnKeyTypedEvent(KeyTypedEvent& e);
+		//bool OnWindowResizeEvent(WindowResizeEvent& e);
 
 	private:
 		int m_H, m_W;

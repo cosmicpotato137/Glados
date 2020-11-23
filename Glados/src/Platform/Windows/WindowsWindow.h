@@ -1,6 +1,7 @@
 #pragma once
 #include "Glados/Core/Window.h"
 
+#include "Glados/Renderer/GraphicsContext.h"
 #include "GLFW/glfw3.h"
 
 namespace Glados {
@@ -28,6 +29,7 @@ namespace Glados {
 		virtual void Shutdown();
 	private:
 		GLFWwindow* m_GLFWWindow;
+		GraphicsContext* m_Context;
 
 		struct WindowData
 		{

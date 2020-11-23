@@ -1,6 +1,6 @@
 #include "gladospch.h"
 #include "WindowsWindow.h"
-#include "glad/glad.h"
+#include "Platform/OpenGL/OpenGLContext.h"
 
 #include "Glados/Events/ApplicationEvent.h"
 #include "Glados/Events/MouseEvent.h"
@@ -66,13 +66,15 @@ namespace Glados {
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 		m_GLFWWindow = glfwCreateWindow((int)props.Width, (int)props.Height, props.Title.c_str(), nullptr, nullptr);
-		glfwMakeContextCurrent(m_GLFWWindow);
+
+		m_Context = new OpenGLContext(m_GLFWWindow);
+		m_Context->Init();
+
+
+
 		glfwSetWindowUserPointer(m_GLFWWindow, &m_Data);
 		SetVSync(true);
 
-		// init gl library using glad
-		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-		GD_CORE_ASSERT(status, "Failed to initialize Glad!");
 
 		// set GLFW callbacks
 		glfwSetWindowSizeCallback(m_GLFWWindow, [](GLFWwindow* window, int width, int height)
@@ -164,12 +166,13 @@ namespace Glados {
 	void WindowsWindow::Shutdown()
 	{
 		glfwDestroyWindow(m_GLFWWindow);
+		glfwTerminate();
 	}
 
 	void WindowsWindow::OnUpdate()
 	{
 		glfwPollEvents();
-		glfwSwapBuffers(m_GLFWWindow);
+		m_Context->SwapBuffers();
 	}
 
 	void WindowsWindow::SetVSync(bool enabled)

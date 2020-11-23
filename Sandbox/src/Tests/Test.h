@@ -13,12 +13,14 @@ namespace test {
 		virtual void OnUpdate(float deltaTime) {}
 		virtual void OnRender() {}
 		virtual void OnImGuiRender() {}
+		virtual void OnEvent(Glados::Event& e) {};
 	};
 
 	class TestMenu : public Test
 	{
 	public:
 		TestMenu(Test*& currentTestPointer);
+		~TestMenu();
 
 		void OnRender() override;
 		void OnImGuiRender() override;

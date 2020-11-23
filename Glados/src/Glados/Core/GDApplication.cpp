@@ -38,7 +38,10 @@ namespace Glados {
 
 			// update per layer
 			for (Layer* layer : m_LayerStack)
+			{
 				layer->OnUpdate(timestep);
+				layer->OnRender();
+			}
 
 			// imgui rendering per layer
 			m_ImGuiLayer->Begin();
