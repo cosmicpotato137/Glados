@@ -2,6 +2,7 @@
 #include "Glados/Core/EntryPoint.h"
 #include "imgui/imgui.h"
 #include "Tests/TestClearColor.h"
+#include "Tests/TestPhong.h"
 
 using namespace Glados;
 using namespace test;
@@ -19,6 +20,7 @@ public:
 		m_CurrentTest = m_TestMenu;
 
 		m_TestMenu->RegisterTest<TestClearColor>("Clear Color");
+		m_TestMenu->RegisterTest<TestPhong>("Phong Shading Test");
 	}
 
 	void OnAttach() override
@@ -27,16 +29,17 @@ public:
 
 	void OnUpdate(Timestep timestep) override
 	{
-
+		if (m_CurrentTest)
+		{
+			m_CurrentTest->OnUpdate(0.0f);
+			m_CurrentTest->OnRender();
+		}
 	}
 
 	void OnImGuiRender() override
 	{
 		if (m_CurrentTest)
 		{
-			m_CurrentTest->OnUpdate(0.0f);
-			m_CurrentTest->OnRender();
-
 			ImGui::Begin("Test");
 			if (m_CurrentTest != m_TestMenu && ImGui::Button("<-"))
 			{
