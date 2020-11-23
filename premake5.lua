@@ -25,17 +25,17 @@ workspace "Glados"
 	filter "configurations:Debug"
 		defines "GD_DEBUG"
 		runtime "debug"
-		symbols "On"
+		symbols "on"
 
 	filter "configurations:Release"
 		defines "GD_RELEASE"
 		runtime "release"
-		optimize "On"
+		optimize "on"
 
 	filter "configurations:Dist"
 		defines "GD_DIST"
 		runtime "release"
-		optimize "On"
+		optimize "on"
 
 	filter {}
 
@@ -52,20 +52,12 @@ include "Glados/vendor/GLFW"
 include "Glados/vendor/Glad"
 include "Glados/vendor/imgui"
 
--- include dirs and link libs for opengl
-function glSetup()
-	includedirs {
-		"%{IncludeDir.Glad}"
-	}
-
-	links { "Glad", "opengl32" }
-end
-
 project "Glados"
 	location "Glados"
-	kind "SharedLib"
+	kind "StaticLib"
 	language "C++"
-	staticruntime "Off"
+	cppdialect "C++17"
+	staticruntime "on"
 
 	targetdir ("bin/" .. outputdir .. "%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "%{prj.name}")
@@ -74,8 +66,7 @@ project "Glados"
 	pchheader "gladospch.h"
 	pchsource "Glados/src/gladospch.cpp"
 
-	glSetup()
-	links { "ImGui", "GLFW" }
+	links { "ImGui", "GLFW", "Glad", "opengl32" }
 
 	files 
 	{
@@ -98,16 +89,11 @@ project "Glados"
 		"%{prj.name}/vendor/glm",
 		"%{prj.name}/vendor/stb_image",
 		"%{IncludeDir.GLFW}",
+		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}"
 	}
 
-	filter "system:windows"
-	defines	{ "GD_BUILD_DLL", "GLFW_INCLUDE_NONE" }
-
-		postbuildcommands
-		{
-			("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "Sandbox")
-		}
+	defines	{ "GLFW_INCLUDE_NONE" }
 
 	filter "configurations:Debug"
 		defines "GD_ENABLE_ASSERTS"
@@ -117,13 +103,13 @@ project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp"
 	language "C++"
-	staticruntime "Off"
+	cppdialect "C++17"
+	staticruntime "on"
 
 	targetdir ("bin/" .. outputdir .. "%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "%{prj.name}")
 
-	glSetup()
-	links { "Glados", "ImGui" }
+	links { "Glados" }
 
 	files
 	{
@@ -138,5 +124,6 @@ project "Sandbox"
 		"Glados/vendor/spdlog/include",
 		"Glados/vendor/glm",
 		"Glados/vendor/stb_image",
-		"%{IncludeDir.ImGui}"
+		"%{IncludeDir.ImGui}",
+		"%{IncludeDir.Glad}"
 	}

@@ -4,7 +4,7 @@
 
 namespace Glados {
 
-	class GLADOS_API Texture
+	class Texture
 	{
 	private:
 		unsigned int m_RendererID;

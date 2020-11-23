@@ -53,7 +53,7 @@ namespace Glados {
 	{
 		FILE* fp;
 		float hi;
-		float va, vb, vc, ignore;
+		float va, vb, vc;
 		char c1, c2;
 
 		fopen_s(&fp, matfile.c_str(), "rb");

@@ -20,7 +20,7 @@ namespace Glados {
         // list of all elements in m_Elements vector
         const auto& elements = layout.GetElements();
 
-        for (int i = 0; i < elements.size(); i++)
+        for (unsigned int i = 0; i < elements.size(); i++)
         {
             const auto& element = elements[i];
             // pushes data to the target buffer

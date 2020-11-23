@@ -10,7 +10,7 @@ namespace Glados {
 
 	class Object;
 
-	struct GLADOS_API ShaderUniform
+	struct ShaderUniform
 	{
 		unsigned int binding;
 		unsigned int type;
@@ -28,7 +28,7 @@ namespace Glados {
 		std::string FragmentSource;
 	};
 
-	class GLADOS_API Shader
+	class Shader
 	{
 	private:
 		std::string m_Filepath;

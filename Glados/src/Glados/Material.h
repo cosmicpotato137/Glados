@@ -7,7 +7,7 @@
 
 namespace Glados {
 
-	class GLADOS_API Material : public ObjAttrib
+	class Material : public ObjAttrib
 	{
 	public:
 		std::string name;

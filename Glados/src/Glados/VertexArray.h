@@ -7,7 +7,7 @@
 
 namespace Glados {
 
-	class GLADOS_API VertexArray
+	class VertexArray
 	{
 	private:
 		unsigned int m_RendererID;

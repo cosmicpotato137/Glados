@@ -9,7 +9,7 @@
 
 namespace Glados {
 
-	class GLADOS_API Object
+	class Object
 	{
 	public:
 		std::string m_Name;

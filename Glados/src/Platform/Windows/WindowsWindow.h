@@ -5,7 +5,7 @@
 
 namespace Glados {
 
-	class GLADOS_API WindowsWindow : public Window
+	class WindowsWindow : public Window
 	{
 	public:
 		WindowsWindow(const WindowProps& props);
@@ -21,7 +21,7 @@ namespace Glados {
 		bool IsVSync() override;
 
 		virtual inline void* GetNativeWindow() const override { return m_GLFWWindow; }
-		virtual float GetWindowTime() const override { return glfwGetTime(); }
+		virtual float GetWindowTime() const override { return (float)glfwGetTime(); }
 
 	private:
 		virtual void Init(const WindowProps& props);

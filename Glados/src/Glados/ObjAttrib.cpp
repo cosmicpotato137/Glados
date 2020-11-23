@@ -198,7 +198,7 @@ namespace Glados {
 
 	void Mesh::FlatNormals()
 	{
-		for (int i = 0; i < Size(); i += 3)
+		for (unsigned int i = 0; i < Size(); i += 3)
 		{
 			// calculate normal
 			glm::vec3 v1 = vertices[i] - vertices[i + 1];
@@ -215,7 +215,7 @@ namespace Glados {
 	void Mesh::SmoothNormals()
 	{
 		std::unordered_map<glm::vec3, glm::vec3, GLMVecHash<glm::vec3>> temp;
-		for (int i = 0; i < Size(); i++)
+		for (unsigned int i = 0; i < Size(); i++)
 		{
 			if (!&temp[vertices[i]])
 				temp[vertices[i]] = normals[i];
@@ -223,7 +223,7 @@ namespace Glados {
 				temp[vertices[i]] += normals[i];
 		}
 
-		for (int i = 0; i < Size(); i++)
+		for (unsigned int i = 0; i < Size(); i++)
 		{
 			temp[vertices[i]] = glm::normalize(temp[vertices[i]]);
 			NB->SetBufferSubData(i * sizeof(glm::vec3), sizeof(glm::vec3), &temp[vertices[i]]);
@@ -234,7 +234,7 @@ namespace Glados {
 	{
 		FILE* fp;
 		float x, y, z;
-		int fa, fb, fc, na, nb, nc, ignore;
+		int fa, fb, fc, na, nb, nc;
 		char c1, c2;
 		float minY = INFINITY, minZ = INFINITY;
 		float maxY = -INFINITY, maxZ = -INFINITY;
@@ -300,8 +300,8 @@ namespace Glados {
 
 		for (unsigned int i = 0; i < inds.size(); i++)
 		{
-			vertices.push_back(verts[inds[i].x]);
-			normals.push_back(norms[inds[i].y]);
+			vertices.push_back(verts[(unsigned int)inds[i].x]);
+			normals.push_back(norms[(unsigned int)inds[i].y]);
 			indices.push_back(i);
 		}
 	}

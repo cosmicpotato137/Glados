@@ -11,7 +11,7 @@
 
 namespace Glados {
 
-	class GLADOS_API Log
+	class Log
 	{
 	public:
 		static void Init();
@@ -25,13 +25,13 @@ namespace Glados {
 	};
 
     // clears all active gl errors
-    void GLADOS_API GLClearError();
+    void GLClearError();
 
     // calls glGetError() to find new errors
-    bool GLADOS_API GLLogCall(const char* function, const char* file, unsigned int line);
+    bool GLLogCall(const char* function, const char* file, unsigned int line);
 
     // prints all active uniforms
-    void GLADOS_API GLPrintUniformInfo(unsigned int program);
+    void GLPrintUniformInfo(unsigned int program);
 
 }
 

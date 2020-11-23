@@ -8,7 +8,7 @@
 
 namespace Glados {
 
-    class GLADOS_API Renderer
+    class Renderer
     {
     public:
         static void Init();

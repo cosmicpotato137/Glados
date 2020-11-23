@@ -6,7 +6,7 @@
 
 namespace Glados {
 
-	class GLADOS_API Buffer
+	class Buffer
 	{
 	protected:
 		unsigned int m_RendererID;
@@ -47,7 +47,7 @@ namespace Glados {
 		}
 	};
 
-	class GLADOS_API IndexBuffer : public Buffer
+	class IndexBuffer : public Buffer
 	{
 	public:
 		IndexBuffer(const IndexBufferLayout& layout, unsigned int numelts, const unsigned int* data, unsigned int usage = GL_STATIC_DRAW);
@@ -58,7 +58,7 @@ namespace Glados {
 	};
 
 
-	class GLADOS_API VertexBuffer : public Buffer
+	class VertexBuffer : public Buffer
 	{
 	public:
 		VertexBuffer(const VertexBufferLayout& layout, unsigned int numelts, const void* data = NULL, unsigned int usage = GL_STATIC_DRAW);
@@ -69,7 +69,7 @@ namespace Glados {
 	};
 
 
-	class GLADOS_API UniformBuffer : public Buffer
+	class UniformBuffer : public Buffer
 	{
 	private:
 		unsigned int m_Binding;

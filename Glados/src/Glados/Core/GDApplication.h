@@ -11,7 +11,7 @@
 
 namespace Glados {
 
-	class GLADOS_API Application
+	class Application
 	{
 	private:
 		Window* m_Window;

@@ -10,13 +10,13 @@ namespace Glados {
 	unsigned int s = vec.length();
 
 	template <typename T>
-	class GLADOS_API GLMVecHash
+	class GLMVecHash
 	{
 	public:
 		std::size_t operator()(T const& vec) const {
 			std::size_t seed = vec.length();
 			for (int i = 0; i < vec.length(); i++) {
-				seed = pow(seed, vec[i] + 0x9e3779b9 + (seed << 6) + (seed >> 2));
+				seed = (std::size_t)pow(seed, vec[i] + 0x9e3779b9 + (seed << 6) + (seed >> 2));
 			}
 			return seed;
 		}

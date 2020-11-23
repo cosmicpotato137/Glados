@@ -31,7 +31,6 @@ namespace Glados {
 	{
         GD_CORE_INFO(glGetString(GL_VERSION));
 
-		glClearColor(1, 0, 1, 1);
 		while (m_Running)
 		{
 			float time = GetTime();

@@ -19,6 +19,9 @@
     <Filter Include="Platform">
       <UniqueIdentifier>{2AC788B4-1694-E3BF-3FAD-D1672BD9184E}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Platform\GLFW">
+      <UniqueIdentifier>{A98C9061-154D-0C98-DE87-55154A075174}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Platform\OpenGL">
       <UniqueIdentifier>{1E7D2C1D-8A08-9AE1-9319-1DD6FF23F6E1}</UniqueIdentifier>
     </Filter>
@@ -28,6 +31,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Glados.h" />
+    <ClInclude Include="src\Glados\Buffer.h">
+      <Filter>Glados</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Glados\BufferLayout.h">
+      <Filter>Glados</Filter>
+    </ClInclude>
     <ClInclude Include="src\Glados\Core\Core.h">
       <Filter>Glados\Core</Filter>
     </ClInclude>
@@ -55,6 +64,9 @@
     <ClInclude Include="src\Glados\Core\MouseButtonCodes.h">
       <Filter>Glados\Core</Filter>
     </ClInclude>
+    <ClInclude Include="src\Glados\Core\Timestep.h">
+      <Filter>Glados\Core</Filter>
+    </ClInclude>
     <ClInclude Include="src\Glados\Core\Window.h">
       <Filter>Glados\Core</Filter>
     </ClInclude>
@@ -70,11 +82,38 @@
     <ClInclude Include="src\Glados\Events\MouseEvent.h">
       <Filter>Glados\Events</Filter>
     </ClInclude>
+    <ClInclude Include="src\Glados\GDMath.h">
+      <Filter>Glados</Filter>
+    </ClInclude>
     <ClInclude Include="src\Glados\ImGui\ImGuiLayer.h">
       <Filter>Glados\ImGui</Filter>
     </ClInclude>
+    <ClInclude Include="src\Glados\Material.h">
+      <Filter>Glados</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Glados\ObjAttrib.h">
+      <Filter>Glados</Filter>
+    </ClInclude>
     <ClInclude Include="src\Glados\ObjScripts\CameraMove.h">
       <Filter>Glados\ObjScripts</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Glados\Object.h">
+      <Filter>Glados</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Glados\Renderer.h">
+      <Filter>Glados</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Glados\Shader.h">
+      <Filter>Glados</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Glados\Texture.h">
+      <Filter>Glados</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Glados\VertexArray.h">
+      <Filter>Glados</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\GLFW\imgui_impl_glfw.h">
+      <Filter>Platform\GLFW</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\imgui_impl_opengl3.h">
       <Filter>Platform\OpenGL</Filter>
@@ -86,20 +125,11 @@
       <Filter>Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\gladospch.h" />
-    <ClInclude Include="src\Glados\VertexArray.h" />
-    <ClInclude Include="src\Glados\Renderer.h" />
-    <ClInclude Include="src\Glados\Shader.h" />
-    <ClInclude Include="src\Glados\Texture.h" />
-    <ClInclude Include="src\Glados\Object.h" />
-    <ClInclude Include="src\Glados\Buffer.h" />
-    <ClInclude Include="src\Glados\BufferLayout.h" />
-    <ClInclude Include="src\Glados\GDMath.h" />
-    <ClInclude Include="src\Glados\Material.h" />
-    <ClInclude Include="src\Glados\ObjAttrib.h" />
-    <ClInclude Include="src\Glados\Core\Timestep.h" />
-    <ClInclude Include="src\Platform\GLFW\imgui_impl_glfw.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Glados\Buffer.cpp">
+      <Filter>Glados</Filter>
+    </ClCompile>
     <ClCompile Include="src\Glados\Core\GDApplication.cpp">
       <Filter>Glados\Core</Filter>
     </ClCompile>
@@ -112,11 +142,38 @@
     <ClCompile Include="src\Glados\Core\LayerStack.cpp">
       <Filter>Glados\Core</Filter>
     </ClCompile>
+    <ClCompile Include="src\Glados\ImGui\ImGuiBuild.cpp">
+      <Filter>Glados\ImGui</Filter>
+    </ClCompile>
     <ClCompile Include="src\Glados\ImGui\ImGuiLayer.cpp">
       <Filter>Glados\ImGui</Filter>
     </ClCompile>
+    <ClCompile Include="src\Glados\Material.cpp">
+      <Filter>Glados</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Glados\ObjAttrib.cpp">
+      <Filter>Glados</Filter>
+    </ClCompile>
     <ClCompile Include="src\Glados\ObjScripts\CameraMove.cpp">
       <Filter>Glados\ObjScripts</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Glados\Object.cpp">
+      <Filter>Glados</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Glados\Renderer.cpp">
+      <Filter>Glados</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Glados\Shader.cpp">
+      <Filter>Glados</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Glados\Texture.cpp">
+      <Filter>Glados</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Glados\VertexArray.cpp">
+      <Filter>Glados</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\GLFW\imgui_impl_glfw.cpp">
+      <Filter>Platform\GLFW</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\imgui_impl_opengl3.cpp">
       <Filter>Platform\OpenGL</Filter>
@@ -128,14 +185,5 @@
       <Filter>Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\gladospch.cpp" />
-    <ClCompile Include="src\Glados\Renderer.cpp" />
-    <ClCompile Include="src\Glados\Shader.cpp" />
-    <ClCompile Include="src\Glados\Texture.cpp" />
-    <ClCompile Include="src\Glados\VertexArray.cpp" />
-    <ClCompile Include="src\Glados\Material.cpp" />
-    <ClCompile Include="src\Glados\ObjAttrib.cpp" />
-    <ClCompile Include="src\Glados\Object.cpp" />
-    <ClCompile Include="src\Glados\Buffer.cpp" />
-    <ClCompile Include="src\Platform\GLFW\imgui_impl_glfw.cpp" />
   </ItemGroup>
 </Project>

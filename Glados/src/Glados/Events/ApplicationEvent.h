@@ -6,7 +6,7 @@
 
 namespace Glados {
 
-	class GLADOS_API WindowResizeEvent : public Event
+	class WindowResizeEvent : public Event
 	{
 	public:
 		WindowResizeEvent(unsigned int width, unsigned int height)
@@ -31,7 +31,7 @@ namespace Glados {
 		unsigned int m_Width, m_Height;
 	};
 
-	class GLADOS_API WindowCloseEvent : public Event
+	class WindowCloseEvent : public Event
 	{
 	public:
 		WindowCloseEvent() {}
@@ -40,7 +40,7 @@ namespace Glados {
 		EVENT_CLASS_CATEGORY(EventCategoryApplication)
 	};
 
-	class GLADOS_API WindowFocusEvent : public Event
+	class WindowFocusEvent : public Event
 	{
 	public:
 		WindowFocusEvent() {}
@@ -49,7 +49,7 @@ namespace Glados {
 		EVENT_CLASS_CATEGORY(EventCategoryApplication)
 	};
 
-	class GLADOS_API WindowLostFocusEvent : public Event
+	class WindowLostFocusEvent : public Event
 	{
 		WindowLostFocusEvent() {}
 
@@ -57,7 +57,7 @@ namespace Glados {
 		EVENT_CLASS_CATEGORY(EventCategoryApplication)
 	};
 
-	class GLADOS_API WindowMovedEvent : public Event
+	class WindowMovedEvent : public Event
 	{
 	public:
 		WindowMovedEvent(float px, float py)
@@ -79,7 +79,7 @@ namespace Glados {
 		float m_XPos, m_YPos;
 	};
 
-	class GLADOS_API AppTickEvent : public Event
+	class AppTickEvent : public Event
 	{
 	public:
 		AppTickEvent() {}
@@ -88,7 +88,7 @@ namespace Glados {
 		EVENT_CLASS_CATEGORY(EventCategoryApplication)
 	};
 
-	class GLADOS_API AppUpdateEvent : public Event
+	class AppUpdateEvent : public Event
 	{
 	public:
 		AppUpdateEvent() {}
@@ -97,7 +97,7 @@ namespace Glados {
 		EVENT_CLASS_CATEGORY(EventCategoryApplication)
 	};
 
-	class GLADOS_API AppRenderEvent : public Event
+	class AppRenderEvent : public Event
 	{
 	public:
 		AppRenderEvent() {}

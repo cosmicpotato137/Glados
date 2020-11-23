@@ -16,7 +16,7 @@ namespace Glados {
 	class Object;
 	class Material;
 
-	class GLADOS_API ObjAttrib
+	class ObjAttrib
 	{
 	public:
 		ObjAttrib() {};
@@ -26,7 +26,7 @@ namespace Glados {
 		virtual void OnImGuiRender() {};
 	};
 
-	class GLADOS_API Transform : public ObjAttrib
+	class Transform : public ObjAttrib
 	{
 	public:
 		glm::vec3 position, scale, rotation, up, forward;
@@ -50,7 +50,7 @@ namespace Glados {
 
 	};
 
-	class GLADOS_API Mesh : public ObjAttrib
+	class Mesh : public ObjAttrib
 	{
 	public:
 		std::shared_ptr<VertexArray> VAO;
@@ -78,7 +78,7 @@ namespace Glados {
 		void Parse();
 	};
 
-	class GLADOS_API Camera : public ObjAttrib
+	class Camera : public ObjAttrib
 	{
 	public:
 		bool active;
@@ -96,7 +96,7 @@ namespace Glados {
 		void UpdateView();
 	};
 
-	class GLADOS_API Light : public ObjAttrib
+	class Light : public ObjAttrib
 	{
 	public:
 		bool active;
@@ -112,7 +112,7 @@ namespace Glados {
 		void OnImGuiRender() override;
 	};
 
-	class GLADOS_API MeshRenderer : public ObjAttrib
+	class MeshRenderer : public ObjAttrib
 	{
 	private:
 		std::shared_ptr<Material> material;

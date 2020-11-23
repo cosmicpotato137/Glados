@@ -36,7 +36,7 @@ namespace Glados {
 #define EVENT_CLASS_CATEGORY(category) virtual int GetCategoryFlags() const override { return category; }
 
 	// base class for all events
-	class GLADOS_API Event
+	class Event
 	{
 		friend class EventDispatcher;
 	public:

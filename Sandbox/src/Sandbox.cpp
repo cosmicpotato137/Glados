@@ -1,8 +1,6 @@
 #include "Glados.h"
 #include "Glados/Core/EntryPoint.h"
 #include "imgui/imgui.h"
-
-#include "Tests/Test.h"
 #include "Tests/TestClearColor.h"
 
 using namespace Glados;
@@ -36,15 +34,22 @@ public:
 	{
 		if (m_CurrentTest)
 		{
-			ImGuiContext* cc = ImGui::GetCurrentContext();
-
 			m_CurrentTest->OnUpdate(0.0f);
 			m_CurrentTest->OnRender();
 
 			ImGui::Begin("Test");
-			ImGui::Button("hi", ImVec2(30, 30));
+			if (m_CurrentTest != m_TestMenu && ImGui::Button("<-"))
+			{
+				delete m_CurrentTest;
+				m_CurrentTest = m_TestMenu;
+			}
+			m_CurrentTest->OnImGuiRender();
 			ImGui::End();
 		}
+
+		//ImGui::Begin("Test");
+		//ImGui::Button("hi", ImVec2(30, 30));
+		//ImGui::End();
 	}
 
 };

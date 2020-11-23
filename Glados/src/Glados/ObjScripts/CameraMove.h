@@ -2,7 +2,7 @@
 #include "Glados/Core/Core.h"
 #include "Glados/ObjAttrib.h"
 
-class GLADOS_API CameraMove : public Glados::ObjAttrib
+class CameraMove : public Glados::ObjAttrib
 {
 private:
 	std::shared_ptr<Glados::Transform> transf;

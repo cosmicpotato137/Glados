@@ -17,7 +17,7 @@ namespace Glados {
 		}
 	};
 
-	class GLADOS_API Window
+	class Window
 	{
 	public:
 		using EventCallbackFn = std::function<void(Event&)>;

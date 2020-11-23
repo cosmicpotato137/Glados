@@ -6,7 +6,7 @@
 
 namespace Glados {
 
-	struct GLADOS_API BufferElement
+	struct BufferElement
 	{
 		unsigned int type;
 		unsigned int count;
@@ -29,7 +29,7 @@ namespace Glados {
 		}
 	};
 
-	class GLADOS_API BufferLayout
+	class BufferLayout
 	{
 	protected:
 		std::vector<BufferElement> m_Elements;
@@ -45,7 +45,7 @@ namespace Glados {
 		inline unsigned int Size() const { return m_Elements.size(); }
 	};
 
-	class GLADOS_API VertexBufferLayout : public BufferLayout
+	class VertexBufferLayout : public BufferLayout
 	{
 	public:
 		VertexBufferLayout() : BufferLayout() {}
@@ -90,7 +90,7 @@ namespace Glados {
 
 	};
 
-	class GLADOS_API IndexBufferLayout : public BufferLayout
+	class IndexBufferLayout : public BufferLayout
 	{
 	public:
 		IndexBufferLayout() : BufferLayout() {};
@@ -102,7 +102,7 @@ namespace Glados {
 		}
 	};
 
-	class GLADOS_API UniformBufferLayout : public BufferLayout
+	class UniformBufferLayout : public BufferLayout
 	{
 	public:
 		UniformBufferLayout() : BufferLayout() {};

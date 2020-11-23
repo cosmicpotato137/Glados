@@ -4,7 +4,7 @@
 
 namespace Glados {
 
-	class GLADOS_API LayerStack
+	class LayerStack
 	{
 	private:
 		std::vector<Layer*> m_Layers;
