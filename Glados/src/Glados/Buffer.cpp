@@ -86,7 +86,7 @@ namespace Glados {
 		//UniformBuffer::m_UBB.erase(m_Binding);
 	}
 
-	void UniformBuffer::BindUniformBlock(const std::string& name, std::shared_ptr<Shader> shader)
+	void UniformBuffer::BindUniformBlock(const std::string& name, std::shared_ptr<OpenGLShader> shader)
 	{
 		shader->SetUniformBlockIndex(name, m_Binding);
 	}

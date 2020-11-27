@@ -3,7 +3,7 @@
 #include <string>
 
 #include "ObjAttrib.h"
-#include "Shader.h"
+#include "Renderer/Shader.h"
 
 namespace Glados {
 

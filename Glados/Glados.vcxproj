@@ -77,7 +77,7 @@
       <PrecompiledHeaderFile>gladospch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>GLEW_STATIC;GD_PLATFORM_WINDOWS;GD_WIN32;GD_DEBUG;GLFW_INCLUDE_NONE;GD_ENABLE_ASSERTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;src\Glados\ObjScripts;vendor\spdlog\include;vendor\glm;vendor\stb_image;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;src\Glados\ObjScripts;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;vendor\glm;vendor\stb_image;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -97,7 +97,7 @@
       <PrecompiledHeaderFile>gladospch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>GLEW_STATIC;GD_PLATFORM_WINDOWS;GD_WIN32;GD_RELEASE;GLFW_INCLUDE_NONE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;src\Glados\ObjScripts;vendor\spdlog\include;vendor\glm;vendor\stb_image;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;src\Glados\ObjScripts;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;vendor\glm;vendor\stb_image;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -121,7 +121,7 @@
       <PrecompiledHeaderFile>gladospch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>GLEW_STATIC;GD_PLATFORM_WINDOWS;GD_WIN32;GD_DIST;GLFW_INCLUDE_NONE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;src\Glados\ObjScripts;vendor\spdlog\include;vendor\glm;vendor\stb_image;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;src\Glados\ObjScripts;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;vendor\glm;vendor\stb_image;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -141,8 +141,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\Glados.h" />
-    <ClInclude Include="src\Glados\Buffer.h" />
-    <ClInclude Include="src\Glados\BufferLayout.h" />
+    <ClInclude Include="src\Glados\Core\Assert.h" />
     <ClInclude Include="src\Glados\Core\Core.h" />
     <ClInclude Include="src\Glados\Core\EntryPoint.h" />
     <ClInclude Include="src\Glados\Core\GDApplication.h" />
@@ -158,43 +157,34 @@
     <ClInclude Include="src\Glados\Events\Event.h" />
     <ClInclude Include="src\Glados\Events\KeyEvent.h" />
     <ClInclude Include="src\Glados\Events\MouseEvent.h" />
-    <ClInclude Include="src\Glados\GDMath.h" />
     <ClInclude Include="src\Glados\ImGui\ImGuiLayer.h" />
-    <ClInclude Include="src\Glados\Material.h" />
-    <ClInclude Include="src\Glados\ObjAttrib.h" />
     <ClInclude Include="src\Glados\ObjScripts\CameraMove.h" />
-    <ClInclude Include="src\Glados\Object.h" />
-    <ClInclude Include="src\Glados\Renderer.h" />
+    <ClInclude Include="src\Glados\Renderer\Buffer.h" />
     <ClInclude Include="src\Glados\Renderer\GraphicsContext.h" />
-    <ClInclude Include="src\Glados\Shader.h" />
-    <ClInclude Include="src\Glados\Texture.h" />
-    <ClInclude Include="src\Glados\VertexArray.h" />
-    <ClInclude Include="src\Platform\GLFW\imgui_impl_glfw.h" />
-    <ClInclude Include="src\Platform\OpenGL\imgui_impl_opengl3.h" />
+    <ClInclude Include="src\Glados\Renderer\Shader.h" />
+    <ClInclude Include="src\Glados\Renderer\Texture.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLShader.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLTexture.h" />
     <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\gladospch.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Glados\Buffer.cpp" />
     <ClCompile Include="src\Glados\Core\GDApplication.cpp" />
     <ClCompile Include="src\Glados\Core\GDLog.cpp" />
     <ClCompile Include="src\Glados\Core\Layer.cpp" />
     <ClCompile Include="src\Glados\Core\LayerStack.cpp" />
     <ClCompile Include="src\Glados\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\Glados\ImGui\ImGuiLayer.cpp" />
-    <ClCompile Include="src\Glados\Material.cpp" />
-    <ClCompile Include="src\Glados\ObjAttrib.cpp" />
     <ClCompile Include="src\Glados\ObjScripts\CameraMove.cpp" />
-    <ClCompile Include="src\Glados\Object.cpp" />
-    <ClCompile Include="src\Glados\Renderer.cpp" />
-    <ClCompile Include="src\Glados\Shader.cpp" />
-    <ClCompile Include="src\Glados\Texture.cpp" />
-    <ClCompile Include="src\Glados\VertexArray.cpp" />
-    <ClCompile Include="src\Platform\GLFW\imgui_impl_glfw.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="src\Glados\Renderer\Bufer.cpp" />
+    <ClCompile Include="src\Glados\Renderer\Shader.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLShader.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLTexture.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\gladospch.cpp">

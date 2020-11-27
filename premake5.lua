@@ -47,6 +47,8 @@ IncludeDir = {}
 IncludeDir["GLFW"] = "Glados/vendor/GLFW/include"
 IncludeDir["Glad"] = "Glados/vendor/Glad/include"
 IncludeDir["ImGui"] = "Glados/vendor/imgui"
+IncludeDir["glm"] = "Glados/vendor/glm"
+IncludeDir["stb_image"] = "Glados/vendor/stb_image"
 
 include "Glados/vendor/GLFW"
 include "Glados/vendor/Glad"
@@ -86,11 +88,11 @@ project "Glados"
 		"%{prj.name}/src",
 		"%{prj.name}/src/Glados/ObjScripts",
 		"%{prj.name}/vendor/spdlog/include",
-		"%{prj.name}/vendor/glm",
-		"%{prj.name}/vendor/stb_image",
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
-		"%{IncludeDir.ImGui}"
+		"%{IncludeDir.ImGui}",
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.stb_image}"
 	}
 
 	defines	{ "GLFW_INCLUDE_NONE" }
@@ -122,8 +124,8 @@ project "Sandbox"
 		"Glados/src",
 		"Glados/vendor",
 		"Glados/vendor/spdlog/include",
-		"Glados/vendor/glm",
-		"Glados/vendor/stb_image",
 		"%{IncludeDir.ImGui}",
-		"%{IncludeDir.Glad}"
+		"%{IncludeDir.Glad}",
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.stb_image}"
 	}

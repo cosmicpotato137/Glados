@@ -4,7 +4,7 @@
 
 #include "Buffer.h"
 #include "VertexArray.h"
-#include "Shader.h"
+#include "Renderer/Shader.h"
 
 namespace Glados {
 

@@ -1,22 +1,22 @@
 #include "gladospch.h"
-#include "Shader.h"
-#include "Object.h"
+#include "OpenGLShader.h"
+#include "glad/glad.h"
 
 namespace Glados {
 
-    Shader::Shader(const std::string& filepath)
+    OpenGLShader::OpenGLShader(const std::string& filepath)
         : m_Filepath(filepath), m_RendererID(0)
     {
         ShaderProgramSource source = ParseShader(filepath);
         m_RendererID = CreateShader(source.VertexSource, source.FragmentSource);
     }
 
-    Shader::~Shader()
+    OpenGLShader::~OpenGLShader()
     {
         GLCall(glDeleteProgram(m_RendererID));
     }
 
-    ShaderProgramSource Shader::ParseShader(const std::string& filepath)
+    ShaderProgramSource OpenGLShader::ParseShader(const std::string& filepath)
     {
         std::ifstream stream(filepath);
 
@@ -46,7 +46,7 @@ namespace Glados {
         return { ss[0].str(), ss[1].str() };
     }
 
-    unsigned int Shader::CompileShader(unsigned int type, const std::string& source)
+    unsigned int OpenGLShader::CompileShader(unsigned int type, const std::string& source)
     {
         // create an empty shader object to hold shader strings
         GLCall(unsigned int id = glCreateShader(type));
@@ -78,7 +78,7 @@ namespace Glados {
         return id;
     }
 
-    int Shader::CreateShader(const std::string& vertexShader, const std::string& fragmentShader)
+    int OpenGLShader::CreateShader(const std::string& vertexShader, const std::string& fragmentShader)
     {
         GLCall(unsigned int program = glCreateProgram());
         unsigned int vs = CompileShader(GL_VERTEX_SHADER, vertexShader);
@@ -97,66 +97,91 @@ namespace Glados {
         return program;
     }
 
-    void Shader::Bind() const
+    void OpenGLShader::Bind() const
     {
         GLCall(glUseProgram(m_RendererID));
     }
 
-    void Shader::Unbind() const
+    void OpenGLShader::Unbind() const
     {
         GLCall(glUseProgram(0));
     }
 
     // sets the binding point of a uniform block and returns its index
-    void Shader::SetUniformBlockIndex(const std::string& name, unsigned int binding)
+    void OpenGLShader::SetUniformBlockIndex(const std::string& name, unsigned int binding)
     {
         GLCall(unsigned int ubo = glGetUniformBlockIndex(m_RendererID, name.c_str()));
         GLCall(glUniformBlockBinding(m_RendererID, ubo, binding));
     }
 
-    void Shader::SetUniform4f(const std::string& name,
+    void OpenGLShader::SetInt(const std::string& name, int value)
+    {
+    }
+
+
+    void OpenGLShader::SetIntArray(const std::string& name, int* values, uint32_t count)
+    {
+    }
+
+    void OpenGLShader::SetFloat(const std::string& name, float value)
+    {
+    
+    }
+    void OpenGLShader::SetFloat3(const std::string& name, const glm::vec3& value)
+    {
+    }
+
+    void OpenGLShader::SetFloat4(const std::string& name, const glm::vec4& value)
+    {
+    }
+
+    void OpenGLShader::SetMat4(const std::string& name, const glm::mat4& value)
+    {
+    }
+
+    void OpenGLShader::SetUniform4f(const std::string& name,
         float v0, float v1, float v2, float v3)
     {
         GLCall(glUniform4f(GetUniformLocation(name), v0, v1, v2, v3));
     }
 
-    void Shader::SetUniform4fv(const std::string& name, const float* value)
+    void OpenGLShader::SetUniform4fv(const std::string& name, const float* value)
     {
         GLCall(glUniform4fv(GetUniformLocation(name), 1, value));
     }
 
-    void Shader::SetUniform3f(const std::string& name,
+    void OpenGLShader::SetUniform3f(const std::string& name,
         float v0, float v1, float v2)
     {
         GLCall(glUniform3f(GetUniformLocation(name), v0, v1, v2));
     }
 
-    void Shader::SetUniform3fv(const std::string& name, const float* value)
+    void OpenGLShader::SetUniform3fv(const std::string& name, const float* value)
     {
         GLCall(glUniform3fv(GetUniformLocation(name), 1, value));
     }
 
-    void Shader::SetUniformMat4fv(const std::string& name, bool transpose, const float* value)
+    void OpenGLShader::SetUniformMat4fv(const std::string& name, bool transpose, const float* value)
     {
         glUniformMatrix4fv(GetUniformLocation(name), 1, transpose, value);
     }
 
-    void Shader::SetUniform1f(const std::string& name, float f)
+    void OpenGLShader::SetUniform1f(const std::string& name, float f)
     {
         GLCall(glUniform1f(GetUniformLocation(name), f));
     }
 
-    void Shader::SetUniform1i(const std::string& name, int i)
+    void OpenGLShader::SetUniform1i(const std::string& name, int i)
     {
         GLCall(glUniform1i(GetUniformLocation(name), i));
     }
 
-    void Shader::SetUniformMat4f(const std::string& name, glm::mat4& matrix)
+    void OpenGLShader::SetUniformMat4f(const std::string& name, glm::mat4& matrix)
     {
         GLCall(glUniformMatrix4fv(GetUniformLocation(name), 1, GL_FALSE, &matrix[0][0]));
     }
 
-    int Shader::GetUniformLocation(const std::string& name)
+    int OpenGLShader::GetUniformLocation(const std::string& name)
     {
         if (m_UniformLocationCache.find(name) != m_UniformLocationCache.end())
             return m_UniformLocationCache[name];
@@ -172,12 +197,12 @@ namespace Glados {
     }
 
 #ifdef _DEBUG
-    void Shader::PrintUniforms()
+    void OpenGLShader::PrintUniforms()
     {
         GLPrintUniformInfo(m_RendererID);
     }
 #else
-    void Shader::PrintUniforms() {}
+    void OpenGLShader::PrintUniforms() {}
 #endif
 
 }

@@ -1,7 +1,7 @@
 #pragma once
 #include "Core/Core.h"
 
-#include "Shader.h"
+#include "Platform/OpenGL/OpenGLShader.h"
 #include "BufferLayout.h"
 
 namespace Glados {
@@ -82,7 +82,7 @@ namespace Glados {
 		void Bind() const override;
 		void Unbind() const override;
 
-		void BindUniformBlock(const std::string& name, std::shared_ptr<Shader> shader);
+		void BindUniformBlock(const std::string& name, std::shared_ptr<OpenGLShader> shader);
 		void SetBufferSubData(unsigned int x, unsigned int y, unsigned int size, const void* data);
 		void GetBufferSubData(unsigned int x, unsigned int y, void* data);
 	};

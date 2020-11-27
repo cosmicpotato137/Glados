@@ -24,7 +24,7 @@ namespace Glados {
 			case GL_FLOAT_VEC4:		return sizeof(glm::vec4);
 			case GL_FLOAT_MAT4:		return sizeof(glm::mat4);
 			}
-			GD_ASSERT(false, "Type not found");
+			GD_CORE_ASSERT(false, "Type not found");
 			return 0;
 		}
 	};

@@ -6,6 +6,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\TestLayer.h" />
     <ClInclude Include="src\Tests\Test.h">
       <Filter>Tests</Filter>
     </ClInclude>
@@ -24,10 +25,10 @@
     <ClInclude Include="src\Tests\TestUniformBuffer.h">
       <Filter>Tests</Filter>
     </ClInclude>
-    <ClInclude Include="src\TestLayer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Sandbox.cpp" />
+    <ClCompile Include="src\TestLayer.cpp" />
     <ClCompile Include="src\Tests\Test.cpp">
       <Filter>Tests</Filter>
     </ClCompile>
@@ -46,6 +47,5 @@
     <ClCompile Include="src\Tests\TestUniformBuffer.cpp">
       <Filter>Tests</Filter>
     </ClCompile>
-    <ClCompile Include="src\TestLayer.cpp" />
   </ItemGroup>
 </Project>

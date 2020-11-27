@@ -1,14 +1,13 @@
 #pragma once
 
-#include "Core/Core.h"
 #include <unordered_map>
 #include <string>
 
+#include "Glados/Core/Core.h"
+#include "Glados/Renderer/Shader.h"
 #include "glm/glm.hpp"
 
 namespace Glados {
-
-	class Object;
 
 	struct ShaderUniform
 	{
@@ -28,7 +27,7 @@ namespace Glados {
 		std::string FragmentSource;
 	};
 
-	class Shader
+	class OpenGLShader : public Shader
 	{
 	private:
 		std::string m_Filepath;
@@ -37,11 +36,18 @@ namespace Glados {
 		std::unordered_map<std::string, int> m_UniformLocationCache;
 	public:
 		unsigned int m_RendererID;
-		Shader(const std::string& filepath);
-		~Shader();
+		OpenGLShader(const std::string& filepath);
+		~OpenGLShader();
 
-		void Bind() const;
-		void Unbind() const;
+		virtual void Bind() const override;
+		virtual void Unbind() const override;
+
+		virtual void SetInt(const std::string& name, int value) override;
+		virtual void SetIntArray(const std::string& name, int* values, uint32_t count) override;
+		virtual void SetFloat(const std::string& name, float value) override;
+		virtual void SetFloat3(const std::string& name, const glm::vec3& value) override;
+		virtual void SetFloat4(const std::string& name, const glm::vec4& value) override;
+		virtual void SetMat4(const std::string& name, const glm::mat4& value) override;
 
 		void SetUniformBlockIndex(const std::string& name, unsigned int binding);
 
