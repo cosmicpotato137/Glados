@@ -1,9 +1,6 @@
 #pragma once
-#include "Glados/Core/Core.h"
-
 #include "spdlog/spdlog.h"
 #include "spdlog/fmt/ostr.h"
-
 
 #define ASSERT(x) if (!(x)) __debugbreak();
 #define GLCall(x) Glados::GLClearError(); x;\
@@ -37,11 +34,11 @@ namespace Glados {
 
 #ifndef GD_DIST
 // core Log macros
-#define GD_CORE_TRACE(...)	::Glados::Log::GetCoreLogger()->trace(__VA_ARGS__)
-#define GD_CORE_INFO(...)	::Glados::Log::GetCoreLogger()->info(__VA_ARGS__)
-#define GD_CORE_WARN(...)	::Glados::Log::GetCoreLogger()->warn(__VA_ARGS__)
-#define GD_CORE_ERROR(...)	::Glados::Log::GetCoreLogger()->error(__VA_ARGS__)
-#define GD_CORE_FATAL(...)	::Glados::Log::GetCoreLogger()->fatal(__VA_ARGS__)
+#define GD_CORE_TRACE(...)		::Glados::Log::GetCoreLogger()->trace(__VA_ARGS__)
+#define GD_CORE_INFO(...)		::Glados::Log::GetCoreLogger()->info(__VA_ARGS__)
+#define GD_CORE_WARN(...)		::Glados::Log::GetCoreLogger()->warn(__VA_ARGS__)
+#define GD_CORE_ERROR(...)		::Glados::Log::GetCoreLogger()->error(__VA_ARGS__)
+#define GD_CORE_CRITICAL(...)	::Glados::Log::GetCoreLogger()->critical(__VA_ARGS__)
 
 // client Log macros
 #define GD_FATAL(...)		::Glados::Log::GetClientLogger()->fatal(__VA_ARGS__)
@@ -49,7 +46,7 @@ namespace Glados {
 #define GD_INFO(...)		::Glados::Log::GetClientLogger()->info(__VA_ARGS__)
 #define GD_WARN(...)		::Glados::Log::GetClientLogger()->warn(__VA_ARGS__)
 #define GD_ERROR(...)		::Glados::Log::GetClientLogger()->error(__VA_ARGS__)
-#define GD_FATAL(...)		::Glados::Log::GetClientLogger()->fatal(__VA_ARGS__)
+#define GD_CRITICAL(...)	::Glados::Log::GetCoreLogger()->critical(__VA_ARGS__)
 
 #else
 #define GD_CORE_TRACE(...)
@@ -62,4 +59,13 @@ namespace Glados {
 #define GD_INFO(...)	
 #define GD_WARN(...)	
 #define GD_ERROR(...)	
+#endif
+
+// debug assertions
+#ifdef GD_ENABLE_ASSERTS
+#define GD_ASSERT(x, ...) {if(!(x)) { GD_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
+#define GD_CORE_ASSERT(x, ...) {if(!(x)) { GD_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
+#else
+#define GD_ASSERT(x, ...)
+#define GD_CORE_ASSERT(x, ...)
 #endif

@@ -15,7 +15,7 @@
 #include <unordered_map>
 #include <unordered_set>
 
-#include "Glados/Core/GDLog.h"
+#include "Glados/Core/Core.h"
 #include "Glados/Core/KeyCodes.h"
 #include "Glados/Core/MouseButtonCodes.h"
 

@@ -1,5 +1,3 @@
-#include "gladospch.h"
-
 #include "TestUniformBuffer.h"
 
 #include "Glados/BufferLayout.h"

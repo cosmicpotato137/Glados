@@ -1,2 +1,4 @@
 S:\NerdThings\VSSolutions\Glados\bin\Debug-windows-x86Glados\Glados.pdb
 S:\NerdThings\VSSolutions\Glados\bin-int\Debug-windows-x86Glados\Glados.pdb
+C:\NerdThings\VSSolutions\Glados\bin\Debug-windows-x86Glados\Glados.pdb
+C:\NerdThings\VSSolutions\Glados\bin-int\Debug-windows-x86Glados\Glados.pdb

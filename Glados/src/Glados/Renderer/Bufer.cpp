@@ -1,33 +1,33 @@
 #include "gladospch.h"
+
 #include "Buffer.h"
 #include "Platform/OpenGL/OpenGLBuffer.h"
 
 namespace Glados {
 
-
 	Ref<IndexBuffer> IndexBuffer::Create(uint32_t* indices, uint32_t size)
 	{
-		return new OpenGLIndexBuffer(indices, size);
+		return CreateRef<OpenGLIndexBuffer>(indices, size);
 	}
 
 	Ref<VertexBuffer> VertexBuffer::Create(uint32_t size)
 	{
-		return new OpenGLVertexBuffer(size);
+		return CreateRef<OpenGLVertexBuffer>(size);
 	}
 
 	Ref<VertexBuffer> VertexBuffer::Create(float* vertices, uint32_t size)
 	{
-		return new OpenGLVertexBuffer(size);
+		return CreateRef<OpenGLVertexBuffer>(vertices, size);
 	}
 	 
 	Ref<UniformBuffer> UniformBuffer::Create(uint32_t size)
 	{
-		return new OpenGLUniformBuffer(size);
+		return CreateRef<OpenGLUniformBuffer>(size);
 	}
 
 	Ref<UniformBuffer> UniformBuffer::Create(float* vertices, uint32_t size)
 	{
-		return new OpenGLUniformBuffer(size);
+		return CreateRef<OpenGLUniformBuffer>(vertices, size);
 	}
 
 }

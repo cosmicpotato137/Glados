@@ -2,6 +2,8 @@
 #include "Glados.h"
 #include "imgui/imgui.h"
 
+using namespace Glados;
+
 namespace test {
 
 	class Test
@@ -13,7 +15,7 @@ namespace test {
 		virtual void OnUpdate(float deltaTime) {}
 		virtual void OnRender() {}
 		virtual void OnImGuiRender() {}
-		virtual void OnEvent(Glados::Event& e) {};
+		virtual void OnEvent(Event& e) {};
 	};
 
 	class TestMenu : public Test

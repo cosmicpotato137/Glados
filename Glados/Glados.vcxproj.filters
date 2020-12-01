@@ -31,6 +31,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Glados.h" />
+    <ClInclude Include="src\Glados\Core\Assert.h">
+      <Filter>Glados\Core</Filter>
+    </ClInclude>
     <ClInclude Include="src\Glados\Core\Core.h">
       <Filter>Glados\Core</Filter>
     </ClInclude>
@@ -82,8 +85,44 @@
     <ClInclude Include="src\Glados\ObjScripts\CameraMove.h">
       <Filter>Glados\ObjScripts</Filter>
     </ClInclude>
+    <ClInclude Include="src\Glados\Renderer\Buffer.h">
+      <Filter>Glados\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\Glados\Renderer\GraphicsContext.h">
       <Filter>Glados\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Glados\Renderer\Renderer.h">
+      <Filter>Glados\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Glados\Renderer\RendererAPI.h">
+      <Filter>Glados\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Glados\Renderer\Shader.h">
+      <Filter>Glados\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Glados\Renderer\Texture.h">
+      <Filter>Glados\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Glados\Renderer\VertexArray.h">
+      <Filter>Glados\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h">
+      <Filter>Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h">
+      <Filter>Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h">
+      <Filter>Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLShader.h">
+      <Filter>Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLTexture.h">
+      <Filter>Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h">
+      <Filter>Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\Windows\WindowsInput.h">
       <Filter>Platform\Windows</Filter>
@@ -92,14 +131,6 @@
       <Filter>Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\gladospch.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
-    <ClInclude Include="src\Glados\Renderer\Shader.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGLShader.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGLTexture.h" />
-    <ClInclude Include="src\Glados\Renderer\Buffer.h" />
-    <ClInclude Include="src\Glados\Renderer\Texture.h" />
-    <ClInclude Include="src\Glados\Core\Assert.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Glados\Core\GDApplication.cpp">
@@ -123,7 +154,37 @@
     <ClCompile Include="src\Glados\ObjScripts\CameraMove.cpp">
       <Filter>Glados\ObjScripts</Filter>
     </ClCompile>
+    <ClCompile Include="src\Glados\Renderer\Bufer.cpp">
+      <Filter>Glados\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Glados\Renderer\Renderer.cpp">
+      <Filter>Glados\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Glados\Renderer\RendererAPI.cpp">
+      <Filter>Glados\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Glados\Renderer\Shader.cpp">
+      <Filter>Glados\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Glados\Renderer\VertexArray.cpp">
+      <Filter>Glados\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp">
+      <Filter>Platform\OpenGL</Filter>
+    </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp">
+      <Filter>Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp">
+      <Filter>Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLShader.cpp">
+      <Filter>Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLTexture.cpp">
+      <Filter>Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp">
       <Filter>Platform\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\Windows\WindowsInput.cpp">
@@ -133,10 +194,5 @@
       <Filter>Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\gladospch.cpp" />
-    <ClCompile Include="src\Glados\Renderer\Shader.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\OpenGLShader.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\OpenGLTexture.cpp" />
-    <ClCompile Include="src\Glados\Renderer\Bufer.cpp" />
   </ItemGroup>
 </Project>

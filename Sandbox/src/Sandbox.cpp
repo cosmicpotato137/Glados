@@ -2,6 +2,9 @@
 #include "Glados/Core/EntryPoint.h"
 #include "TestLayer.h"
 
+// TEMPORARY
+#include "glad/glad.h"
+
 class Sandbox : public Glados::Application
 {
 public:
@@ -10,7 +13,6 @@ public:
 	{
 		PushLayer(new SandboxLayer());
 
-		//PushOverlay(new ImGuiLayer());
 	}
 
 	~Sandbox()

@@ -1,7 +1,8 @@
 #include "TestLayer.h"
 #include "Tests/TestClearColor.h"
-#include "Tests/TestTexture.h"
-#include "Tests/TestPhong.h"
+#include "Tests/TestVertexArray.h"
+//#include "Tests/TestTexture.h"
+//#include "Tests/TestPhong.h"
 
 SandboxLayer::SandboxLayer()
 	: Layer("Testing Overlay")
@@ -9,9 +10,10 @@ SandboxLayer::SandboxLayer()
 	m_TestMenu = new TestMenu(m_CurrentTest);
 	m_CurrentTest = m_TestMenu;
 
-	m_TestMenu->RegisterTest<TestClearColor>("Clear Color");
-	m_TestMenu->RegisterTest<TestTexture2D>("2D Texture Test");
-	m_TestMenu->RegisterTest<TestPhong>("Phong Shading Test");
+	m_TestMenu->RegisterTest<TestClearColor>("Test Clear Color");
+	m_TestMenu->RegisterTest<TestVertexArray>("Test Vertex Array");
+	//m_TestMenu->RegisterTest<TestTexture2D>("2D Texture Test");
+	//m_TestMenu->RegisterTest<TestPhong>("Phong Shading Test");
 }
 
 SandboxLayer::~SandboxLayer()
@@ -25,7 +27,7 @@ void SandboxLayer::OnAttach()
 {
 }
 
-void SandboxLayer::OnUpdate(Glados::Timestep timestep)
+void SandboxLayer::OnUpdate(Timestep timestep)
 {
 	if (m_CurrentTest)
 		m_CurrentTest->OnUpdate(0.0f);

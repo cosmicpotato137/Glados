@@ -4,7 +4,7 @@
 
 using namespace test;
 
-class SandboxLayer : public Glados::Layer
+class SandboxLayer : public Layer
 {
 private:
 	Test* m_CurrentTest;
@@ -15,9 +15,9 @@ public:
 
 	void OnAttach() override;
 
-	void OnUpdate(Glados::Timestep timestep) override;
+	void OnUpdate(Timestep timestep) override;
 	void OnRender() override;
 	void OnImGuiRender() override;
 
-	void OnEvent(Glados::Event& e);
+	void OnEvent(Event& e);
 };

@@ -1,7 +1,4 @@
 #pragma once
-
-#include "gladospch.h"
-
 #include "Event.h"
 
 namespace Glados {

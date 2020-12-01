@@ -1,6 +1,5 @@
 #pragma once
-#include "gladospch.h"
-#include "Core/Core.h"
+#include <vector>
 #include "glad/glad.h"
 #include "glm/glm.hpp"
 

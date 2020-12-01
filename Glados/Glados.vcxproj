@@ -161,12 +161,17 @@
     <ClInclude Include="src\Glados\ObjScripts\CameraMove.h" />
     <ClInclude Include="src\Glados\Renderer\Buffer.h" />
     <ClInclude Include="src\Glados\Renderer\GraphicsContext.h" />
+    <ClInclude Include="src\Glados\Renderer\Renderer.h" />
+    <ClInclude Include="src\Glados\Renderer\RendererAPI.h" />
     <ClInclude Include="src\Glados\Renderer\Shader.h" />
     <ClInclude Include="src\Glados\Renderer\Texture.h" />
+    <ClInclude Include="src\Glados\Renderer\VertexArray.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLShader.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLTexture.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h" />
     <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\gladospch.h" />
@@ -180,11 +185,20 @@
     <ClCompile Include="src\Glados\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\Glados\ObjScripts\CameraMove.cpp" />
     <ClCompile Include="src\Glados\Renderer\Bufer.cpp" />
+    <ClCompile Include="src\Glados\Renderer\Renderer.cpp">
+      <ObjectFileName>$(IntDir)\Renderer1.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="src\Glados\Renderer\RendererAPI.cpp" />
     <ClCompile Include="src\Glados\Renderer\Shader.cpp" />
+    <ClCompile Include="src\Glados\Renderer\VertexArray.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\OpenGLShader.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLShader.cpp">
+      <ObjectFileName>$(IntDir)\OpenGLShader1.obj</ObjectFileName>
+    </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLTexture.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\gladospch.cpp">

@@ -1,5 +1,5 @@
 #pragma once
-#include "gladospch.h"
+#include <vector>
 #include "Layer.h"
 
 namespace Glados {

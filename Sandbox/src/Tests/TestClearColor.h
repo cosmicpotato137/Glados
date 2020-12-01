@@ -1,5 +1,6 @@
 #pragma once
 #include "Test.h"
+#include "glm/glm.hpp"
 
 namespace test {
 	
@@ -14,6 +15,6 @@ namespace test {
 		void OnImGuiRender() override;
 
 	private:
-		float m_ClearColor[4];
+		glm::vec4 m_ClearColor;
 	};
 }

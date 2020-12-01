@@ -1,6 +1,6 @@
 #include "gladospch.h"
 #include "GDApplication.h"
-#include "Glados/Renderer.h"
+#include "Glados/Renderer/Renderer.h"
 #include "Input.h"
 #include "Timestep.h"
 
@@ -16,7 +16,10 @@ namespace Glados {
 		m_Window = Window::Create();
 		m_Window->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
 		GD_CORE_INFO("Welcome to Glados!");
+
+		Renderer::SetAPI(RendererAPI::API::OpenGL);
         Renderer::Init();
+		GD_CORE_INFO(Renderer::GetAPIVersion());
 
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);
@@ -29,8 +32,6 @@ namespace Glados {
 
 	void Application::Run()
 	{
-        GD_CORE_INFO(glGetString(GL_VERSION));
-
 		while (m_Running)
 		{
 			float time = GetTime();
@@ -51,7 +52,8 @@ namespace Glados {
 			m_ImGuiLayer->End();
 
 			m_Window->OnUpdate();
-			glClear(GL_COLOR_BUFFER_BIT);
+
+			Renderer::Clear();
 		}
 	}
 

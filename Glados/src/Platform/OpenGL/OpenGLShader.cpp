@@ -4,11 +4,38 @@
 
 namespace Glados {
 
-    OpenGLShader::OpenGLShader(const std::string& filepath)
-        : m_Filepath(filepath), m_RendererID(0)
+	static GLenum ShaderTypeFromString(const std::string& type)
+	{
+		if (type == "vertex")
+			return GL_VERTEX_SHADER;
+		if (type == "fragment" || type == "pixel")
+			return GL_FRAGMENT_SHADER;
+
+		GD_CORE_ASSERT(false, "Unknown shader type!");
+		return 0;
+	}
+
+    static std::string ShaderTypeToString(GLenum type)
     {
-        ShaderProgramSource source = ParseShader(filepath);
-        m_RendererID = CreateShader(source.VertexSource, source.FragmentSource);
+        switch (type)
+        {
+        case GL_VERTEX_SHADER:
+            return "vertex";
+        case GL_FRAGMENT_SHADER:
+            return "fragment";
+        }
+
+        GD_CORE_ASSERT(false, "Unknown shader enum");
+    }
+
+    OpenGLShader::OpenGLShader(const std::string& name, const std::string& filepath)
+        : m_Name(name), m_Filepath(filepath), m_RendererID(0)
+    {
+        std::string source = ReadFile(filepath);
+        m_ShaderSources = Preprocess(source);
+        Compile();
+        //ShaderProgramSource source = ParseShader(filepath);
+        //m_RendererID = CreateShader(source.VertexSource, source.FragmentSource);
     }
 
     OpenGLShader::~OpenGLShader()
@@ -16,7 +43,96 @@ namespace Glados {
         GLCall(glDeleteProgram(m_RendererID));
     }
 
-    ShaderProgramSource OpenGLShader::ParseShader(const std::string& filepath)
+	const std::string& OpenGLShader::GetName() const
+	{
+        return m_Name;
+	}
+
+	std::string OpenGLShader::ReadFile(const std::string& filepath)
+	{
+		std::string result;
+		std::ifstream in(filepath, std::ios::in | std::ios::binary); // ifstream closes itself due to RAII
+		if (in)
+		{
+			in.seekg(0, std::ios::end);
+			size_t size = in.tellg();
+			if (size != -1)
+			{
+				result.resize(size);
+				in.seekg(0, std::ios::beg);
+				in.read(&result[0], size);
+			}
+			else
+			{
+				GD_CORE_ERROR("Could not read from file '{0}'", filepath);
+			}
+		}
+		else
+		{
+			GD_CORE_ERROR("Could not open file '{0}'", filepath);
+		}
+
+		return result;
+	}
+
+	std::unordered_map<GLenum, std::string> OpenGLShader::Preprocess(const std::string& source)
+	{
+		std::unordered_map<GLenum, std::string> shaderSources;
+
+		const char* typeToken = "#type";
+		size_t typeTokenLength = strlen(typeToken);
+		size_t pos = source.find(typeToken, 0); //Start of shader type declaration line
+		while (pos != std::string::npos)
+		{
+			size_t eol = source.find_first_of("\r\n", pos); //End of shader type declaration line
+			GD_CORE_ASSERT(eol != std::string::npos, "Syntax error");
+			size_t begin = pos + typeTokenLength + 1; //Start of shader type name (after "#type " keyword)
+			std::string type = source.substr(begin, eol - begin);
+			GD_CORE_ASSERT(ShaderTypeFromString(type), "Invalid shader type specified");
+
+			size_t nextLinePos = source.find_first_not_of("\r\n", eol); //Start of shader code after shader type declaration line
+			GD_CORE_ASSERT(nextLinePos != std::string::npos, "Syntax error");
+			pos = source.find(typeToken, nextLinePos); //Start of next shader type declaration line
+
+			shaderSources[ShaderTypeFromString(type)] = (pos == std::string::npos) ? source.substr(nextLinePos) : source.substr(nextLinePos, pos - nextLinePos);
+		}
+
+		return shaderSources;
+	}
+
+	void OpenGLShader::Compile()
+	{
+        for (auto shaderSource : m_ShaderSources)
+        {
+		    // create an empty shader object to hold shader strings
+            GLenum type = shaderSource.first;
+		    GLCall(GLint id = glCreateShader(type));
+		    const char* src = shaderSource.second.c_str();
+
+		    GLCall(glShaderSource(id, 1, &src, nullptr)); // add source code for shader
+		    GLCall(glCompileShader(id)); // compile the shader
+
+            // get compilation status
+            int result;
+		    GLCall(glGetShaderiv(id, GL_COMPILE_STATUS, &result));
+
+		    if (result == GL_FALSE)
+		    {
+			    int length; // get number of characters in the info log
+			    GLCall(glGetShaderiv(id, GL_INFO_LOG_LENGTH, &length)); // allocate memory on the stack for chars
+			    char* message = (char*)_malloca(length * sizeof(char)); // assign message memory
+			    GLCall(glGetShaderInfoLog(id, length, &length, message)); // get relevant data
+
+                GD_CORE_ERROR("Failed to compile {0} shader!", type == GL_VERTEX_SHADER ? "vertex" : "fragment");
+
+			    GLCall(glDeleteShader(id));
+		    }
+        }
+
+		// if the shader compiled or not
+	}
+
+	ShaderProgramSource OpenGLShader::ParseShader(const std::string& filepath)
     {
         std::ifstream stream(filepath);
 
@@ -68,7 +184,7 @@ namespace Glados {
             char* message = (char*)_malloca(length * sizeof(char));
             // assigns the message to be called
             GLCall(glGetShaderInfoLog(id, length, &length, message));
-            std::cout << "Failed to comple " << (type == GL_VERTEX_SHADER ? "vertex" : "fragment")
+            std::cout << "Failed to compile " << (type == GL_VERTEX_SHADER ? "vertex" : "fragment")
                 << std::endl;
             std::cout << message << std::endl;
             GLCall(glDeleteShader(id));
@@ -80,7 +196,7 @@ namespace Glados {
 
     int OpenGLShader::CreateShader(const std::string& vertexShader, const std::string& fragmentShader)
     {
-        GLCall(unsigned int program = glCreateProgram());
+        unsigned int program = glCreateProgram();
         unsigned int vs = CompileShader(GL_VERTEX_SHADER, vertexShader);
         unsigned int fs = CompileShader(GL_FRAGMENT_SHADER, fragmentShader);
 
@@ -133,6 +249,7 @@ namespace Glados {
 
     void OpenGLShader::SetFloat4(const std::string& name, const glm::vec4& value)
     {
+        glUniform4fv(glGetUniformLocation(m_RendererID, name.c_str()), 1, &value[0]);
     }
 
     void OpenGLShader::SetMat4(const std::string& name, const glm::mat4& value)

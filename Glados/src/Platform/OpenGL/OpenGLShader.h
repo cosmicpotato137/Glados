@@ -3,7 +3,6 @@
 #include <unordered_map>
 #include <string>
 
-#include "Glados/Core/Core.h"
 #include "Glados/Renderer/Shader.h"
 #include "glm/glm.hpp"
 
@@ -31,13 +30,15 @@ namespace Glados {
 	{
 	private:
 		std::string m_Filepath;
-		//std::unordered_map<std::string, std::unique_ptr<ShaderAttrib>> shaderAttribs;
-
+		std::string m_Name;
+		uint32_t m_RendererID;
+		std::unordered_map<uint32_t, std::string> m_ShaderSources;
 		std::unordered_map<std::string, int> m_UniformLocationCache;
 	public:
-		unsigned int m_RendererID;
-		OpenGLShader(const std::string& filepath);
+		OpenGLShader(const std::string& name, const std::string& filepath);
 		~OpenGLShader();
+
+		virtual const std::string& GetName() const override;
 
 		virtual void Bind() const override;
 		virtual void Unbind() const override;
@@ -62,6 +63,10 @@ namespace Glados {
 
 		void PrintUniforms();
 	private:
+		std::string ReadFile(const std::string& filepath);
+		std::unordered_map<uint32_t, std::string> Preprocess(const std::string& shadersource);
+		void Compile();
+
 		ShaderProgramSource ParseShader(const std::string& filepath);
 		unsigned int CompileShader(unsigned int type, const std::string& source);
 		int CreateShader(const std::string& vertexShader, const std::string& fragmentShader);

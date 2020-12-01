@@ -1,4 +1,5 @@
 #pragma once
+#include <memory>
 
 // platform specific stuff
 #ifdef GD_PLATFORM_WINDOWS
@@ -34,4 +35,3 @@ namespace Glados {
 }
 
 #include "GDLog.h"
-#include "Assert.h"

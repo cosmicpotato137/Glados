@@ -13,18 +13,17 @@ namespace Glados {
         GLCall(glDeleteVertexArrays(1, &m_RendererID));
     }
 
-    void VertexArray::AddBuffer(const VertexBuffer& vb, const VertexBufferLayout& layout, unsigned int lpos)
+    void VertexArray::AddBuffer(const VertexBuffer& vb, unsigned int lpos)
     {
         Bind();
         vb.Bind();
         // list of all elements in m_Elements vector
-        const auto& elements = layout.GetElements();
-
-        for (unsigned int i = 0; i < elements.size(); i++)
+        BufferLayout layout = vb.GetLayout();
+        for (BufferElement e : layout)
         {
             const auto& element = elements[i];
             // pushes data to the target buffer
-            GLCall(glEnableVertexAttribArray(i + lpos));
+            GLCall(glEnableVertexAttribArray(e.));
             // formatting of data in current 
             GLCall(glVertexAttribPointer(i + lpos, element.count, element.type,
                 element.normalized, layout.ByteSize(), (const void*)element.offset));

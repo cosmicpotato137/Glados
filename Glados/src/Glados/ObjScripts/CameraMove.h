@@ -1,5 +1,4 @@
 #pragma once
-#include "Glados/Core/Core.h"
 #include "Glados/ObjAttrib.h"
 
 class CameraMove : public Glados::ObjAttrib

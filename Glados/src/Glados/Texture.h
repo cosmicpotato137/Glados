@@ -1,6 +1,4 @@
 #pragma once
-#include "gladospch.h"
-
 
 namespace Glados {
 
