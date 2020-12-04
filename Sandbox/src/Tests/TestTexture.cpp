@@ -39,7 +39,10 @@ namespace test {
 		m_VAO->SetIndexBuffer(m_IndexBuffer);
 		
 		// shader library implementation
-		m_Shader = Renderer::GetShaderLibrary().Load("res/shaders/textureTest.shader");
+		if (Renderer::GetShaderLibrary().Exists("textureTest"))
+			m_Shader = Renderer::GetShaderLibrary().Get("textureTest");
+		else
+			m_Shader = Renderer::GetShaderLibrary().Load("res/shaders/textureTest.shader");
 		m_Shader->Bind();
 		glm::vec4 color = { 1.0f, 1.0f, 1.0f, 1.0f };
 		m_Shader->SetFloat4("u_Color", color);

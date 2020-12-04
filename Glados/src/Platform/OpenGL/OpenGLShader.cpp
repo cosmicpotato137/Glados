@@ -160,7 +160,7 @@ namespace Glados {
             }
             else
             {
-                shaderIDs[shaderIndex] = id;
+                shaderIDs.push_back(id);
             }
             shaderIndex++;
         }

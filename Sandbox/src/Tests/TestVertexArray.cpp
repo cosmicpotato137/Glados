@@ -40,7 +40,10 @@ namespace test {
 		std::string name = "Basic";
 		std::string filepath = "res/shaders/basic.shader";
 
-		m_Shader = Renderer::GetShaderLibrary().Load(filepath);
+		if (Renderer::GetShaderLibrary().Exists("basic"))
+			m_Shader = Renderer::GetShaderLibrary().Get("basic");
+		else
+			m_Shader = Renderer::GetShaderLibrary().Load(filepath);
 		m_Shader->Bind();
 		m_Shader->SetMat4("u_MVP", m_Proj * m_View);
 	}
