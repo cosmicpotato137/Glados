@@ -131,6 +131,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\TestLayer.h" />
+    <ClInclude Include="src\Tests\Test.h" />
+    <ClInclude Include="src\Tests\TestClearColor.h" />
+    <ClInclude Include="src\Tests\TestTexture.h" />
+    <ClInclude Include="src\Tests\TestVertexArray.h" />
+  </ItemGroup>
+  <ItemGroup>
     <ClCompile Include="src\Sandbox.cpp" />
     <ClCompile Include="src\TestLayer.cpp" />
     <ClCompile Include="src\Tests\Test.cpp" />
@@ -142,13 +149,6 @@
     <ProjectReference Include="..\Glados\Glados.vcxproj">
       <Project>{BF8856B5-AB2A-818B-94E5-94DF802608DC}</Project>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="src\TestLayer.h" />
-    <ClInclude Include="src\Tests\Test.h" />
-    <ClInclude Include="src\Tests\TestClearColor.h" />
-    <ClInclude Include="src\Tests\TestTexture.h" />
-    <ClInclude Include="src\Tests\TestVertexArray.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

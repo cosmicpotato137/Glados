@@ -22,7 +22,7 @@ namespace Glados {
 		case GL_DEBUG_SEVERITY_NOTIFICATION: GD_CORE_TRACE(message);	break;
 		default: GD_CORE_ASSERT(false, "Unknown severity level!");		break;
 		}
-		//GD_CORE_ASSERT(false, "OpenGL Error!");
+		GD_CORE_ASSERT(false, "OpenGL Error!");
 	}
 
 	OpenGLRendererAPI::OpenGLRendererAPI()

@@ -14,12 +14,7 @@ namespace Glados {
 	static void GLFWErrorCallback(int error, const char* description)
 	{
 		GD_CORE_ERROR("GLFW Error ({0}): {1}", error, description);
-	}
-
-	// creates a new WindowsWindow for application
-	Window* Window::Create(const WindowProps& props)
-	{
-		return new WindowsWindow(props);
+		GD_CORE_ASSERT(false, "GLFW error");
 	}
 
 	// platform specific methods
@@ -50,7 +45,7 @@ namespace Glados {
 		m_Data.Width = props.Width;
 		m_Data.Height = props.Height;
 
-		GD_CORE_INFO("Creating window {0} ({1}, {2})", props.Title, props.Width, props.Height);
+		GD_CORE_TRACE("Creating window {0} ({1}, {2})", props.Title, props.Width, props.Height);
 
 		// init glfw
 		if (!s_GLFWInitialized)

@@ -31,7 +31,7 @@ namespace Glados {
 		uint32_t m_RendererID;
 		std::unordered_map<std::string, int> m_UniformLocationCache;
 	public:
-		OpenGLShader(const std::string& name, const std::string& filepath);
+		OpenGLShader(const std::string& filepath);
 		OpenGLShader(const std::string& name, const std::string& vertex, const std::string& fragment);
 		~OpenGLShader();
 

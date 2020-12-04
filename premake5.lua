@@ -78,9 +78,7 @@ project "Glados"
 
 	removefiles
 	{
-		"%{prj.name}/src/Archives/**",
-		"%{prj.name}/src/Tests/**",
-		"%{prj.name}/src/Glados/Application.cpp",
+		"%{prj.name}/src/Glados/Archives/**",
 	}
 
 	includedirs

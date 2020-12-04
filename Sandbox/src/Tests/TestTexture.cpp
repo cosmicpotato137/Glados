@@ -38,7 +38,8 @@ namespace test {
 		m_IndexBuffer = IndexBuffer::Create(&indices[0], 6);
 		m_VAO->SetIndexBuffer(m_IndexBuffer);
 		
-		m_Shader = Shader::Create(std::string("TexShader"), std::string("res/shaders/textureTest.shader"));
+		// shader library implementation
+		m_Shader = Renderer::GetShaderLibrary().Load("res/shaders/textureTest.shader");
 		m_Shader->Bind();
 		glm::vec4 color = { 1.0f, 1.0f, 1.0f, 1.0f };
 		m_Shader->SetFloat4("u_Color", color);

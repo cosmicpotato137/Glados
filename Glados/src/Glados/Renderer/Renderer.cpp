@@ -4,14 +4,11 @@
 namespace Glados {
 
 	Scope<RendererAPI> Renderer::s_RendererAPI = nullptr;
-
-	void Renderer::SetAPI(RendererAPI::API api)
-	{
-		s_RendererAPI = RendererAPI::Create(api);
-	}
+	Scope<ShaderLibrary> Renderer::s_ShaderLib = CreateScope<ShaderLibrary>();
 
 	void Renderer::Init()
 	{
+		s_RendererAPI = RendererAPI::Create();
 		s_RendererAPI->Init();
 	}
 

@@ -28,13 +28,21 @@ namespace Glados {
         GD_CORE_ASSERT(false, "Unknown shader enum");
     }
 
-    OpenGLShader::OpenGLShader(const std::string& name, const std::string& filepath)
-        : m_Name(name), m_Filepath(filepath)
+    OpenGLShader::OpenGLShader(const std::string& filepath)
+        : m_Filepath(filepath)
     {
         Load();
+
+		// Extract name from filepath
+		auto lastSlash = filepath.find_last_of("/\\");
+		lastSlash = lastSlash == std::string::npos ? 0 : lastSlash + 1;
+		auto lastDot = filepath.rfind('.');
+		auto count = lastDot == std::string::npos ? filepath.size() - lastSlash : lastDot - lastSlash;
+		m_Name = filepath.substr(lastSlash, count);
     }
 
 	OpenGLShader::OpenGLShader(const std::string& name, const std::string& vertex, const std::string& fragment)
+        : m_Name(name)
 	{
         ShaderSources shaderSources;
         shaderSources[GL_VERTEX_SHADER] = vertex;
@@ -73,7 +81,7 @@ namespace Glados {
 		if (in)
 		{
 			in.seekg(0, std::ios::end);
-			size_t size = in.tellg();
+			size_t size = (size_t)in.tellg();
 			if (size != -1)
 			{
 				result.resize(size);
@@ -121,7 +129,9 @@ namespace Glados {
 
 	ShaderIDs OpenGLShader::Compile(ShaderSources shaderSources)
 	{
-        std::vector<GLint> shaderIDs;
+        int shaderIndex = 0;
+        ShaderIDs shaderIDs;
+        shaderIDs.reserve(shaderSources.size());
 
         for (auto shaderSource : shaderSources)
         {
@@ -149,7 +159,10 @@ namespace Glados {
                 glDeleteShader(id);
             }
             else
-                shaderIDs.push_back(id);
+            {
+                shaderIDs[shaderIndex] = id;
+            }
+            shaderIndex++;
         }
         return shaderIDs;
 	}
@@ -160,15 +173,13 @@ namespace Glados {
 
 		// attaches shaders to the current program
         for (auto shaderID : shaderIDs)
-        {
             glAttachShader(program, shaderID);
-			glDeleteShader(shaderID);
-        }
 
         glLinkProgram(program);
+
+        // get linking errors
         GLint result;
         glGetProgramiv(program, GL_LINK_STATUS, &result);
-
 		if (result == GL_FALSE)
 		{
 			GLint length; // get number of characters in the info log
@@ -181,6 +192,13 @@ namespace Glados {
 			glDeleteProgram(program);
             return 0;
 		}
+
+        // delete shaders after linking
+        for (auto shaderID : shaderIDs)
+        {
+            glDetachShader(program, shaderID);
+            glDeleteShader(shaderID);
+        }
 
         return program;
 	}

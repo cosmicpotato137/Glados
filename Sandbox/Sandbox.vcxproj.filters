@@ -6,18 +6,30 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Sandbox.cpp" />
-    <ClCompile Include="src\TestLayer.cpp" />
-    <ClCompile Include="src\Tests\Test.cpp" />
-    <ClCompile Include="src\Tests\TestClearColor.cpp" />
-    <ClCompile Include="src\Tests\TestVertexArray.cpp" />
-    <ClCompile Include="src\Tests\TestTexture.cpp" />
+    <ClInclude Include="src\TestLayer.h" />
+    <ClInclude Include="src\Tests\Test.h">
+      <Filter>Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tests\TestClearColor.h">
+      <Filter>Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tests\TestVertexArray.h">
+      <Filter>Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tests\TestTexture.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\TestLayer.h" />
-    <ClInclude Include="src\Tests\Test.h" />
-    <ClInclude Include="src\Tests\TestClearColor.h" />
-    <ClInclude Include="src\Tests\TestVertexArray.h" />
-    <ClInclude Include="src\Tests\TestTexture.h" />
+    <ClCompile Include="src\Sandbox.cpp" />
+    <ClCompile Include="src\TestLayer.cpp" />
+    <ClCompile Include="src\Tests\Test.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tests\TestClearColor.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tests\TestVertexArray.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tests\TestTexture.cpp" />
   </ItemGroup>
 </Project>

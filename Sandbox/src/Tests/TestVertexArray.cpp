@@ -36,10 +36,11 @@ namespace test {
 
 		m_IndexBuffer = IndexBuffer::Create(&indices[0], 6);
 		m_VAO->SetIndexBuffer(m_IndexBuffer);
+
 		std::string name = "Basic";
 		std::string filepath = "res/shaders/basic.shader";
 
-		m_Shader = Shader::Create(name, filepath);
+		m_Shader = Renderer::GetShaderLibrary().Load(filepath);
 		m_Shader->Bind();
 		m_Shader->SetMat4("u_MVP", m_Proj * m_View);
 	}

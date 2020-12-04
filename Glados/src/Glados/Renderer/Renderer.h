@@ -12,13 +12,14 @@ namespace Glados {
 	{
 	private:
 		static Scope<RendererAPI> s_RendererAPI;
+		static Scope<ShaderLibrary> s_ShaderLib;
 	public:
 		Renderer() = delete;
 		~Renderer() = delete;
 
-		static void SetAPI(RendererAPI::API api);
-		static RendererAPI::API GetAPI() { return s_RendererAPI->GetAPI(); }
-		static std::string GetAPIVersion() { return s_RendererAPI->GetVersion(); }
+		static API GetRenderAPI() { return s_RendererAPI->GetAPI(); }
+		static ShaderLibrary& GetShaderLibrary() { return *s_ShaderLib; }
+		static std::string GetRendererAPIVersion() { return s_RendererAPI->GetVersion(); }
 
 		static void Init();
 		static void Shutdown();

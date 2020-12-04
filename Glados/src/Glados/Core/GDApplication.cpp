@@ -17,9 +17,8 @@ namespace Glados {
 		m_Window->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
 		GD_CORE_INFO("Welcome to Glados!");
 
-		Renderer::SetAPI(RendererAPI::API::OpenGL);
         Renderer::Init();
-		GD_CORE_INFO(Renderer::GetAPIVersion());
+		GD_CORE_INFO(Renderer::GetRendererAPIVersion());
 
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);
@@ -27,6 +26,8 @@ namespace Glados {
 
 	Application::~Application()
 	{
+		// delete m_LayerStack before glfwTerminate
+		m_LayerStack.~LayerStack();
 		delete m_Window;
 	}
 
