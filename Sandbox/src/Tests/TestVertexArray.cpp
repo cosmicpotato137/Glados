@@ -26,7 +26,7 @@ namespace test {
 
 		{
 			BufferLayout layout({
-				BufferElement(ShaderDataType::Float3, "u_Position")
+				BufferElement(ShaderDataType::Float2, "position")
 				});
 			m_VertexBuffer = VertexBuffer::Create(&positions[0], layout.GetStride() * 4);
 			m_VertexBuffer->SetLayout(layout);
@@ -41,7 +41,7 @@ namespace test {
 
 		m_Shader = Shader::Create(name, filepath);
 		m_Shader->Bind();
-		m_Shader->SetFloat4("u_Color", m_Color);
+		m_Shader->SetMat4("u_MVP", m_Proj * m_View);
 	}
 
 	TestVertexArray::~TestVertexArray()
@@ -51,7 +51,7 @@ namespace test {
 
 	void TestVertexArray::OnUpdate(float deltaTime)
 	{
-
+		m_Shader->SetFloat4("u_Color", m_Color);
 	}
 
 	void TestVertexArray::OnRender()

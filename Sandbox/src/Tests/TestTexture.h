@@ -5,10 +5,10 @@
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 
-#include "Glados/Buffer.h"
-#include "Glados/VertexArray.h"
-#include "Glados/Texture.h"
-#include "Glados/Shader.h"
+#include "Glados/Renderer/Buffer.h"
+#include "Glados/Renderer/VertexArray.h"
+#include "Glados/Renderer/Texture.h"
+#include "Glados/Renderer/Shader.h"
 
 namespace test {
 	
@@ -23,16 +23,15 @@ namespace test {
 		void OnImGuiRender() override;
 
 	private:
-		std::unique_ptr<Glados::VertexBuffer> m_VertexBuffer;
-		std::unique_ptr<Glados::VertexArray> m_VAO;
-		std::unique_ptr<Glados::IndexBuffer> m_IndexBuffer;
-		std::unique_ptr<Glados::Shader> m_Shader;
-		std::unique_ptr<Glados::Texture> m_Texture;
+		Ref<VertexBuffer> m_VertexBuffer;
+		Ref<VertexArray> m_VAO;
+		Ref<IndexBuffer> m_IndexBuffer;
+		Ref<Shader> m_Shader;
+		Ref<Texture> m_Texture;
 
 		glm::mat4 m_Proj, m_View;
 		glm::vec3 m_Model1;
 
 		bool blend;
-		bool dblend;
 	};
 }

@@ -20,10 +20,10 @@ namespace Glados {
 		}
 	};
 
-	struct ShaderProgramSource
+	struct ShaderSource
 	{
-		std::string VertexSource;
-		std::string FragmentSource;
+		std::string Source;
+		uint32_t ID;
 	};
 
 	class OpenGLShader : public Shader
@@ -32,7 +32,7 @@ namespace Glados {
 		std::string m_Filepath;
 		std::string m_Name;
 		uint32_t m_RendererID;
-		std::unordered_map<uint32_t, std::string> m_ShaderSources;
+		std::unordered_map<uint32_t, ShaderSource> m_ShaderSources;
 		std::unordered_map<std::string, int> m_UniformLocationCache;
 	public:
 		OpenGLShader(const std::string& name, const std::string& filepath);
@@ -64,12 +64,10 @@ namespace Glados {
 		void PrintUniforms();
 	private:
 		std::string ReadFile(const std::string& filepath);
-		std::unordered_map<uint32_t, std::string> Preprocess(const std::string& shadersource);
+		std::unordered_map<uint32_t, ShaderSource> Preprocess(const std::string& shadersource, const std::string& typetoken = "#type");
 		void Compile();
+		uint32_t Link();
 
-		ShaderProgramSource ParseShader(const std::string& filepath);
-		unsigned int CompileShader(unsigned int type, const std::string& source);
-		int CreateShader(const std::string& vertexShader, const std::string& fragmentShader);
 		int GetUniformLocation(const std::string& name);
 	};
 

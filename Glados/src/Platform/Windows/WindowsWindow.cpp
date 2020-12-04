@@ -62,19 +62,17 @@ namespace Glados {
 			s_GLFWInitialized = true;
 		}
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+		glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, true);
 
 		m_GLFWWindow = glfwCreateWindow((int)props.Width, (int)props.Height, props.Title.c_str(), nullptr, nullptr);
 
 		m_Context = new OpenGLContext(m_GLFWWindow);
 		m_Context->Init();
 
-
-
 		glfwSetWindowUserPointer(m_GLFWWindow, &m_Data);
 		SetVSync(true);
-
 
 		// set GLFW callbacks
 		glfwSetWindowSizeCallback(m_GLFWWindow, [](GLFWwindow* window, int width, int height)

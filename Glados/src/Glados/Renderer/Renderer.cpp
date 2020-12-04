@@ -35,6 +35,11 @@ namespace Glados {
 		s_RendererAPI->SetClearColor(color);
 	}
 
+	void Renderer::Blend(bool blend)
+	{
+		s_RendererAPI->Blend(blend);
+	}
+
 	void Renderer::DrawIndexed(const Ref<VertexArray> vertexArray, uint32_t count)
 	{
 		s_RendererAPI->DrawIndexed(vertexArray, count);

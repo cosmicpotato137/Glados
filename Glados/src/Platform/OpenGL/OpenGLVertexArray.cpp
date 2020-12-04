@@ -29,12 +29,12 @@ namespace Glados {
 
 	OpenGLVertexArray::OpenGLVertexArray()
 	{
-		GLCall(glGenVertexArrays(1, &m_RendererID));
+		glGenVertexArrays(1, &m_RendererID);
 	}
 
 	OpenGLVertexArray::~OpenGLVertexArray()
 	{
-		GLCall(glDeleteVertexArrays(1, &m_RendererID));
+		glDeleteVertexArrays(1, &m_RendererID);
 	}
 
 	void OpenGLVertexArray::AddBuffer(const VertexBuffer& vb, uint32_t layoutpos /*= 0*/)
@@ -47,10 +47,10 @@ namespace Glados {
 		for (BufferElement e : layout)
 		{
 			// pushes data to the target buffer
-			GLCall(glEnableVertexAttribArray(vaa));
+			glEnableVertexAttribArray(vaa);
 			// formatting of data in current 
-			GLCall(glVertexAttribPointer(vaa, e.GetComponentCount(), ShaderTypeToGLType(e.Type),
-				e.Normalized, layout.GetStride(), (const void*)e.Offset));
+			glVertexAttribPointer(vaa, e.GetComponentCount(), ShaderTypeToGLType(e.Type),
+				e.Normalized, layout.GetStride(), (const void*)e.Offset);
 
 			vaa++;
 		}
@@ -68,12 +68,12 @@ namespace Glados {
 
 	void OpenGLVertexArray::Bind() const
 	{
-		GLCall(glBindVertexArray(m_RendererID));
+		glBindVertexArray(m_RendererID);
 	}
 
 	void OpenGLVertexArray::Unbind() const
 	{
-		GLCall(glBindVertexArray(0));
+		glBindVertexArray(0);
 	}
 
 }

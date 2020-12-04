@@ -32,15 +32,14 @@ namespace Glados {
         : m_Name(name), m_Filepath(filepath), m_RendererID(0)
     {
         std::string source = ReadFile(filepath);
-        m_ShaderSources = Preprocess(source);
+        m_ShaderSources = Preprocess(source, "#shader");
         Compile();
-        //ShaderProgramSource source = ParseShader(filepath);
-        //m_RendererID = CreateShader(source.VertexSource, source.FragmentSource);
+        m_RendererID = Link();
     }
 
     OpenGLShader::~OpenGLShader()
     {
-        GLCall(glDeleteProgram(m_RendererID));
+        glDeleteProgram(m_RendererID);
     }
 
 	const std::string& OpenGLShader::GetName() const
@@ -75,11 +74,11 @@ namespace Glados {
 		return result;
 	}
 
-	std::unordered_map<GLenum, std::string> OpenGLShader::Preprocess(const std::string& source)
+	std::unordered_map<GLenum, ShaderSource> OpenGLShader::Preprocess(const std::string& source, const std::string& typetoken)
 	{
-		std::unordered_map<GLenum, std::string> shaderSources;
+		std::unordered_map<GLenum, ShaderSource> shaderSources;
 
-		const char* typeToken = "#type";
+		const char* typeToken = typetoken.c_str();
 		size_t typeTokenLength = strlen(typeToken);
 		size_t pos = source.find(typeToken, 0); //Start of shader type declaration line
 		while (pos != std::string::npos)
@@ -94,7 +93,9 @@ namespace Glados {
 			GD_CORE_ASSERT(nextLinePos != std::string::npos, "Syntax error");
 			pos = source.find(typeToken, nextLinePos); //Start of next shader type declaration line
 
-			shaderSources[ShaderTypeFromString(type)] = (pos == std::string::npos) ? source.substr(nextLinePos) : source.substr(nextLinePos, pos - nextLinePos);
+            ShaderSource shaderSource;
+            shaderSource.Source = (pos == std::string::npos) ? source.substr(nextLinePos) : source.substr(nextLinePos, pos - nextLinePos);
+			shaderSources[ShaderTypeFromString(type)] = shaderSource;
 		}
 
 		return shaderSources;
@@ -102,132 +103,81 @@ namespace Glados {
 
 	void OpenGLShader::Compile()
 	{
-        for (auto shaderSource : m_ShaderSources)
+        for (auto it = m_ShaderSources.begin(); it != m_ShaderSources.end(); ++it)
         {
 		    // create an empty shader object to hold shader strings
-            GLenum type = shaderSource.first;
-		    GLCall(GLint id = glCreateShader(type));
-		    const char* src = shaderSource.second.c_str();
+            GLenum type = it->first;
+		    const char* src = it->second.Source.c_str();
+            GLint id = glCreateShader(type);
+            it->second.ID = id;
 
-		    GLCall(glShaderSource(id, 1, &src, nullptr)); // add source code for shader
-		    GLCall(glCompileShader(id)); // compile the shader
+		    glShaderSource(id, 1, &src, nullptr); // add source code for shader
+		    glCompileShader(id); // compile the shader
 
             // get compilation status
             int result;
-		    GLCall(glGetShaderiv(id, GL_COMPILE_STATUS, &result));
+		    glGetShaderiv(id, GL_COMPILE_STATUS, &result);
 
 		    if (result == GL_FALSE)
 		    {
 			    int length; // get number of characters in the info log
-			    GLCall(glGetShaderiv(id, GL_INFO_LOG_LENGTH, &length)); // allocate memory on the stack for chars
+			    glGetShaderiv(id, GL_INFO_LOG_LENGTH, &length); // allocate memory on the stack for chars
 			    char* message = (char*)_malloca(length * sizeof(char)); // assign message memory
-			    GLCall(glGetShaderInfoLog(id, length, &length, message)); // get relevant data
+			    glGetShaderInfoLog(id, length, &length, message); // get relevant data
 
                 GD_CORE_ERROR("Failed to compile {0} shader!", type == GL_VERTEX_SHADER ? "vertex" : "fragment");
 
-			    GLCall(glDeleteShader(id));
+			    glDeleteShader(id);
 		    }
         }
-
-		// if the shader compiled or not
 	}
 
-	ShaderProgramSource OpenGLShader::ParseShader(const std::string& filepath)
-    {
-        std::ifstream stream(filepath);
+	uint32_t OpenGLShader::Link()
+	{
+		uint32_t program = glCreateProgram();
 
-        enum class ShaderType
+		// attaches shaders to the current program
+        for (auto shaderSource : m_ShaderSources)
         {
-            NONE = -1, VERTEX = 0, FRAGMENT = 1
-        };
-
-        std::string line;
-        std::stringstream ss[2];
-        ShaderType type = ShaderType::NONE;
-        while (getline(stream, line))
-        {
-            if (line.find("#shader") != std::string::npos)
-            {
-                if (line.find("vertex") != std::string::npos)
-                    type = ShaderType::VERTEX;
-                else if (line.find("fragment") != std::string::npos)
-                    type = ShaderType::FRAGMENT;
-            }
-            else
-            {
-                ss[int(type)] << line << "\n";
-            }
+            glAttachShader(program, shaderSource.second.ID);
+			glDeleteShader(shaderSource.second.ID);
         }
 
-        return { ss[0].str(), ss[1].str() };
-    }
-
-    unsigned int OpenGLShader::CompileShader(unsigned int type, const std::string& source)
-    {
-        // create an empty shader object to hold shader strings
-        GLCall(unsigned int id = glCreateShader(type));
-        const char* src = source.c_str();
-        // add source code for shader
-        GLCall(glShaderSource(id, 1, &src, nullptr));
-        // compile the shader
-        GLCall(glCompileShader(id));
-
-        // if the shader compiled or not
+        glLinkProgram(program);
         int result;
-        GLCall(glGetShaderiv(id, GL_COMPILE_STATUS, &result));
-        if (result == GL_FALSE)
-        {
-            // get number of characters in the info log
-            int length;
-            GLCall(glGetShaderiv(id, GL_INFO_LOG_LENGTH, &length));
-            // allocate memory on the stack for chars
-            char* message = (char*)_malloca(length * sizeof(char));
-            // assigns the message to be called
-            GLCall(glGetShaderInfoLog(id, length, &length, message));
-            std::cout << "Failed to compile " << (type == GL_VERTEX_SHADER ? "vertex" : "fragment")
-                << std::endl;
-            std::cout << message << std::endl;
-            GLCall(glDeleteShader(id));
+        glGetProgramiv(program, GL_LINK_STATUS, &result);
+
+		if (result == GL_FALSE)
+		{
+			int length; // get number of characters in the info log
+			glGetProgramiv(program, GL_INFO_LOG_LENGTH, &length); // allocate memory on the stack for chars
+			char* message = (char*)_malloca(length * sizeof(char)); // assign message memory
+			glGetProgramInfoLog(program, length, &length, message); // get relevant data
+
+			GD_CORE_ERROR("Failed to link program: '{0}'", m_Name);
+
+			glDeleteProgram(program);
             return 0;
-        }
-
-        return id;
-    }
-
-    int OpenGLShader::CreateShader(const std::string& vertexShader, const std::string& fragmentShader)
-    {
-        unsigned int program = glCreateProgram();
-        unsigned int vs = CompileShader(GL_VERTEX_SHADER, vertexShader);
-        unsigned int fs = CompileShader(GL_FRAGMENT_SHADER, fragmentShader);
-
-        // attaches shaders to the current program
-        GLCall(glAttachShader(program, vs));
-        GLCall(glAttachShader(program, fs));
-        GLCall(glLinkProgram(program));
-        GLCall(glValidateProgram(program));
-
-        // deletes used shaders
-        GLCall(glDeleteShader(vs));
-        GLCall(glDeleteShader(fs));
+		}
 
         return program;
-    }
+	}
 
     void OpenGLShader::Bind() const
     {
-        GLCall(glUseProgram(m_RendererID));
+        glUseProgram(m_RendererID);
     }
 
     void OpenGLShader::Unbind() const
     {
-        GLCall(glUseProgram(0));
+        glUseProgram(0);
     }
 
     // sets the binding point of a uniform block and returns its index
     void OpenGLShader::SetUniformBlockIndex(const std::string& name, unsigned int binding)
     {
-        GLCall(unsigned int ubo = glGetUniformBlockIndex(m_RendererID, name.c_str()));
-        GLCall(glUniformBlockBinding(m_RendererID, ubo, binding));
+        unsigned int ubo = glGetUniformBlockIndex(m_RendererID, name.c_str());
+        glUniformBlockBinding(m_RendererID, ubo, binding);
     }
 
     void OpenGLShader::SetInt(const std::string& name, int value)
@@ -254,28 +204,29 @@ namespace Glados {
 
     void OpenGLShader::SetMat4(const std::string& name, const glm::mat4& value)
     {
+		glUniformMatrix4fv(glGetUniformLocation(m_RendererID, name.c_str()), 1, false, &value[0][0]);
     }
 
     void OpenGLShader::SetUniform4f(const std::string& name,
         float v0, float v1, float v2, float v3)
     {
-        GLCall(glUniform4f(GetUniformLocation(name), v0, v1, v2, v3));
+        glUniform4f(GetUniformLocation(name), v0, v1, v2, v3);
     }
 
     void OpenGLShader::SetUniform4fv(const std::string& name, const float* value)
     {
-        GLCall(glUniform4fv(GetUniformLocation(name), 1, value));
+        glUniform4fv(GetUniformLocation(name), 1, value);
     }
 
     void OpenGLShader::SetUniform3f(const std::string& name,
         float v0, float v1, float v2)
     {
-        GLCall(glUniform3f(GetUniformLocation(name), v0, v1, v2));
+        glUniform3f(GetUniformLocation(name), v0, v1, v2);
     }
 
     void OpenGLShader::SetUniform3fv(const std::string& name, const float* value)
     {
-        GLCall(glUniform3fv(GetUniformLocation(name), 1, value));
+        glUniform3fv(GetUniformLocation(name), 1, value);
     }
 
     void OpenGLShader::SetUniformMat4fv(const std::string& name, bool transpose, const float* value)
@@ -285,17 +236,17 @@ namespace Glados {
 
     void OpenGLShader::SetUniform1f(const std::string& name, float f)
     {
-        GLCall(glUniform1f(GetUniformLocation(name), f));
+        glUniform1f(GetUniformLocation(name), f);
     }
 
     void OpenGLShader::SetUniform1i(const std::string& name, int i)
     {
-        GLCall(glUniform1i(GetUniformLocation(name), i));
+        glUniform1i(GetUniformLocation(name), i);
     }
 
     void OpenGLShader::SetUniformMat4f(const std::string& name, glm::mat4& matrix)
     {
-        GLCall(glUniformMatrix4fv(GetUniformLocation(name), 1, GL_FALSE, &matrix[0][0]));
+        glUniformMatrix4fv(GetUniformLocation(name), 1, GL_FALSE, &matrix[0][0]);
     }
 
     int OpenGLShader::GetUniformLocation(const std::string& name)
@@ -303,7 +254,7 @@ namespace Glados {
         if (m_UniformLocationCache.find(name) != m_UniformLocationCache.end())
             return m_UniformLocationCache[name];
 
-        GLCall(int location = glGetUniformLocation(m_RendererID, name.c_str()));
+        int location = glGetUniformLocation(m_RendererID, name.c_str());
         if (location == -1)
         {
             std::cout << "Warning: uniform '" << name << "' doesn't exist!" << std::endl;

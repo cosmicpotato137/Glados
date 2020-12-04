@@ -10,9 +10,9 @@ namespace test {
 	TestPhong::TestPhong()
 		: m_W(960), m_H(540)
 	{
-		GLCall(glEnable(GL_DEPTH_TEST));
-		GLCall(glEnable(GL_BLEND));
-		GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
+		glEnable(GL_DEPTH_TEST);
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 		// camera
 		{

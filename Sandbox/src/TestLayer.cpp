@@ -1,7 +1,7 @@
 #include "TestLayer.h"
 #include "Tests/TestClearColor.h"
 #include "Tests/TestVertexArray.h"
-//#include "Tests/TestTexture.h"
+#include "Tests/TestTexture.h"
 //#include "Tests/TestPhong.h"
 
 SandboxLayer::SandboxLayer()
@@ -12,7 +12,7 @@ SandboxLayer::SandboxLayer()
 
 	m_TestMenu->RegisterTest<TestClearColor>("Test Clear Color");
 	m_TestMenu->RegisterTest<TestVertexArray>("Test Vertex Array");
-	//m_TestMenu->RegisterTest<TestTexture2D>("2D Texture Test");
+	m_TestMenu->RegisterTest<TestTexture2D>("2D Texture Test");
 	//m_TestMenu->RegisterTest<TestPhong>("Phong Shading Test");
 }
 

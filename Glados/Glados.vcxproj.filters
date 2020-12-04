@@ -82,9 +82,6 @@
     <ClInclude Include="src\Glados\ImGui\ImGuiLayer.h">
       <Filter>Glados\ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="src\Glados\ObjScripts\CameraMove.h">
-      <Filter>Glados\ObjScripts</Filter>
-    </ClInclude>
     <ClInclude Include="src\Glados\Renderer\Buffer.h">
       <Filter>Glados\Renderer</Filter>
     </ClInclude>
@@ -151,9 +148,6 @@
     <ClCompile Include="src\Glados\ImGui\ImGuiLayer.cpp">
       <Filter>Glados\ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="src\Glados\ObjScripts\CameraMove.cpp">
-      <Filter>Glados\ObjScripts</Filter>
-    </ClCompile>
     <ClCompile Include="src\Glados\Renderer\Bufer.cpp">
       <Filter>Glados\Renderer</Filter>
     </ClCompile>
@@ -194,5 +188,7 @@
       <Filter>Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\gladospch.cpp" />
+    <ClCompile Include="src\Glados\Renderer\Texture.cpp" />
+    <ClCompile Include="src\Glados\Renderer\StbImageImpl.h" />
   </ItemGroup>
 </Project>

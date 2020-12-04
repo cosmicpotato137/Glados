@@ -1,8 +1,5 @@
 #include "TestTexture.h"
 
-#include "Glados/BufferLayout.h"
-#include "Glados/Renderer.h"
-
 namespace test {
 
 	using namespace Glados;
@@ -10,7 +7,7 @@ namespace test {
 	TestTexture2D::TestTexture2D()
 		: m_Proj(glm::ortho(0.0f, 960.0f, 0.0f, 540.0f)), 
 		m_View(glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0))),
-		m_Model1(400, 200, 0), blend(false), dblend(false)
+		m_Model1(400, 200, 0), blend(false)
 	{
 		float positions[]{
 			0.0f,   0.0f,   0.0f, 0.0f,
@@ -25,33 +22,35 @@ namespace test {
 		};
 
 		// define blend function
-		GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
+		Renderer::Blend(blend);
 
-		m_VAO = std::make_unique<VertexArray>();
+		m_VAO = VertexArray::Create();
 
-		VertexBufferLayout layout;
-		layout.Push<float>(2);
-		layout.Push<float>(2);
-		m_VertexBuffer = std::make_unique<VertexBuffer>(layout, 4, &positions[0]);
+		BufferLayout layout({
+			BufferElement(ShaderDataType::Float2, "position"),
+			BufferElement(ShaderDataType::Float2, "texcoord")
+			});
 
-		m_VAO->AddBuffer(*m_VertexBuffer, layout);
+		m_VertexBuffer = VertexBuffer::Create(positions, layout.GetStride() * 4);
+		m_VertexBuffer->SetLayout(layout);
+		m_VAO->AddBuffer(*m_VertexBuffer);
 
-		IndexBufferLayout ibl;
-		ibl.Push(1);
-		m_IndexBuffer = std::make_unique<IndexBuffer>(ibl, 6, &indices[0]);
-
-		m_Shader = std::make_unique<Shader>("res/shaders/textureTest.shader");
+		m_IndexBuffer = IndexBuffer::Create(&indices[0], 6);
+		m_VAO->SetIndexBuffer(m_IndexBuffer);
+		
+		m_Shader = Shader::Create(std::string("TexShader"), std::string("res/shaders/textureTest.shader"));
 		m_Shader->Bind();
-		m_Shader->SetUniform4f("u_Color", 1.0f, 1.0f, 1.0f, 1.0f);
+		glm::vec4 color = { 1.0f, 1.0f, 1.0f, 1.0f };
+		m_Shader->SetFloat4("u_Color", color);
 
 		glm::mat4 model = glm::translate(glm::mat4(1.0f), m_Model1);
 		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
 		glm::mat4 mvp = m_Proj * m_View * model;
-		m_Shader->SetUniformMat4f("u_MVP", mvp);
+		m_Shader->SetMat4("u_MVP", mvp);
 
-		m_Texture = std::make_unique<Texture>("res/textures/dirt.png");
+		m_Texture = Texture::Create("res/textures/dirt.png");
 		m_Texture->Bind();
-		m_Shader->SetUniform1i("u_Texture", 0);
+		m_Shader->SetInt("u_Texture", 0);
 	}
 
 	TestTexture2D::~TestTexture2D()
@@ -60,30 +59,27 @@ namespace test {
 
 	void TestTexture2D::OnUpdate(float deltaTime)
 	{
-		if (!blend && blend != dblend)
-		{
-			GLCall(glDisable(GL_BLEND));
-			dblend = blend;
-		}
-		else if (blend && blend != dblend)
-		{
-			GLCall(glEnable(GL_BLEND));
-			dblend = blend;
-		}
+		//if (!blend && blend != dblend)
+		//{
+		//	dblend = blend;
+		//}
+		//else if (blend && blend != dblend)
+		//{
+		//	GLCall(glEnable(GL_BLEND));
+		//	dblend = blend;
+		//}
 	}
 
 	void TestTexture2D::OnRender()
 	{
-		GLCall(glClearColor(0.4f, 0.6f, 0.3f, 1.0f));
-		GLCall(glClear(GL_COLOR_BUFFER_BIT));
-
-		Renderer renderer;
-		renderer.Draw(*m_VAO, *m_IndexBuffer, *m_Shader);
+		Renderer::DrawIndexed(m_VAO);
 	}
 
 	void TestTexture2D::OnImGuiRender()
 	{
-		ImGui::Checkbox("Enable Blending", &blend);
+		if (ImGui::Checkbox("Enable Blending", &blend))
+			Renderer::Blend(blend);
+
 		ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 	}
 }

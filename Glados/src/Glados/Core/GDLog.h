@@ -2,9 +2,7 @@
 #include "spdlog/spdlog.h"
 #include "spdlog/fmt/ostr.h"
 
-#define ASSERT(x) if (!(x)) __debugbreak();
-#define GLCall(x) Glados::GLClearError(); x;\
-    ASSERT(Glados::GLLogCall(#x, __FILE__, __LINE__))
+#define GLCall(x) x; std::cout << "glcall" << std::endl;
 
 namespace Glados {
 

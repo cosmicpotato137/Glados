@@ -14,18 +14,18 @@ namespace Glados {
 		: m_Count(count)
 	{
 		glGenBuffers(1, &m_RendererID);
-		GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_RendererID));
-		GLCall(glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(uint32_t), indices, GL_STATIC_DRAW));
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_RendererID);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(uint32_t), indices, GL_STATIC_DRAW);
 	}
 
 	void OpenGLIndexBuffer::Bind() const
 	{
-		GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_RendererID));
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_RendererID);
 	}
 
 	void OpenGLIndexBuffer::Unbind() const
 	{
-		GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	}
 
 	uint32_t OpenGLIndexBuffer::GetCount() const
@@ -42,31 +42,31 @@ namespace Glados {
 	OpenGLVertexBuffer::OpenGLVertexBuffer(float* vertices, uint32_t size)
 	{
 		glGenBuffers(1, &m_RendererID);
-		GLCall(glBindBuffer(GL_ARRAY_BUFFER, m_RendererID));
-		GLCall(glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW));
+		glBindBuffer(GL_ARRAY_BUFFER, m_RendererID);
+		glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);
 	}
 
 	OpenGLVertexBuffer::OpenGLVertexBuffer(uint32_t size)
 	{
 		glGenBuffers(1, &m_RendererID);
-		GLCall(glBindBuffer(GL_ARRAY_BUFFER, m_RendererID));
-		GLCall(glBufferData(GL_ARRAY_BUFFER, size, nullptr, GL_STATIC_DRAW));
+		glBindBuffer(GL_ARRAY_BUFFER, m_RendererID);
+		glBufferData(GL_ARRAY_BUFFER, size, nullptr, GL_STATIC_DRAW);
 	}
 
 	void OpenGLVertexBuffer::Bind() const
 	{
-		GLCall(glBindBuffer(GL_ARRAY_BUFFER, m_RendererID));
+		glBindBuffer(GL_ARRAY_BUFFER, m_RendererID);
 	}
 
 	void OpenGLVertexBuffer::Unbind() const
 	{
-		GLCall(glBindBuffer(GL_ARRAY_BUFFER, 0));
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
 
 	void OpenGLVertexBuffer::SetData(const void* data, uint32_t offset, uint32_t size)
 	{
 		Bind();
-		GLCall(glBufferSubData(GL_ARRAY_BUFFER, offset, size, data));
+		glBufferSubData(GL_ARRAY_BUFFER, offset, size, data);
 		Unbind();
 	}
 
@@ -74,7 +74,7 @@ namespace Glados {
 	{
 		float data;
 		Bind();
-		GLCall(glGetBufferSubData(GL_ARRAY_BUFFER, offset, size, &data));
+		glGetBufferSubData(GL_ARRAY_BUFFER, offset, size, &data);
 		Unbind();
 		return data;
 	}
@@ -98,15 +98,15 @@ namespace Glados {
 	OpenGLUniformBuffer::OpenGLUniformBuffer(uint32_t size)
 	{
 		glGenBuffers(1, &m_RendererID);
-		GLCall(glBindBuffer(GL_UNIFORM_BUFFER, m_RendererID));
-		GLCall(glBufferData(GL_UNIFORM_BUFFER, size, nullptr, GL_DYNAMIC_DRAW));
+		glBindBuffer(GL_UNIFORM_BUFFER, m_RendererID);
+		glBufferData(GL_UNIFORM_BUFFER, size, nullptr, GL_DYNAMIC_DRAW);
 	}
 
 	OpenGLUniformBuffer::OpenGLUniformBuffer(float* vertices, uint32_t size)
 	{
 		glGenBuffers(1, &m_RendererID);
-		GLCall(glBindBuffer(GL_UNIFORM_BUFFER, m_RendererID));
-		GLCall(glBufferData(GL_UNIFORM_BUFFER, size, vertices, GL_DYNAMIC_DRAW));
+		glBindBuffer(GL_UNIFORM_BUFFER, m_RendererID);
+		glBufferData(GL_UNIFORM_BUFFER, size, vertices, GL_DYNAMIC_DRAW);
 	}
 
 	void OpenGLUniformBuffer::Bind() const
@@ -122,7 +122,7 @@ namespace Glados {
 	void OpenGLUniformBuffer::SetData(const void* data, uint32_t offset, unsigned int size)
 	{
 		Bind();
-		GLCall(glBufferSubData(GL_UNIFORM_BUFFER, offset, size, data));
+		glBufferSubData(GL_UNIFORM_BUFFER, offset, size, data);
 		Unbind();
 	}
 
@@ -130,7 +130,7 @@ namespace Glados {
 	{
 		float data;
 		Bind();
-		GLCall(glGetBufferSubData(GL_UNIFORM_BUFFER, offset, size, &data));
+		glGetBufferSubData(GL_UNIFORM_BUFFER, offset, size, &data);
 		Unbind();
 		return data;
 	}

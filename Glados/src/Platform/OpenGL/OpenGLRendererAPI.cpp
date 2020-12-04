@@ -16,13 +16,13 @@ namespace Glados {
 	{
 		switch (severity)
 		{
-		case GL_DEBUG_SEVERITY_HIGH:         GD_CORE_CRITICAL(message); return;
-		case GL_DEBUG_SEVERITY_MEDIUM:       GD_CORE_ERROR(message); return;
-		case GL_DEBUG_SEVERITY_LOW:          GD_CORE_WARN(message); return;
-		case GL_DEBUG_SEVERITY_NOTIFICATION: GD_CORE_TRACE(message); return;
+		case GL_DEBUG_SEVERITY_HIGH:         GD_CORE_CRITICAL(message); break;
+		case GL_DEBUG_SEVERITY_MEDIUM:       GD_CORE_ERROR(message);	break;
+		case GL_DEBUG_SEVERITY_LOW:          GD_CORE_WARN(message);		break;
+		case GL_DEBUG_SEVERITY_NOTIFICATION: GD_CORE_TRACE(message);	break;
+		default: GD_CORE_ASSERT(false, "Unknown severity level!");		break;
 		}
-
-		GD_CORE_ASSERT(false, "Unknown severity level!");
+		//GD_CORE_ASSERT(false, "OpenGL Error!");
 	}
 
 	OpenGLRendererAPI::OpenGLRendererAPI()
@@ -49,19 +49,13 @@ namespace Glados {
 		{
 			glEnable(GL_DEBUG_OUTPUT);
 			glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
-			glDebugMessageCallback(OpenGLMessageCallback, nullptr);
+			glDebugMessageCallback(OpenGLMessageCallback, 0);
 
-			glDebugMessageControl(
-				GL_DONT_CARE, GL_DONT_CARE, GL_DEBUG_SEVERITY_NOTIFICATION,
-				0, NULL, GL_FALSE);
+			glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DEBUG_SEVERITY_NOTIFICATION, 0, NULL, GL_FALSE);
 		}
 		else
 			GD_CORE_WARN("Unable to initiate OpenGL");
 #endif
-
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
 		glEnable(GL_DEPTH_TEST);
 	}
 
@@ -76,7 +70,17 @@ namespace Glados {
 
 	void OpenGLRendererAPI::SetClearColor(const vec4& color)
 	{
-		GLCall(glClearColor(color.r, color.g, color.b, color.a));
+		glClearColor(color.r, color.g, color.b, color.a);
+	}
+
+	void OpenGLRendererAPI::Blend(bool blend)
+	{
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+		if (blend)
+			glEnable(GL_BLEND);
+		else
+			glDisable(GL_BLEND);
 	}
 
 	void OpenGLRendererAPI::Clear()
