@@ -10,6 +10,7 @@ namespace Glados {
 	public:
 		virtual ~Shader() = default;
 
+		virtual void Load() = 0;
 		virtual void Bind() const = 0;
 		virtual void Unbind() const = 0;
 

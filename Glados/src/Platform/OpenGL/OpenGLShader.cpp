@@ -29,15 +29,21 @@ namespace Glados {
     }
 
     OpenGLShader::OpenGLShader(const std::string& name, const std::string& filepath)
-        : m_Name(name), m_Filepath(filepath), m_RendererID(0)
+        : m_Name(name), m_Filepath(filepath)
     {
-        std::string source = ReadFile(filepath);
-        m_ShaderSources = Preprocess(source, "#shader");
-        Compile();
-        m_RendererID = Link();
+        Load();
     }
 
-    OpenGLShader::~OpenGLShader()
+	OpenGLShader::OpenGLShader(const std::string& name, const std::string& vertex, const std::string& fragment)
+	{
+        ShaderSources shaderSources;
+        shaderSources[GL_VERTEX_SHADER] = vertex;
+        shaderSources[GL_FRAGMENT_SHADER] = fragment;
+		ShaderIDs shaderIDs = Compile(shaderSources);
+		m_RendererID = Link(shaderIDs);
+	}
+
+	OpenGLShader::~OpenGLShader()
     {
         glDeleteProgram(m_RendererID);
     }
@@ -45,6 +51,19 @@ namespace Glados {
 	const std::string& OpenGLShader::GetName() const
 	{
         return m_Name;
+	}
+
+	void OpenGLShader::Load()
+	{
+        if (&m_Filepath)
+        {
+            std::string source = ReadFile(m_Filepath);
+            ShaderSources shaderSources = Preprocess(source, "#shader");
+            ShaderIDs shaderIDs = Compile(shaderSources);
+            m_RendererID = Link(shaderIDs);
+        }
+        else
+            GD_CORE_WARN("Unable to load shader! No filepath specified.");
 	}
 
 	std::string OpenGLShader::ReadFile(const std::string& filepath)
@@ -74,9 +93,9 @@ namespace Glados {
 		return result;
 	}
 
-	std::unordered_map<GLenum, ShaderSource> OpenGLShader::Preprocess(const std::string& source, const std::string& typetoken)
+	ShaderSources OpenGLShader::Preprocess(const std::string& source, const std::string& typetoken)
 	{
-		std::unordered_map<GLenum, ShaderSource> shaderSources;
+		ShaderSources shaderSources;
 
 		const char* typeToken = typetoken.c_str();
 		size_t typeTokenLength = strlen(typeToken);
@@ -93,23 +112,23 @@ namespace Glados {
 			GD_CORE_ASSERT(nextLinePos != std::string::npos, "Syntax error");
 			pos = source.find(typeToken, nextLinePos); //Start of next shader type declaration line
 
-            ShaderSource shaderSource;
-            shaderSource.Source = (pos == std::string::npos) ? source.substr(nextLinePos) : source.substr(nextLinePos, pos - nextLinePos);
-			shaderSources[ShaderTypeFromString(type)] = shaderSource;
+			shaderSources[ShaderTypeFromString(type)] = 
+                (pos == std::string::npos) ? source.substr(nextLinePos) : source.substr(nextLinePos, pos - nextLinePos);
 		}
 
 		return shaderSources;
 	}
 
-	void OpenGLShader::Compile()
+	ShaderIDs OpenGLShader::Compile(ShaderSources shaderSources)
 	{
-        for (auto it = m_ShaderSources.begin(); it != m_ShaderSources.end(); ++it)
+        std::vector<GLint> shaderIDs;
+
+        for (auto shaderSource : shaderSources)
         {
 		    // create an empty shader object to hold shader strings
-            GLenum type = it->first;
-		    const char* src = it->second.Source.c_str();
+            GLenum type = shaderSource.first;
+		    const char* src = shaderSource.second.c_str();
             GLint id = glCreateShader(type);
-            it->second.ID = id;
 
 		    glShaderSource(id, 1, &src, nullptr); // add source code for shader
 		    glCompileShader(id); // compile the shader
@@ -118,38 +137,41 @@ namespace Glados {
             int result;
 		    glGetShaderiv(id, GL_COMPILE_STATUS, &result);
 
-		    if (result == GL_FALSE)
-		    {
-			    int length; // get number of characters in the info log
-			    glGetShaderiv(id, GL_INFO_LOG_LENGTH, &length); // allocate memory on the stack for chars
-			    char* message = (char*)_malloca(length * sizeof(char)); // assign message memory
-			    glGetShaderInfoLog(id, length, &length, message); // get relevant data
+            if (result == GL_FALSE)
+            {
+                int length; // get number of characters in the info log
+                glGetShaderiv(id, GL_INFO_LOG_LENGTH, &length); // allocate memory on the stack for chars
+                char* message = (char*)_malloca(length * sizeof(char)); // assign message memory
+                glGetShaderInfoLog(id, length, &length, message); // get relevant data
 
                 GD_CORE_ERROR("Failed to compile {0} shader!", type == GL_VERTEX_SHADER ? "vertex" : "fragment");
 
-			    glDeleteShader(id);
-		    }
+                glDeleteShader(id);
+            }
+            else
+                shaderIDs.push_back(id);
         }
+        return shaderIDs;
 	}
 
-	uint32_t OpenGLShader::Link()
+	GLint OpenGLShader::Link(ShaderIDs shaderIDs)
 	{
-		uint32_t program = glCreateProgram();
+		GLint program = glCreateProgram();
 
 		// attaches shaders to the current program
-        for (auto shaderSource : m_ShaderSources)
+        for (auto shaderID : shaderIDs)
         {
-            glAttachShader(program, shaderSource.second.ID);
-			glDeleteShader(shaderSource.second.ID);
+            glAttachShader(program, shaderID);
+			glDeleteShader(shaderID);
         }
 
         glLinkProgram(program);
-        int result;
+        GLint result;
         glGetProgramiv(program, GL_LINK_STATUS, &result);
 
 		if (result == GL_FALSE)
 		{
-			int length; // get number of characters in the info log
+			GLint length; // get number of characters in the info log
 			glGetProgramiv(program, GL_INFO_LOG_LENGTH, &length); // allocate memory on the stack for chars
 			char* message = (char*)_malloca(length * sizeof(char)); // assign message memory
 			glGetProgramInfoLog(program, length, &length, message); // get relevant data
