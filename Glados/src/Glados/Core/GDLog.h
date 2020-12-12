@@ -2,8 +2,6 @@
 #include "spdlog/spdlog.h"
 #include "spdlog/fmt/ostr.h"
 
-#define GLCall(x) x; std::cout << "glcall" << std::endl;
-
 namespace Glados {
 
 	class Log
@@ -57,6 +55,15 @@ namespace Glados {
 #define GD_INFO(...)	
 #define GD_WARN(...)	
 #define GD_ERROR(...)	
+#endif
+
+// debug validations
+#ifdef GD_ENABLE_ASSERTS
+#define GD_VALIDATE(x, y, ...) { if (!(x)) { GD_WARN("Validation Failed: {0}", __VA_ARGS__); y; } }
+#define GD_CORE_VALIDATE(x, y, ...) { if(!(x)) { GD_CORE_WARN("Validation Failed: {0}", __VA_ARGS__); y; } }
+#else
+#define GD_VALIDATE(x, y, ...)
+#define GD_CORE_VALIDATE(x, y, ...)
 #endif
 
 // debug assertions

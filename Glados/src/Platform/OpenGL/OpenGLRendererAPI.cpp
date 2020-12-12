@@ -51,10 +51,14 @@ namespace Glados {
 			glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
 			glDebugMessageCallback(OpenGLMessageCallback, 0);
 
-			glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DEBUG_SEVERITY_NOTIFICATION, 0, NULL, GL_FALSE);
+			glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, 
+				GL_DEBUG_SEVERITY_NOTIFICATION, 0, NULL, GL_FALSE);
+
+			glDebugMessageControl(GL_DEBUG_SOURCE_SHADER_COMPILER,
+				GL_DEBUG_TYPE_ERROR, GL_DONT_CARE, 0, NULL, GL_FALSE);
 		}
 		else
-			GD_CORE_WARN("Unable to initiate OpenGL");
+			GD_CORE_WARN("Unable to initialize OpenGL");
 #endif
 		glEnable(GL_DEPTH_TEST);
 	}

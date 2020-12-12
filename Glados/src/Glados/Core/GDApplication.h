@@ -16,6 +16,7 @@ namespace Glados {
 	private:
 		Window* m_Window;
 		bool m_Running = true;
+		bool m_Minimized = false;
 		float m_LastFrameTime;
 		LayerStack m_LayerStack;
 		ImGuiLayer* m_ImGuiLayer;
@@ -39,6 +40,7 @@ namespace Glados {
 
 	private:
 		bool OnWindowClose(WindowCloseEvent& e);
+		bool OnWindowResize(WindowResizeEvent& e);
 		bool OnKeyPressed(KeyPressedEvent& e);
 	};
 

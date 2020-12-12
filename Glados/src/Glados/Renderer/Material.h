@@ -1,37 +1,27 @@
 # pragma once
-#include "Core/Core.h"
 #include <string>
-
-#include "ObjAttrib.h"
-#include "Renderer/Shader.h"
+#include "Glados/Core/Core.h"
+#include "Shader.h"
 
 namespace Glados {
 
-	class Material : public ObjAttrib
+	class Material
 	{
+	private:
+		std::string m_Name;
+		Ref<Shader> m_Shader;
+		std::string m_ShaderName;
 	public:
-		std::string name;
-		std::shared_ptr<Shader> shader;
-		//std::unordered_map<std::string, std::unique_ptr<ShaderAttrib>> shaderAttribs;
-		std::string shaderPath;
-		std::string materialPath;
-
-		glm::vec4 diffuseCol;
-		glm::vec4 ambientCol;
-		float specInt;
-		glm::vec4 specCol;
-
-		std::shared_ptr<UniformBuffer> lightBuffer;
-
-	public:
-		Material(const std::string& name, const std::string& shaderpath, const std::string& matpath = NULL, std::shared_ptr<UniformBuffer> lightbuffer = NULL);
+		Material(const std::string& name, const Ref<Shader>& m_Shader);
 		~Material();
 
-		void OnUpdate() override;
-		void OnImGuiRender() override;
+		void OnUpdate();
+		void OnImGuiRender();
 
-	private:
-		void Parse(const std::string& matfile);
+		std::string GetName() const { return m_Name; }
+		Ref<Shader> GetShader() const { return m_Shader->GetBuildStatus() ? m_Shader : Renderer::GetDefaultShader(); }
+
+		static Ref<Material> Create(const std::string& name, const Ref<Shader>& m_Shader);
 	};
 
 }

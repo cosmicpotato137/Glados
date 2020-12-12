@@ -26,13 +26,13 @@ namespace test {
 
 		{
 			BufferLayout layout({
-				BufferElement(ShaderDataType::Float2, "position")
+				Uniform(UniformType::Float2, "position")
 				});
 			m_VertexBuffer = VertexBuffer::Create(&positions[0], layout.GetStride() * 4);
 			m_VertexBuffer->SetLayout(layout);
 		}
 
-		m_VAO->AddBuffer(*m_VertexBuffer);
+		m_VAO->AddVertexBuffer(m_VertexBuffer);
 
 		m_IndexBuffer = IndexBuffer::Create(&indices[0], 6);
 		m_VAO->SetIndexBuffer(m_IndexBuffer);

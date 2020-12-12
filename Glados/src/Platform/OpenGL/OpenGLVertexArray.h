@@ -9,14 +9,17 @@ namespace Glados
 	private:
 		uint32_t m_RendererID;
 		Ref<IndexBuffer> m_IndexBuffer;
+		std::vector<Ref<VertexBuffer>> m_VertexBuffers;
+		uint32_t m_VertexBufferCount;
 	public:
 		OpenGLVertexArray();
 		~OpenGLVertexArray();
 
-		virtual void AddBuffer(const VertexBuffer& vb, uint32_t layoutpos = 0) override;
+		virtual void AddVertexBuffer(const Ref<VertexBuffer>& vb) override;
+		virtual std::vector<Ref<VertexBuffer>> GetVertexBuffers() const override { return m_VertexBuffers; }
 
 		virtual void SetIndexBuffer(Ref<IndexBuffer>& ib) override;
-		virtual IndexBuffer& GetIndexBuffer() const override;
+		virtual IndexBuffer& GetIndexBuffer() const override { return *m_IndexBuffer; }
 
 		virtual void Bind() const override;
 		virtual void Unbind() const override;

@@ -6,28 +6,29 @@
 
 namespace Glados {
 
-	static GLenum ShaderTypeToGLType(ShaderDataType type)
+	static GLenum ShaderTypeToGLType(UniformType type)
 	{
 		switch (type)
 		{
-		case ShaderDataType::None:		return GL_NONE;
-		case ShaderDataType::Bool:		return GL_BOOL;
-		case ShaderDataType::Int:		return GL_INT;
-		case ShaderDataType::Int2:		return GL_INT;
-		case ShaderDataType::Int3:		return GL_INT;
-		case ShaderDataType::Int4:		return GL_INT;
-		case ShaderDataType::Float:		return GL_FLOAT;
-		case ShaderDataType::Float2:	return GL_FLOAT;
-		case ShaderDataType::Float3:	return GL_FLOAT;
-		case ShaderDataType::Float4:	return GL_FLOAT;
-		case ShaderDataType::Mat3:		return GL_FLOAT;
-		case ShaderDataType::Mat4:		return GL_FLOAT;
+		case UniformType::None:		return GL_NONE;
+		case UniformType::Bool:		return GL_BOOL;
+		case UniformType::Int:		return GL_INT;
+		case UniformType::Int2:		return GL_INT;
+		case UniformType::Int3:		return GL_INT;
+		case UniformType::Int4:		return GL_INT;
+		case UniformType::Float:		return GL_FLOAT;
+		case UniformType::Float2:	return GL_FLOAT;
+		case UniformType::Float3:	return GL_FLOAT;
+		case UniformType::Float4:	return GL_FLOAT;
+		case UniformType::Mat3:		return GL_FLOAT;
+		case UniformType::Mat4:		return GL_FLOAT;
 		}
 		GD_CORE_ASSERT(false, "Unknown ShaderDataType!");
 		return 0;
 	}
 
 	OpenGLVertexArray::OpenGLVertexArray()
+		: m_VertexBufferCount(0)
 	{
 		glGenVertexArrays(1, &m_RendererID);
 	}
@@ -37,33 +38,38 @@ namespace Glados {
 		glDeleteVertexArrays(1, &m_RendererID);
 	}
 
-	void OpenGLVertexArray::AddBuffer(const VertexBuffer& vb, uint32_t layoutpos /*= 0*/)
+	void OpenGLVertexArray::AddVertexBuffer(const Ref<VertexBuffer>& vertexBuffer)
 	{
+		m_VertexBuffers.push_back(vertexBuffer);
 		Bind();
-		vb.Bind();
+		vertexBuffer->Bind();
 		// list of all elements in m_Elements vector
-		BufferLayout layout = vb.GetLayout();
-		int vaa = layoutpos;
-		for (BufferElement e : layout)
+		BufferLayout layout = vertexBuffer->GetLayout();
+		for (Uniform e : layout)
 		{
-			// pushes data to the target buffer
-			glEnableVertexAttribArray(vaa);
-			// formatting of data in current 
-			glVertexAttribPointer(vaa, e.GetComponentCount(), ShaderTypeToGLType(e.Type),
-				e.Normalized, layout.GetStride(), (const void*)e.Offset);
+			GD_CORE_ASSERT(
+				e.Type != UniformType::Mat4 && e.Type != UniformType::Mat3, 
+				"Glados doesn't support Mat3 or Mat4 yet!"
+			);
 
-			vaa++;
+			// pushes data to the target buffer
+			glEnableVertexAttribArray(m_VertexBufferCount);
+			// formatting of data in current 
+			glVertexAttribPointer(
+				m_VertexBufferCount,
+				e.GetComponentCount(),
+				ShaderTypeToGLType(e.Type),
+				e.Normalized,
+				layout.GetStride(), 
+				(const void*)e.Offset
+			);
+			m_VertexBufferCount++;
 		}
 	}
 
 	void OpenGLVertexArray::SetIndexBuffer(Ref<IndexBuffer>& ib)
 	{
 		m_IndexBuffer = ib;
-	}
-
-	IndexBuffer& OpenGLVertexArray::GetIndexBuffer() const
-	{
-		return *m_IndexBuffer;
 	}
 
 	void OpenGLVertexArray::Bind() const

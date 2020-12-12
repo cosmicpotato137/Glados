@@ -39,14 +39,14 @@ namespace Glados {
 	//
 	//-----------------------------------
 
-	OpenGLVertexBuffer::OpenGLVertexBuffer(float* vertices, uint32_t size)
+	OpenGLVertexBuffer::OpenGLVertexBuffer(float* vertices, size_t size)
 	{
 		glGenBuffers(1, &m_RendererID);
 		glBindBuffer(GL_ARRAY_BUFFER, m_RendererID);
 		glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);
 	}
 
-	OpenGLVertexBuffer::OpenGLVertexBuffer(uint32_t size)
+	OpenGLVertexBuffer::OpenGLVertexBuffer(size_t size)
 	{
 		glGenBuffers(1, &m_RendererID);
 		glBindBuffer(GL_ARRAY_BUFFER, m_RendererID);
@@ -63,14 +63,14 @@ namespace Glados {
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
 
-	void OpenGLVertexBuffer::SetData(const void* data, uint32_t offset, uint32_t size)
+	void OpenGLVertexBuffer::SetData(const void* data, uint32_t offset, size_t size)
 	{
 		Bind();
 		glBufferSubData(GL_ARRAY_BUFFER, offset, size, data);
 		Unbind();
 	}
 
-	float OpenGLVertexBuffer::GetData(uint32_t offset, uint32_t size) const
+	float OpenGLVertexBuffer::GetData(uint32_t offset, size_t size) const
 	{
 		float data;
 		Bind();
@@ -95,14 +95,14 @@ namespace Glados {
 	//
 	//-----------------------------------
 
-	OpenGLUniformBuffer::OpenGLUniformBuffer(uint32_t size)
+	OpenGLUniformBuffer::OpenGLUniformBuffer(size_t size)
 	{
 		glGenBuffers(1, &m_RendererID);
 		glBindBuffer(GL_UNIFORM_BUFFER, m_RendererID);
 		glBufferData(GL_UNIFORM_BUFFER, size, nullptr, GL_DYNAMIC_DRAW);
 	}
 
-	OpenGLUniformBuffer::OpenGLUniformBuffer(float* vertices, uint32_t size)
+	OpenGLUniformBuffer::OpenGLUniformBuffer(float* vertices, size_t size)
 	{
 		glGenBuffers(1, &m_RendererID);
 		glBindBuffer(GL_UNIFORM_BUFFER, m_RendererID);
@@ -119,14 +119,14 @@ namespace Glados {
 		glBindBuffer(GL_UNIFORM_BUFFER, 0);
 	}
 
-	void OpenGLUniformBuffer::SetData(const void* data, uint32_t offset, unsigned int size)
+	void OpenGLUniformBuffer::SetData(const void* data, uint32_t offset, size_t size)
 	{
 		Bind();
 		glBufferSubData(GL_UNIFORM_BUFFER, offset, size, data);
 		Unbind();
 	}
 
-	float OpenGLUniformBuffer::GetData(uint32_t offset, uint32_t size) const
+	float OpenGLUniformBuffer::GetData(uint32_t offset, size_t size) const
 	{
 		float data;
 		Bind();
@@ -147,7 +147,6 @@ namespace Glados {
 
 	void OpenGLUniformBuffer::BindUniformBlock(const std::string& name, Ref<Shader> shader)
 	{
-		
 	}
 
 }

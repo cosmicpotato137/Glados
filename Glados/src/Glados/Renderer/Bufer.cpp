@@ -5,17 +5,17 @@
 
 namespace Glados {
 
-	Ref<IndexBuffer> IndexBuffer::Create(uint32_t* indices, uint32_t size)
+	Ref<IndexBuffer> IndexBuffer::Create(uint32_t* indices, uint32_t count)
 	{
 		switch (GD_GRAPHICS_API)
 		{
-		case GD_OPENGL_API:	return CreateRef<OpenGLIndexBuffer>(indices, size);
+		case GD_OPENGL_API:	return CreateRef<OpenGLIndexBuffer>(indices, count);
 		}
 		GD_CORE_ASSERT(false, "Unknown API!");
 		return nullptr;
 	}
 
-	Ref<VertexBuffer> VertexBuffer::Create(uint32_t size)
+	Ref<VertexBuffer> VertexBuffer::Create(size_t size)
 	{
 		switch (GD_GRAPHICS_API)
 		{
@@ -25,7 +25,7 @@ namespace Glados {
 		return nullptr;
 	}
 
-	Ref<VertexBuffer> VertexBuffer::Create(float* vertices, uint32_t size)
+	Ref<VertexBuffer> VertexBuffer::Create(float* vertices, size_t size)
 	{
 		switch (GD_GRAPHICS_API)
 		{
@@ -35,7 +35,7 @@ namespace Glados {
 		return nullptr;
 	}
 	 
-	Ref<UniformBuffer> UniformBuffer::Create(uint32_t size)
+	Ref<UniformBuffer> UniformBuffer::Create(size_t size)
 	{
 		switch (GD_GRAPHICS_API)
 		{
@@ -45,7 +45,7 @@ namespace Glados {
 		return nullptr;
 	}
 
-	Ref<UniformBuffer> UniformBuffer::Create(float* vertices, uint32_t size)
+	Ref<UniformBuffer> UniformBuffer::Create(float* vertices, size_t size)
 	{
 		switch (GD_GRAPHICS_API)
 		{

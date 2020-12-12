@@ -1,26 +1,30 @@
 #include "gladospch.h"
-
+#include "Renderer.h"
 #include "Material.h"
 #include "imgui.h"
 
 namespace Glados {
 
-	Material::Material(const std::string& name, const std::string& shaderpath, const std::string& matpath, std::shared_ptr<UniformBuffer> lightbuffer)
-		: name(name), shaderPath(shaderpath), materialPath(matpath), lightBuffer(lightbuffer)
+	static void UniformTypeImGuiWidget(const Ref<Uniform> u)
 	{
-		if (&matpath != NULL)
-			Parse(matpath);
-		else
+		switch (u->Type)
 		{
+		case UniformType::Float:   ImGui::InputFloat(u->Name.c_str(), (float*)u->GetData());	 return;
+		case UniformType::Float2:  ImGui::InputFloat2(u->Name.c_str(), (float*)u->GetData()); return;
+		case UniformType::Float3:  ImGui::InputFloat3(u->Name.c_str(), (float*)u->GetData()); return;
+		case UniformType::Float4:  ImGui::InputFloat4(u->Name.c_str(), (float*)u->GetData()); return;
+		case UniformType::Int:     ImGui::InputInt(u->Name.c_str(), (int*)u->GetData());	return;
+		case UniformType::Int2:    ImGui::InputInt2(u->Name.c_str(), (int*)u->GetData()); return;
+		case UniformType::Int3:    ImGui::InputInt3(u->Name.c_str(), (int*)u->GetData()); return;
+		case UniformType::Int4:    ImGui::InputInt4(u->Name.c_str(), (int*)u->GetData()); return;
+		case UniformType::Bool:    ImGui::Checkbox(u->Name.c_str(), (bool*)u->GetData()); return;
 		}
+		return;
+	}
 
-		shader = std::make_shared<Shader>(shaderpath);
-
-		// bind the light buffer to LightBlock in shader
-		if (&lightbuffer != NULL)
-			lightBuffer->BindUniformBlock("LightBlock", shader);
-
-		shader->PrintUniforms();
+	Material::Material(const std::string& name, const Ref<Shader>& shader)
+		: m_Shader(shader), m_ShaderName(shader->GetName())
+	{
 		OnUpdate();
 	}
 
@@ -30,71 +34,55 @@ namespace Glados {
 
 	void Material::OnUpdate()
 	{
-		shader->Bind();
-		shader->SetUniform4fv("u_Ambient", &ambientCol[0]);
-		shader->SetUniform4fv("u_Diffuse", &diffuseCol[0]);
-		shader->SetUniform4fv("u_Specular", &specCol[0]);
-		shader->SetUniform1f("u_SpecInt", specInt);
 	}
 
 	void Material::OnImGuiRender()
 	{
-		if (!ImGui::TreeNode("Material"))
-			return;
-		ImGui::Text(shaderPath.c_str());
-		ImGui::ColorEdit4("Diffuse Color", &diffuseCol[0]);
-		ImGui::ColorEdit4("Ambient Color", &ambientCol[0]);
-		ImGui::ColorEdit4("Specular Color", &specCol[0]);
-		ImGui::SliderFloat("Specular Intensity", &specInt, 0.0f, 500.0f);
-		ImGui::TreePop();
+		/// select shader ///
+		ImGui::SetNextItemWidth(200);
+		ShaderLibrary shaderLib = Renderer::GetShaderLibrary();
+		if (ImGui::BeginCombo("Shaders", m_ShaderName.c_str()))
+		{
+			for (auto shader : shaderLib)
+			{
+				bool is_selected = (m_ShaderName == shader.first);
+				if (ImGui::Selectable(shader.first.c_str(), is_selected))
+				{
+					m_ShaderName = shader.first;
+					m_Shader = Renderer::GetShaderLibrary().Get(m_ShaderName);
+					m_Shader->BuildShader();
+				}
+				if (is_selected)
+					ImGui::SetItemDefaultFocus();
+			}
+			ImGui::EndCombo();
+		}
+		/////////////////////
+
+		if (ImGui::Button("Recompile Shader"))
+		{
+			m_Shader->BuildShader();
+		}
+
+		if (!Renderer::GetShaderLibrary().Get(m_ShaderName)->GetBuildStatus())
+		{
+			ImGui::Text("Unable to build shader!");
+			ImGui::Text("Using default.");
+		}
+		else
+		{
+			ImGui::Text("Uniforms");
+			UniformMap shaderUniforms = m_Shader->GetUniforms();
+			for (auto uniform : shaderUniforms)
+			{
+				UniformTypeImGuiWidget(uniform.second);
+			}
+		}
 	}
 
-	void Material::Parse(const std::string& matfile)
+	Ref<Material> Material::Create(const std::string& name, const Ref<Shader>& m_Shader)
 	{
-		FILE* fp;
-		float hi;
-		float va, vb, vc;
-		char c1, c2;
-
-		fopen_s(&fp, matfile.c_str(), "rb");
-
-		if (fp == NULL) {
-			std::cerr << "Error loading file: " << matfile << std::endl;
-			std::getchar();
-			exit(-1);
-		}
-
-		// feof returns end of file
-		while (!feof(fp)) {
-			c1 = fgetc(fp); // returns character as int
-			while (!(c1 == 'K' || c1 == 'N' || c1 == 'd' || c1 == 'i')) {
-				c1 = fgetc(fp);
-				if (feof(fp))
-					break;
-			}
-			c2 = fgetc(fp);
-
-			// get vertices
-			if ((c1 == 'N') && (c2 == 's')) {
-				fscanf_s(fp, " %f", &hi);
-				specInt = hi;
-			}
-			// get normals
-			else if ((c1 == 'K') && (c2 == 'a')) {
-				fscanf_s(fp, " %f %f %f", &va, &vb, &vc);
-				ambientCol = glm::vec4(va, vb, vc, 1.0f);
-			}
-			else if (c1 == 'K' && c2 == 'd')
-			{
-				fscanf_s(fp, " %f %f %f", &va, &vb, &vc);
-				diffuseCol = glm::vec4(va, vb, vc, 1.0f);
-			}
-			else if (c1 == 'K' && c2 == 's')
-			{
-				fscanf_s(fp, " %f %f %f", &va, &vb, &vc);
-				specCol = glm::vec4(va, vb, vc, 1.0f);
-			}
-		}
+		return CreateRef<Material>(name, m_Shader);
 	}
 
 }

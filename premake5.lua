@@ -127,3 +127,8 @@ project "Sandbox"
 		"%{IncludeDir.glm}",
 		"%{IncludeDir.stb_image}"
 	}
+
+	removefiles 
+	{
+		"%{prj.name}/src/Archives/**",
+	}

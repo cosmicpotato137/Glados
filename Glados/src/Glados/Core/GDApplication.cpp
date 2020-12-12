@@ -39,10 +39,13 @@ namespace Glados {
 			Timestep timestep = time - m_LastFrameTime;
 
 			// update per layer
-			for (Layer* layer : m_LayerStack)
+			if (!m_Minimized)
 			{
-				layer->OnUpdate(timestep);
-				layer->OnRender();
+				for (Layer* layer : m_LayerStack)
+				{
+					layer->OnUpdate(timestep);
+					layer->OnRender();
+				}
 			}
 
 			// imgui rendering per layer
@@ -61,14 +64,14 @@ namespace Glados {
 	void Application::OnEvent(Event& e)
 	{
 		EventDispatcher dispatcher(e);
+		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(Application::OnWindowClose));
+		dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(Application::OnWindowResize));
 		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin(); )
 		{
 			(*--it)->OnEvent(e);
 			if (e.Handled)
 				break;
 		}
-
-		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(Application::OnWindowClose));
 		dispatcher.Dispatch<KeyPressedEvent>(BIND_EVENT_FN(Application::OnKeyPressed));
 	}
 
@@ -76,6 +79,19 @@ namespace Glados {
 	{
 		m_Running = false;
 		return true;
+	}
+
+	bool Application::OnWindowResize(WindowResizeEvent& e)
+	{
+		if (e.GetWidth() == 0 || e.GetHeight() == 0)
+		{
+			m_Minimized = true;
+			return true;
+		}
+
+		m_Minimized = false;
+		Renderer::SetViewport(0, 0, e.GetWidth(), e.GetHeight());
+		return false;
 	}
 
 	bool Application::OnKeyPressed(KeyPressedEvent& e)

@@ -7,12 +7,6 @@
 // supported window APIs
 #define GD_GLFW_API 1
 
-#ifdef GD_DEBUG
-#define GD_TO_STRING(x) #x
-#else
-GD_TO_STRING(x)
-#endif
-
 // platform specific stuff
 #ifdef GD_PLATFORM_WINDOWS
 #define GD_GRAPHICS_API GD_OPENGL_API

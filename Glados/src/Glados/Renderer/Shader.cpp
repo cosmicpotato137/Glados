@@ -1,6 +1,7 @@
 #include "gladospch.h"
 #include "Shader.h"
 #include "Platform/OpenGL/OpenGLShader.h"
+#include "Glados/Renderer/Renderer.h"
 
 namespace Glados {
 
@@ -26,10 +27,8 @@ namespace Glados {
 
 	void ShaderLibrary::Add(const Ref<Shader>& shader)
 	{
-		if (!Exists(shader->GetName()))
-			m_Shaders[shader->GetName()] = shader;
-		else
-			GD_CORE_WARN("Shader already exists!");
+		GD_CORE_VALIDATE(!Exists(shader->GetName()), return, "Shader already exists!");
+		m_Shaders[shader->GetName()] = shader;
 	}
 
 	Glados::Ref<Glados::Shader> ShaderLibrary::Load(const std::string& filepath)
@@ -39,15 +38,14 @@ namespace Glados {
 		return shader;
 	}
 
-	Glados::Ref<Glados::Shader> ShaderLibrary::Get(const std::string& name)
-	{
-		GD_CORE_ASSERT(Exists(name), "Shader doesn't exist!");
-		return m_Shaders[name];
-	}
-
 	bool ShaderLibrary::Exists(const std::string& name)
 	{
 		return m_Shaders.find(name) != m_Shaders.end();
 	}
 
+	Ref<Shader> ShaderLibrary::Get(const std::string& name)
+	{
+		GD_CORE_VALIDATE(Exists(name), return Renderer::GetDefaultShader(), "Shader doesn't exist!");
+		return m_Shaders[name];
+	}
 }

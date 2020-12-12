@@ -141,7 +141,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\Glados.h" />
-    <ClInclude Include="src\Glados\Core\Assert.h" />
     <ClInclude Include="src\Glados\Core\Core.h" />
     <ClInclude Include="src\Glados\Core\EntryPoint.h" />
     <ClInclude Include="src\Glados\Core\GDApplication.h" />
@@ -160,11 +159,14 @@
     <ClInclude Include="src\Glados\ImGui\ImGuiLayer.h" />
     <ClInclude Include="src\Glados\Renderer\Buffer.h" />
     <ClInclude Include="src\Glados\Renderer\GraphicsContext.h" />
+    <ClInclude Include="src\Glados\Renderer\Material.h" />
+    <ClInclude Include="src\Glados\Renderer\Mesh.h" />
     <ClInclude Include="src\Glados\Renderer\Renderer.h" />
     <ClInclude Include="src\Glados\Renderer\RendererAPI.h" />
     <ClInclude Include="src\Glados\Renderer\Shader.h" />
     <ClInclude Include="src\Glados\Renderer\StbImageImpl.h" />
     <ClInclude Include="src\Glados\Renderer\Texture.h" />
+    <ClInclude Include="src\Glados\Renderer\Uniform.h" />
     <ClInclude Include="src\Glados\Renderer\VertexArray.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
@@ -186,10 +188,13 @@
     <ClCompile Include="src\Glados\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\Glados\Renderer\Bufer.cpp" />
     <ClCompile Include="src\Glados\Renderer\GraphicsContext.cpp" />
+    <ClCompile Include="src\Glados\Renderer\Material.cpp" />
+    <ClCompile Include="src\Glados\Renderer\Mesh.cpp" />
     <ClCompile Include="src\Glados\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Glados\Renderer\RendererAPI.cpp" />
     <ClCompile Include="src\Glados\Renderer\Shader.cpp" />
     <ClCompile Include="src\Glados\Renderer\Texture.cpp" />
+    <ClCompile Include="src\Glados\Renderer\Uniform.cpp" />
     <ClCompile Include="src\Glados\Renderer\VertexArray.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />

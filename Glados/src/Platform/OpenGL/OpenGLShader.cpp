@@ -4,6 +4,27 @@
 
 namespace Glados {
 
+	static UniformType GLTypeToGDUniformType(uint32_t type)
+	{
+		switch (type)
+		{
+		case GL_NONE:		return UniformType::None;
+		case GL_FLOAT:		return UniformType::Float;
+		case GL_FLOAT_VEC2:	return UniformType::Float2;
+		case GL_FLOAT_VEC3:	return UniformType::Float3;
+		case GL_FLOAT_VEC4:	return UniformType::Float4;
+		case GL_FLOAT_MAT3:	return UniformType::Mat3;
+		case GL_FLOAT_MAT4:	return UniformType::Mat4;
+		case GL_INT:		return UniformType::Int;
+		case GL_INT_VEC2:	return UniformType::Int2;
+		case GL_INT_VEC3:	return UniformType::Int3;
+		case GL_INT_VEC4:	return UniformType::Int4;
+		case GL_BOOL:		return UniformType::Bool;
+		}
+        GD_CORE_ASSERT(false, "Unknown OpenGL type!");
+        return UniformType::None;
+	}
+
 	static GLenum ShaderTypeFromString(const std::string& type)
 	{
 		if (type == "vertex")
@@ -29,26 +50,29 @@ namespace Glados {
     }
 
     OpenGLShader::OpenGLShader(const std::string& filepath)
-        : m_Filepath(filepath)
+        : m_Filepath(filepath), m_BuildStatus(false), m_RendererID(0)
     {
-        Load();
-
 		// Extract name from filepath
 		auto lastSlash = filepath.find_last_of("/\\");
 		lastSlash = lastSlash == std::string::npos ? 0 : lastSlash + 1;
 		auto lastDot = filepath.rfind('.');
 		auto count = lastDot == std::string::npos ? filepath.size() - lastSlash : lastDot - lastSlash;
 		m_Name = filepath.substr(lastSlash, count);
+        BuildShader();
     }
 
-	OpenGLShader::OpenGLShader(const std::string& name, const std::string& vertex, const std::string& fragment)
-        : m_Name(name)
+    OpenGLShader::OpenGLShader(const std::string& name, const std::string& vertex, const std::string& fragment)
+        : m_Name(name), m_BuildStatus(false), m_RendererID(0)
 	{
         ShaderSources shaderSources;
         shaderSources[GL_VERTEX_SHADER] = vertex;
         shaderSources[GL_FRAGMENT_SHADER] = fragment;
 		ShaderIDs shaderIDs = Compile(shaderSources);
 		m_RendererID = Link(shaderIDs);
+
+        m_BuildStatus = m_RendererID;
+        if (m_BuildStatus)
+		    LoadUniforms();
 	}
 
 	OpenGLShader::~OpenGLShader()
@@ -56,22 +80,24 @@ namespace Glados {
         glDeleteProgram(m_RendererID);
     }
 
-	const std::string& OpenGLShader::GetName() const
+	void OpenGLShader::BuildShader()
 	{
-        return m_Name;
-	}
+        GD_CORE_VALIDATE(&m_Filepath, return, "{0}: Unable to load shader! No filepath specified.", m_Filepath);
 
-	void OpenGLShader::Load()
-	{
-        if (&m_Filepath)
+        if (m_RendererID)
         {
-            std::string source = ReadFile(m_Filepath);
-            ShaderSources shaderSources = Preprocess(source, "#shader");
-            ShaderIDs shaderIDs = Compile(shaderSources);
-            m_RendererID = Link(shaderIDs);
+            glDeleteProgram(m_RendererID);
+            m_RendererID = 0;
         }
-        else
-            GD_CORE_WARN("Unable to load shader! No filepath specified.");
+
+        std::string source = ReadFile(m_Filepath);
+        ShaderSources shaderSources = Preprocess(source, "#shader");
+        ShaderIDs shaderIDs = Compile(shaderSources);
+        m_RendererID = Link(shaderIDs);
+
+        m_BuildStatus = m_RendererID;
+        if (m_BuildStatus)
+		    m_UniformCache = LoadUniforms();
 	}
 
 	std::string OpenGLShader::ReadFile(const std::string& filepath)
@@ -111,13 +137,13 @@ namespace Glados {
 		while (pos != std::string::npos)
 		{
 			size_t eol = source.find_first_of("\r\n", pos); //End of shader type declaration line
-			GD_CORE_ASSERT(eol != std::string::npos, "Syntax error");
+			GD_CORE_VALIDATE(eol != std::string::npos, return ShaderSources(), "{0}: syntax error", m_Filepath);
 			size_t begin = pos + typeTokenLength + 1; //Start of shader type name (after "#type " keyword)
 			std::string type = source.substr(begin, eol - begin);
-			GD_CORE_ASSERT(ShaderTypeFromString(type), "Invalid shader type specified");
+			GD_CORE_VALIDATE(ShaderTypeFromString(type), return ShaderSources(), "{0}: Invalid shader type specified", m_Filepath);
 
 			size_t nextLinePos = source.find_first_not_of("\r\n", eol); //Start of shader code after shader type declaration line
-			GD_CORE_ASSERT(nextLinePos != std::string::npos, "Syntax error");
+			GD_CORE_VALIDATE(nextLinePos != std::string::npos, return ShaderSources(), "{0}: syntax error", m_Filepath);
 			pos = source.find(typeToken, nextLinePos); //Start of next shader type declaration line
 
 			shaderSources[ShaderTypeFromString(type)] = 
@@ -141,6 +167,7 @@ namespace Glados {
             GLint id = glCreateShader(type);
 
 		    glShaderSource(id, 1, &src, nullptr); // add source code for shader
+            
 		    glCompileShader(id); // compile the shader
 
             // get compilation status
@@ -154,14 +181,15 @@ namespace Glados {
                 char* message = (char*)_malloca(length * sizeof(char)); // assign message memory
                 glGetShaderInfoLog(id, length, &length, message); // get relevant data
 
-                GD_CORE_ERROR("Failed to compile {0} shader!", type == GL_VERTEX_SHADER ? "vertex" : "fragment");
+                GD_CORE_ERROR("{0}({1}) failed to compile:\n{2}", m_Filepath, type == GL_VERTEX_SHADER ? "vertex" : "fragment", message);
 
-                glDeleteShader(id);
+                for (int id : shaderIDs)
+                    glDeleteShader(id);
+
+                shaderIDs.clear();
+                return shaderIDs;
             }
-            else
-            {
-                shaderIDs.push_back(id);
-            }
+            shaderIDs.push_back(id);
             shaderIndex++;
         }
         return shaderIDs;
@@ -169,6 +197,9 @@ namespace Glados {
 
 	GLint OpenGLShader::Link(ShaderIDs shaderIDs)
 	{
+        if (!shaderIDs.size())
+            return 0;
+
 		GLint program = glCreateProgram();
 
 		// attaches shaders to the current program
@@ -187,7 +218,7 @@ namespace Glados {
 			char* message = (char*)_malloca(length * sizeof(char)); // assign message memory
 			glGetProgramInfoLog(program, length, &length, message); // get relevant data
 
-			GD_CORE_ERROR("Failed to link program: '{0}'", m_Name);
+			GD_CORE_ERROR("{0}: Failed to link program:\n{1}", m_Filepath, message);
 
 			glDeleteProgram(program);
             return 0;
@@ -203,7 +234,40 @@ namespace Glados {
         return program;
 	}
 
-    void OpenGLShader::Bind() const
+	UniformMap OpenGLShader::LoadUniforms()
+    {
+        UniformMap uniformMap;
+
+		// get uniforms
+		int num_uniforms;
+		glGetProgramiv(m_RendererID, GL_ACTIVE_UNIFORMS, &num_uniforms);
+		char uniformName[256];
+		int length;
+		int size;
+		unsigned int type;
+		for (int i = 0; i < num_uniforms; i++)
+		{
+			glGetActiveUniform(m_RendererID, i, sizeof(uniformName), &length, &size, &type, uniformName);
+            
+            //TODO: make Uniform::Create method?
+            if (m_UniformCache.Exists(uniformName))
+            {
+                m_UniformCache.GetUniform(uniformName)->SetID(glGetUniformLocation(m_RendererID, uniformName));
+                uniformMap.AddUniform(m_UniformCache.GetUniform(uniformName));
+            }
+            else
+            {
+                Ref<Uniform> u = CreateRef<Uniform>(GLTypeToGDUniformType(type), uniformName);
+                u->SetID(glGetUniformLocation(m_RendererID, uniformName));
+                uniformMap.AddUniform(u);
+            }
+
+		}
+
+        return uniformMap;
+	}
+
+	void OpenGLShader::Bind() const
     {
         glUseProgram(m_RendererID);
     }
@@ -213,15 +277,38 @@ namespace Glados {
         glUseProgram(0);
     }
 
-    // sets the binding point of a uniform block and returns its index
+	// sets the binding point of a uniform block and returns its index
     void OpenGLShader::SetUniformBlockIndex(const std::string& name, unsigned int binding)
     {
         unsigned int ubo = glGetUniformBlockIndex(m_RendererID, name.c_str());
         glUniformBlockBinding(m_RendererID, ubo, binding);
     }
 
+	void OpenGLShader::SetUniforms()
+	{
+        for (auto p : m_UniformCache)
+        {
+			Ref<Uniform> uniform = p.second;
+			switch (uniform->Type)
+			{
+			case UniformType::Float:	glUniform1fv(uniform->GetID(), 1, (float*)uniform->GetData()); break;
+			case UniformType::Float2:	glUniform2fv(uniform->GetID(), 1, (float*)uniform->GetData()); break;
+			case UniformType::Float3:	glUniform3fv(uniform->GetID(), 1, (float*)uniform->GetData()); break;
+			case UniformType::Float4:	glUniform4fv(uniform->GetID(), 1, (float*)uniform->GetData()); break;
+			case UniformType::Mat3:		glUniformMatrix3fv(uniform->GetID(), 1, false, (float*)uniform->GetData()); break;
+			case UniformType::Mat4:		glUniformMatrix4fv(uniform->GetID(), 1, false, (float*)uniform->GetData()); break;
+			case UniformType::Int:		glUniform1iv(uniform->GetID(), 1, (int*)uniform->GetData()); break;
+			case UniformType::Int2:		glUniform2iv(uniform->GetID(), 1, (int*)uniform->GetData()); break;
+			case UniformType::Int3:		glUniform3iv(uniform->GetID(), 1, (int*)uniform->GetData()); break;
+			case UniformType::Int4:		glUniform4iv(uniform->GetID(), 1, (int*)uniform->GetData()); break;
+			case UniformType::Bool:		glUniform1iv(uniform->GetID(), 1, (int*)uniform->GetData()); break;
+			}
+        }
+	}
+
     void OpenGLShader::SetInt(const std::string& name, int value)
     {
+		glUniform1i(m_UniformCache.GetUniform(name)->GetID(), value);
     }
 
 
@@ -231,86 +318,103 @@ namespace Glados {
 
     void OpenGLShader::SetFloat(const std::string& name, float value)
     {
-    
+		glUniform1f(m_UniformCache.GetUniform(name)->GetID(), value);
     }
+
     void OpenGLShader::SetFloat3(const std::string& name, const glm::vec3& value)
     {
+
     }
 
-    void OpenGLShader::SetFloat4(const std::string& name, const glm::vec4& value)
+	void OpenGLShader::SetFloat3(const std::string& name, const float* value)
+	{
+		glUniform3fv(m_UniformCache.GetUniform(name)->GetID(), 1, value);
+	}
+
+	void OpenGLShader::SetFloat4(const std::string& name, const glm::vec4& value)
     {
-        glUniform4fv(glGetUniformLocation(m_RendererID, name.c_str()), 1, &value[0]);
+        glUniform4fv(m_UniformCache.GetUniform(name)->GetID(), 1, &value[0]);
     }
 
-    void OpenGLShader::SetMat4(const std::string& name, const glm::mat4& value)
+	void OpenGLShader::SetFloat4(const std::string& name, const float* value)
+	{
+		glUniform4fv(m_UniformCache.GetUniform(name)->GetID(), 1, value);
+	}
+
+	void OpenGLShader::SetMat4(const std::string& name, const glm::mat4& value)
     {
-		glUniformMatrix4fv(glGetUniformLocation(m_RendererID, name.c_str()), 1, false, &value[0][0]);
+		glUniformMatrix4fv(m_UniformCache.GetUniform(name)->GetID(), 1, false, &value[0][0]);
     }
 
-    void OpenGLShader::SetUniform4f(const std::string& name,
-        float v0, float v1, float v2, float v3)
-    {
-        glUniform4f(GetUniformLocation(name), v0, v1, v2, v3);
-    }
+	template<UniformType T> void OpenGLShader::SetUniform(Ref<Uniform> uniform)
+	{
+		GD_CORE_WARN("Unknown uniform type");
+	}
 
-    void OpenGLShader::SetUniform4fv(const std::string& name, const float* value)
-    {
-        glUniform4fv(GetUniformLocation(name), 1, value);
-    }
+	template<>
+	void OpenGLShader::SetUniform<UniformType::Bool>(const Ref<Uniform> uniform)
+	{
+		glUniform1iv(uniform->GetID(), 1, (int*)uniform->GetData());
+	}
+	
+	template<>
+	void OpenGLShader::SetUniform<UniformType::Int>(const Ref<Uniform> uniform)
+	{
+		glUniform1iv(uniform->GetID(), 1, (int*)uniform->GetData());
+	}
 
-    void OpenGLShader::SetUniform3f(const std::string& name,
-        float v0, float v1, float v2)
-    {
-        glUniform3f(GetUniformLocation(name), v0, v1, v2);
-    }
+	template<>
+	void OpenGLShader::SetUniform<UniformType::Int2>(const Ref<Uniform> uniform)
+	{
+		glUniform2iv(uniform->GetID(), 1, (int*)uniform->GetData());
+	}
 
-    void OpenGLShader::SetUniform3fv(const std::string& name, const float* value)
-    {
-        glUniform3fv(GetUniformLocation(name), 1, value);
-    }
+	template<>
+	void OpenGLShader::SetUniform<UniformType::Int3>(const Ref<Uniform> uniform)
+	{
+		glUniform3iv(uniform->GetID(), 1, (int*)uniform->GetData());
+	}
 
-    void OpenGLShader::SetUniformMat4fv(const std::string& name, bool transpose, const float* value)
-    {
-        glUniformMatrix4fv(GetUniformLocation(name), 1, transpose, value);
-    }
+	template<>
+	void OpenGLShader::SetUniform<UniformType::Int4>(const Ref<Uniform> uniform)
+	{
+		glUniform4iv(uniform->GetID(), 1, (int*)uniform->GetData());
+	}
 
-    void OpenGLShader::SetUniform1f(const std::string& name, float f)
-    {
-        glUniform1f(GetUniformLocation(name), f);
-    }
+	template<>
+	void OpenGLShader::SetUniform<UniformType::Float>(const Ref<Uniform> uniform)
+	{
+		glUniform1fv(uniform->GetID(), 1, (float*)uniform->GetData());
+	}
 
-    void OpenGLShader::SetUniform1i(const std::string& name, int i)
-    {
-        glUniform1i(GetUniformLocation(name), i);
-    }
+	template<>
+	void OpenGLShader::SetUniform<UniformType::Float2>(const Ref<Uniform> uniform)
+	{
+		glUniform2fv(uniform->GetID(), 1, (float*)uniform->GetData());
+	}
 
-    void OpenGLShader::SetUniformMat4f(const std::string& name, glm::mat4& matrix)
-    {
-        glUniformMatrix4fv(GetUniformLocation(name), 1, GL_FALSE, &matrix[0][0]);
-    }
+	template<>
+	void OpenGLShader::SetUniform<UniformType::Float3>(const Ref<Uniform> uniform)
+	{
+		glUniform3fv(uniform->GetID(), 1, (float*)uniform->GetData());
+	}
 
-    int OpenGLShader::GetUniformLocation(const std::string& name)
-    {
-        if (m_UniformLocationCache.find(name) != m_UniformLocationCache.end())
-            return m_UniformLocationCache[name];
+	template<>
+	void OpenGLShader::SetUniform<UniformType::Float4>(const Ref<Uniform> uniform)
+	{
+		glUniform4fv(uniform->GetID(), 1, (float*)uniform->GetData());
+	}
 
-        int location = glGetUniformLocation(m_RendererID, name.c_str());
-        if (location == -1)
-        {
-            std::cout << "Warning: uniform '" << name << "' doesn't exist!" << std::endl;
-            m_UniformLocationCache[name] = location;
-        }
-        //std::cout << location << std::endl;
-        return location;
-    }
+	template<>
+	void OpenGLShader::SetUniform<UniformType::Mat3>(const Ref<Uniform> uniform)
+	{
+		glUniformMatrix3fv(uniform->GetID(), 1, false, (float*)uniform->GetData());
+	}
 
-#ifdef _DEBUG
-    void OpenGLShader::PrintUniforms()
-    {
-        GLPrintUniformInfo(m_RendererID);
-    }
-#else
-    void OpenGLShader::PrintUniforms() {}
-#endif
+	template<>
+	void OpenGLShader::SetUniform<UniformType::Mat4>(const Ref<Uniform> uniform)
+	{
+		glUniformMatrix4fv(uniform->GetID(), 1, false, (float*)uniform->GetData());
+	}
 
 }

@@ -50,7 +50,6 @@ namespace Glados {
 		// init glfw
 		if (!s_GLFWInitialized)
 		{
-			//TODO: GLFW terminate on system shutdown
 			int success = glfwInit();
 			GD_CORE_ASSERT(success, "Could not initialize GLFW");
 			glfwSetErrorCallback(GLFWErrorCallback);

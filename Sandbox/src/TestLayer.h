@@ -14,6 +14,7 @@ public:
 	~SandboxLayer();
 
 	void OnAttach() override;
+	void OnDetach() override;
 
 	void OnUpdate(Timestep timestep) override;
 	void OnRender() override;

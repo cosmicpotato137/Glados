@@ -22,18 +22,18 @@ namespace test {
 		};
 
 		// define blend function
-		Renderer::Blend(blend);
+		Renderer::SetBlend(blend);
 
 		m_VAO = VertexArray::Create();
 
 		BufferLayout layout({
-			BufferElement(ShaderDataType::Float2, "position"),
-			BufferElement(ShaderDataType::Float2, "texcoord")
+			Uniform(UniformType::Float2, "position"),
+			Uniform(UniformType::Float2, "texcoord")
 			});
 
 		m_VertexBuffer = VertexBuffer::Create(positions, layout.GetStride() * 4);
 		m_VertexBuffer->SetLayout(layout);
-		m_VAO->AddBuffer(*m_VertexBuffer);
+		m_VAO->AddVertexBuffer(m_VertexBuffer);
 
 		m_IndexBuffer = IndexBuffer::Create(&indices[0], 6);
 		m_VAO->SetIndexBuffer(m_IndexBuffer);
@@ -82,7 +82,7 @@ namespace test {
 	void TestTexture2D::OnImGuiRender()
 	{
 		if (ImGui::Checkbox("Enable Blending", &blend))
-			Renderer::Blend(blend);
+			Renderer::SetBlend(blend);
 
 		ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 	}

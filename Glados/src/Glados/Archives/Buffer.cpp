@@ -119,7 +119,7 @@ namespace Glados {
 	void UniformBuffer::GetBufferSubData(unsigned int x, unsigned int y, void* data)
 	{
 		GLCall(glBindBuffer(GL_UNIFORM_BUFFER, m_RendererID));
-		unsigned int size = BufferElement::GetSizeOfType((*m_Layout)[x].type);
+		unsigned int size = Uniform::GetSizeOfType((*m_Layout)[x].type);
 		glGetBufferSubData(GL_UNIFORM_BUFFER, 0, m_Layout->ByteSize() * m_NumElements, data);
 		GLCall(glBindBuffer(GL_UNIFORM_BUFFER, 0));
 	}
