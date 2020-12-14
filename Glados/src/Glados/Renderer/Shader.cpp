@@ -27,7 +27,7 @@ namespace Glados {
 
 	void ShaderLibrary::Add(const Ref<Shader>& shader)
 	{
-		GD_CORE_VALIDATE(!Exists(shader->GetName()), return, "Shader already exists!");
+		GD_CORE_VALIDATE(!Exists(shader->GetName()), return, "Shader: {0} already exists!", shader->GetName());
 		m_Shaders[shader->GetName()] = shader;
 	}
 
@@ -45,7 +45,7 @@ namespace Glados {
 
 	Ref<Shader> ShaderLibrary::Get(const std::string& name)
 	{
-		GD_CORE_VALIDATE(Exists(name), return Renderer::GetDefaultShader(), "Shader doesn't exist!");
+		GD_CORE_VALIDATE(Exists(name), return Renderer::GetDefaultShader(), "Shader: {0} doesn't exist!", name);
 		return m_Shaders[name];
 	}
 }

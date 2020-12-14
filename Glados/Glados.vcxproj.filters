@@ -128,6 +128,8 @@
     <ClInclude Include="src\Glados\Renderer\Material.h" />
     <ClInclude Include="src\Glados\Renderer\Mesh.h" />
     <ClInclude Include="src\Glados\Renderer\Uniform.h" />
+    <ClInclude Include="src\Glados\Renderer\Framebuffer.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLFramebuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Glados\Core\GDApplication.cpp">
@@ -200,5 +202,7 @@
     <ClCompile Include="src\Glados\Renderer\Material.cpp" />
     <ClCompile Include="src\Glados\Renderer\Mesh.cpp" />
     <ClCompile Include="src\Glados\Renderer\Uniform.cpp" />
+    <ClCompile Include="src\Glados\Renderer\Framebuffer.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLFramebuffer.cpp" />
   </ItemGroup>
 </Project>

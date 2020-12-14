@@ -38,11 +38,7 @@ namespace test {
 		m_IndexBuffer = IndexBuffer::Create(&indices[0], 6);
 		m_VAO->SetIndexBuffer(m_IndexBuffer);
 		
-		// shader library implementation
-		if (Renderer::GetShaderLibrary().Exists("textureTest"))
-			m_Shader = Renderer::GetShaderLibrary().Get("textureTest");
-		else
-			m_Shader = Renderer::GetShaderLibrary().Load("res/shaders/textureTest.shader");
+		m_Shader = Renderer::GetShaderLibrary().Get("textureTest");
 		m_Shader->Bind();
 		glm::vec4 color = { 1.0f, 1.0f, 1.0f, 1.0f };
 		m_Shader->SetFloat4("u_Color", color);
@@ -63,15 +59,6 @@ namespace test {
 
 	void TestTexture2D::OnUpdate(float deltaTime)
 	{
-		//if (!blend && blend != dblend)
-		//{
-		//	dblend = blend;
-		//}
-		//else if (blend && blend != dblend)
-		//{
-		//	GLCall(glEnable(GL_BLEND));
-		//	dblend = blend;
-		//}
 	}
 
 	void TestTexture2D::OnRender()

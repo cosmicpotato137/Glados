@@ -16,13 +16,12 @@ namespace Glados {
 	{
 		switch (severity)
 		{
-		case GL_DEBUG_SEVERITY_HIGH:         GD_CORE_CRITICAL(message); break;
-		case GL_DEBUG_SEVERITY_MEDIUM:       GD_CORE_ERROR(message);	break;
-		case GL_DEBUG_SEVERITY_LOW:          GD_CORE_WARN(message);		break;
-		case GL_DEBUG_SEVERITY_NOTIFICATION: GD_CORE_TRACE(message);	break;
-		default: GD_CORE_ASSERT(false, "Unknown severity level!");		break;
+		case GL_DEBUG_SEVERITY_HIGH:         GD_CORE_CRITICAL(message); return;
+		case GL_DEBUG_SEVERITY_MEDIUM:       GD_CORE_ERROR(message);	return;
+		case GL_DEBUG_SEVERITY_LOW:          GD_CORE_WARN(message);		return;
+		case GL_DEBUG_SEVERITY_NOTIFICATION: GD_CORE_TRACE(message);	return;
 		}
-		GD_CORE_ASSERT(false, "OpenGL Error!");
+		GD_CORE_ASSERT(false, "Unknown severity level!");
 	}
 
 	OpenGLRendererAPI::OpenGLRendererAPI()

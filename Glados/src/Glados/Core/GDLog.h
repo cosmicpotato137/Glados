@@ -37,7 +37,6 @@ namespace Glados {
 #define GD_CORE_CRITICAL(...)	::Glados::Log::GetCoreLogger()->critical(__VA_ARGS__)
 
 // client Log macros
-#define GD_FATAL(...)		::Glados::Log::GetClientLogger()->fatal(__VA_ARGS__)
 #define GD_TRACE(...)		::Glados::Log::GetClientLogger()->trace(__VA_ARGS__)
 #define GD_INFO(...)		::Glados::Log::GetClientLogger()->info(__VA_ARGS__)
 #define GD_WARN(...)		::Glados::Log::GetClientLogger()->warn(__VA_ARGS__)
@@ -59,8 +58,8 @@ namespace Glados {
 
 // debug validations
 #ifdef GD_ENABLE_ASSERTS
-#define GD_VALIDATE(x, y, ...) { if (!(x)) { GD_WARN("Validation Failed: {0}", __VA_ARGS__); y; } }
-#define GD_CORE_VALIDATE(x, y, ...) { if(!(x)) { GD_CORE_WARN("Validation Failed: {0}", __VA_ARGS__); y; } }
+#define GD_VALIDATE(x, y, ...) { if (!(x)) { GD_WARN(__VA_ARGS__); y; } }
+#define GD_CORE_VALIDATE(x, y, ...) { if(!(x)) { GD_CORE_WARN(__VA_ARGS__); y; } }
 #else
 #define GD_VALIDATE(x, y, ...)
 #define GD_CORE_VALIDATE(x, y, ...)
@@ -68,8 +67,8 @@ namespace Glados {
 
 // debug assertions
 #ifdef GD_ENABLE_ASSERTS
-#define GD_ASSERT(x, ...) {if(!(x)) { GD_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
-#define GD_CORE_ASSERT(x, ...) {if(!(x)) { GD_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
+#define GD_ASSERT(x, ...) {if(!(x)) { GD_ERROR(__VA_ARGS__); __debugbreak(); } }
+#define GD_CORE_ASSERT(x, ...) {if(!(x)) { GD_CORE_ERROR(__VA_ARGS__); __debugbreak(); } }
 #else
 #define GD_ASSERT(x, ...)
 #define GD_CORE_ASSERT(x, ...)

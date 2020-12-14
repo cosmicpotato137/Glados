@@ -56,9 +56,12 @@ namespace Glados {
 			m_ImGuiLayer->End();
 
 			m_Window->OnUpdate();
-
-			Renderer::Clear();
 		}
+	}
+
+	void Application::Close()
+	{
+		m_Running = false;
 	}
 
 	void Application::OnEvent(Event& e)

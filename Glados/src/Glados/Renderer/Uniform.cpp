@@ -22,6 +22,12 @@ namespace Glados {
 		return 0;
 	}
 
+	Uniform::Uniform()
+		: m_Data(nullptr), m_ID(-1), Name("empty"), 
+		Type(UniformType::None), Size(0), Normalized(false)
+	{
+	}
+
 	Uniform::Uniform(UniformType type, const std::string& name, bool normalized) 
 		: Name(name), Type(type), Size(UniformTypeSize(type)), Normalized(normalized)
 	{
@@ -66,6 +72,11 @@ namespace Glados {
 		return 0;
 	}
 
+	UniformMap::UniformMap()
+	{
+		m_UniformMap["empty"] = CreateRef<Uniform>();
+	}
+
 	void UniformMap::AddUniform(const Ref<Uniform>& u)
 	{
 		GD_CORE_VALIDATE(!Exists(u->Name), return, "Can not have duplicate uniforms!");
@@ -78,9 +89,9 @@ namespace Glados {
 			m_UniformMap.clear();
 	}
 
-	const Glados::Ref<Glados::Uniform>& UniformMap::GetUniform(const std::string& uniformName)
+	const Glados::Ref<Uniform>& UniformMap::GetUniform(const std::string& uniformName)
 	{
-		GD_CORE_ASSERT(Exists(uniformName), "Uniform doesn't exist!");
+		GD_CORE_VALIDATE(Exists(uniformName), return m_UniformMap["empty"], "Uniform: {0} doesn't exist!", uniformName);
 		return m_UniformMap[uniformName];
 	}
 

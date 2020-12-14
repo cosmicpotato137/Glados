@@ -18,6 +18,7 @@
 //-------Renderer---------
 
 #include "Glados/Renderer/Renderer.h"
+#include "Glados/Renderer/Framebuffer.h"
 #include "Glados/Renderer/Buffer.h"
 #include "Glados/Renderer/VertexArray.h"
 #include "Glados/Renderer/Shader.h"

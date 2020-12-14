@@ -5,7 +5,7 @@ namespace Glados {
 	class Texture 
 	{
 	public:
-		~Texture() = default;
+		virtual ~Texture() = default;
 
 		// many different texture slots in gpus modern gpu has abt 8
 		virtual void Bind(unsigned int slot = 0) const = 0;

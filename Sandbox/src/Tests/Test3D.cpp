@@ -39,8 +39,8 @@ namespace test {
 		}
 
 		Window& window = Application::Get().GetWindow();
-		float w = window.GetWidth();
-		float h = window.GetHeight();
+		float w = (float)window.GetWidth();
+		float h = (float)window.GetHeight();
 		float aspect = w / h;
 		m_Projection = perspective(radians(90.0f), aspect, 0.1f, 1500.0f);
 		//m_Projection = ortho(0.0f, (float)window.GetWidth(), 0.0f, (float)window.GetHeight());

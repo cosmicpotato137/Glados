@@ -6,7 +6,11 @@ namespace Glados {
 
 	enum class UniformType
 	{
-		None = 0, Float, Float2, Float3, Float4, Mat3, Mat4, Int, Int2, Int3, Int4, Bool
+		None = 0, 
+		Float, Float2, Float3, Float4, 
+		Mat3, Mat4, 
+		Int, Int2, Int3, Int4, Bool,
+		Sampler1, Sampler2
 	};
 
 	static uint32_t UniformTypeSize(UniformType attrib);
@@ -22,7 +26,7 @@ namespace Glados {
 		uint32_t m_ID;
 		void* m_Data;
 	public:
-		Uniform() = default;
+		Uniform();
 		Uniform(UniformType type, const std::string& name, bool normalized = false);
 
 		void SetID(uint32_t id);
@@ -38,7 +42,7 @@ namespace Glados {
 	private:
 		std::unordered_map<std::string, Ref<Uniform>> m_UniformMap;
 	public:
-		UniformMap() : m_UniformMap() {};
+		UniformMap();
 
 		void AddUniform(const Ref<Uniform>& u);
 		void Reset();

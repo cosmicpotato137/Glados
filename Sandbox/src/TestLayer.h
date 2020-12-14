@@ -9,6 +9,7 @@ class SandboxLayer : public Layer
 private:
 	Test* m_CurrentTest;
 	TestMenu* m_TestMenu;
+	Ref<Framebuffer> m_Framebuffer;
 public:
 	SandboxLayer();
 	~SandboxLayer();

@@ -20,6 +20,7 @@ namespace Glados {
 		case GL_INT_VEC3:	return UniformType::Int3;
 		case GL_INT_VEC4:	return UniformType::Int4;
 		case GL_BOOL:		return UniformType::Bool;
+		case GL_SAMPLER_2D: return UniformType::Sampler2;
 		}
         GD_CORE_ASSERT(false, "Unknown OpenGL type!");
         return UniformType::None;
