@@ -35,7 +35,7 @@ namespace test {
 		// make model
 		{
 			m_VertexArray = VertexArray::Create();
-			m_Mesh = Mesh::Create("res/models/box.obj", m_VertexArray);
+			m_Mesh = Mesh::Create("res/models/Icosphere.obj", m_VertexArray);
 		}
 
 		Window& window = Application::Get().GetWindow();
@@ -90,9 +90,9 @@ namespace test {
 
 	void Test3D::OnImGuiRender()
 	{
-		ImGui::InputFloat3("Position", &m_Position[0]);
-		ImGui::InputFloat3("Rotation", &m_Rotation[0]);
-		ImGui::InputFloat3("Scale", &m_Scale[0]);
+		ImGui::DragFloat3("Position", &m_Position[0]);
+		ImGui::DragFloat3("Rotation", &m_Rotation[0]);
+		ImGui::DragFloat3("Scale", &m_Scale[0]);
 
 		m_Material->OnImGuiRender();
 	}

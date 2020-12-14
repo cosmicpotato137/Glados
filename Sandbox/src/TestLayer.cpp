@@ -142,7 +142,7 @@ void SandboxLayer::OnImGuiRender()
 
 	ImGui::Begin("Scene");
 	uint32_t textureID = m_Framebuffer->GetColorAttachmentRendererID();
-	ImGui::Image((void*)textureID, ImVec2((int)1280 / 2, (int)720 / 2));
+	ImGui::Image((void*)textureID, ImVec2((int)1280 / 2, (int)720 / 2), ImVec2(0, 1), ImVec2(1, 0));
 	ImGui::End();
 
 	ImGui::End();
