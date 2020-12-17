@@ -15,10 +15,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{F4C124E3-60A1-A37E-69B9-2E55D5170AE0}</ProjectGuid>
+    <ProjectGuid>{931F0907-FFDF-843D-C81A-CEBA349AC919}</ProjectGuid>
     <IgnoreWarnCompileDuplicatedFilename>true</IgnoreWarnCompileDuplicatedFilename>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>Sandbox</RootNamespace>
+    <RootNamespace>Glados-Editor</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -55,23 +55,23 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>..\bin\Debug-windows-x86Sandbox\</OutDir>
-    <IntDir>..\bin-int\Debug-windows-x86Sandbox\</IntDir>
-    <TargetName>Sandbox</TargetName>
+    <OutDir>..\bin\Debug-windows-x86Glados-Editor\</OutDir>
+    <IntDir>..\bin-int\Debug-windows-x86Glados-Editor\</IntDir>
+    <TargetName>Glados-Editor</TargetName>
     <TargetExt>.exe</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>..\bin\Release-windows-x86Sandbox\</OutDir>
-    <IntDir>..\bin-int\Release-windows-x86Sandbox\</IntDir>
-    <TargetName>Sandbox</TargetName>
+    <OutDir>..\bin\Release-windows-x86Glados-Editor\</OutDir>
+    <IntDir>..\bin-int\Release-windows-x86Glados-Editor\</IntDir>
+    <TargetName>Glados-Editor</TargetName>
     <TargetExt>.exe</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dist|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>..\bin\Dist-windows-x86Sandbox\</OutDir>
-    <IntDir>..\bin-int\Dist-windows-x86Sandbox\</IntDir>
-    <TargetName>Sandbox</TargetName>
+    <OutDir>..\bin\Dist-windows-x86Glados-Editor\</OutDir>
+    <IntDir>..\bin-int\Dist-windows-x86Glados-Editor\</IntDir>
+    <TargetName>Glados-Editor</TargetName>
     <TargetExt>.exe</TargetExt>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -79,7 +79,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>GLEW_STATIC;GD_PLATFORM_WINDOWS;GD_WIN32;GD_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Glados\src;..\Glados\vendor;..\Glados\vendor\spdlog\include;..\Glados\vendor\imgui;..\Glados\vendor\glm;..\Glados\vendor\stb_image;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Glados\src;..\Glados\vendor;..\Glados\vendor\spdlog\include;..\Glados\vendor\glm;..\Glados\vendor\stb_image;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -95,7 +95,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>GLEW_STATIC;GD_PLATFORM_WINDOWS;GD_WIN32;GD_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Glados\src;..\Glados\vendor;..\Glados\vendor\spdlog\include;..\Glados\vendor\imgui;..\Glados\vendor\glm;..\Glados\vendor\stb_image;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Glados\src;..\Glados\vendor;..\Glados\vendor\spdlog\include;..\Glados\vendor\glm;..\Glados\vendor\stb_image;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -115,7 +115,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>GLEW_STATIC;GD_PLATFORM_WINDOWS;GD_WIN32;GD_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Glados\src;..\Glados\vendor;..\Glados\vendor\spdlog\include;..\Glados\vendor\imgui;..\Glados\vendor\glm;..\Glados\vendor\stb_image;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Glados\src;..\Glados\vendor;..\Glados\vendor\spdlog\include;..\Glados\vendor\glm;..\Glados\vendor\stb_image;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -131,26 +131,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\TestLayer.h" />
-    <ClInclude Include="src\Tests\Test.h" />
-    <ClInclude Include="src\Tests\Test3D.h" />
-    <ClInclude Include="src\Tests\TestClearColor.h" />
-    <ClInclude Include="src\Tests\TestTexture.h" />
-    <ClInclude Include="src\Tests\TestVertexArray.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="src\Sandbox.cpp" />
-    <ClCompile Include="src\TestLayer.cpp" />
-    <ClCompile Include="src\Tests\Test.cpp" />
-    <ClCompile Include="src\Tests\Test3D.cpp" />
-    <ClCompile Include="src\Tests\TestClearColor.cpp" />
-    <ClCompile Include="src\Tests\TestTexture.cpp" />
-    <ClCompile Include="src\Tests\TestVertexArray.cpp" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Glados\Glados.vcxproj">
       <Project>{BF8856B5-AB2A-818B-94E5-94DF802608DC}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\EditorLayer.cpp" />
+    <ClCompile Include="src\GladosEditorApp.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\EditorLayer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

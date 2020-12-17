@@ -99,6 +99,33 @@ project "Glados"
 		defines "GD_ENABLE_ASSERTS"
 
 
+project "Glados-Editor"
+	location "Glados-Editor"
+	kind "ConsoleApp"
+	language "C++"
+	cppdialect "C++17"
+	staticruntime "on"
+
+	targetdir ("bin/" .. outputdir .. "%{prj.name}")
+	objdir ("bin-int/" .. outputdir .. "%{prj.name}")
+
+	links { "Glados" }
+
+	files
+	{
+		"%{prj.name}/src/**.h",
+		"%{prj.name}/src/**.cpp",
+	}
+
+	includedirs
+	{
+		"Glados/src",
+		"Glados/vendor",
+		"Glados/vendor/spdlog/include",
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.stb_image}"
+	}
+
 project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp"
@@ -123,7 +150,6 @@ project "Sandbox"
 		"Glados/vendor",
 		"Glados/vendor/spdlog/include",
 		"%{IncludeDir.ImGui}",
-		"%{IncludeDir.Glad}",
 		"%{IncludeDir.glm}",
 		"%{IncludeDir.stb_image}"
 	}

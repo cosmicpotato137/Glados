@@ -1,32 +1,30 @@
 #include "gladospch.h"
-#include "WindowsInput.h"
+#include "Glados/Core/Input.h"
 #include "Glados/Core/GDApplication.h"
 #include "GLFW/glfw3.h"
 
 namespace Glados {
 
-	Input* Input::s_Instance = new WindowsInput();
-
-	bool Glados::WindowsInput::IsKeyPressedImpl(int keycode)
+	bool Input::IsKeyPressed(int keycode)
 	{
 		auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
 		auto state = glfwGetKey(window, keycode);
 		return state == GLFW_PRESS || state == GLFW_REPEAT;
 	}
 
-	bool WindowsInput::IsMouseButtonPressedImpl(int keycode)
+	bool Input::IsMouseButtonPressed(int keycode)
 	{
 		auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
 		auto state = glfwGetMouseButton(window, keycode);
 		return state == GLFW_PRESS;
 	}
 
-	int WindowsInput::GetMouseScrollImpl()
+	int Input::GetMouseScroll()
 	{
 		return 0;
 	}
 
-	std::pair<float, float> WindowsInput::GetMousePosImpl()
+	std::pair<float, float> Input::GetMousePos()
 	{
 		double xpos, ypos;
 		auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
@@ -34,15 +32,15 @@ namespace Glados {
 		return std::pair<float, float>((float)xpos, (float)ypos);
 	}
 
-	float WindowsInput::GetMouseXImpl()
+	float Input::GetMouseX()
 	{
-		auto [x, y] = GetMousePosImpl();
+		auto [x, y] = GetMousePos();
 		return x;
 	}
 
-	float WindowsInput::GetMouseYImpl()
+	float Input::GetMouseY()
 	{
-		auto [x, y] = GetMousePosImpl();
+		auto [x, y] = GetMousePos();
 		return y;
 	}
 

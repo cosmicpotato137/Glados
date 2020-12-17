@@ -75,15 +75,14 @@ namespace Glados {
 		m_Time = time;
 	}
 
+	void ImGuiLayer::OnEvent(Event& e)
+	{
+		ImGuiIO& io = ImGui::GetIO();
+		e.Handled |= e.IsInCategory(m_EventFilters);
+	}
+	
 	void ImGuiLayer::OnImGuiRender()
 	{
-#ifdef IMGUI_SHOW_DEMO
-#ifdef GD_DEBUG
-		static bool showDemo = true;
-		if (showDemo)
-			ImGui::ShowDemoWindow(&showDemo);
-#endif
-#endif
 	}
 
 	void ImGuiLayer::Begin()

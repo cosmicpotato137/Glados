@@ -42,15 +42,4 @@
       <Filter>Tests</Filter>
     </ClCompile>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="res\shaders\default.shader" />
-    <None Include="res\shaders\basic.shader" />
-    <None Include="res\shaders\debug.shader" />
-    <None Include="res\shaders\forcefield.shader" />
-    <None Include="res\shaders\Gourad.shader" />
-    <None Include="res\shaders\ink.shader" />
-    <None Include="res\shaders\obj.shader" />
-    <None Include="res\shaders\Phong.shader" />
-    <None Include="res\shaders\textureTest.shader" />
-  </ItemGroup>
 </Project>

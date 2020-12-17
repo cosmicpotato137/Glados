@@ -79,7 +79,16 @@
     <ClInclude Include="src\Glados\Renderer\Buffer.h">
       <Filter>Glados\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\Glados\Renderer\Framebuffer.h">
+      <Filter>Glados\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\Glados\Renderer\GraphicsContext.h">
+      <Filter>Glados\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Glados\Renderer\Material.h">
+      <Filter>Glados\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Glados\Renderer\Mesh.h">
       <Filter>Glados\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Glados\Renderer\Renderer.h">
@@ -97,6 +106,9 @@
     <ClInclude Include="src\Glados\Renderer\Texture.h">
       <Filter>Glados\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\Glados\Renderer\Uniform.h">
+      <Filter>Glados\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\Glados\Renderer\VertexArray.h">
       <Filter>Glados\Renderer</Filter>
     </ClInclude>
@@ -104,6 +116,9 @@
       <Filter>Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h">
+      <Filter>Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLFramebuffer.h">
       <Filter>Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h">
@@ -125,11 +140,6 @@
       <Filter>Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\gladospch.h" />
-    <ClInclude Include="src\Glados\Renderer\Material.h" />
-    <ClInclude Include="src\Glados\Renderer\Mesh.h" />
-    <ClInclude Include="src\Glados\Renderer\Uniform.h" />
-    <ClInclude Include="src\Glados\Renderer\Framebuffer.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGLFramebuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Glados\Core\GDApplication.cpp">
@@ -156,7 +166,16 @@
     <ClCompile Include="src\Glados\Renderer\Bufer.cpp">
       <Filter>Glados\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\Glados\Renderer\Framebuffer.cpp">
+      <Filter>Glados\Renderer</Filter>
+    </ClCompile>
     <ClCompile Include="src\Glados\Renderer\GraphicsContext.cpp">
+      <Filter>Glados\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Glados\Renderer\Material.cpp">
+      <Filter>Glados\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Glados\Renderer\Mesh.cpp">
       <Filter>Glados\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Glados\Renderer\Renderer.cpp">
@@ -171,6 +190,9 @@
     <ClCompile Include="src\Glados\Renderer\Texture.cpp">
       <Filter>Glados\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\Glados\Renderer\Uniform.cpp">
+      <Filter>Glados\Renderer</Filter>
+    </ClCompile>
     <ClCompile Include="src\Glados\Renderer\VertexArray.cpp">
       <Filter>Glados\Renderer</Filter>
     </ClCompile>
@@ -178,6 +200,9 @@
       <Filter>Platform\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp">
+      <Filter>Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLFramebuffer.cpp">
       <Filter>Platform\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp">
@@ -199,10 +224,5 @@
       <Filter>Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\gladospch.cpp" />
-    <ClCompile Include="src\Glados\Renderer\Material.cpp" />
-    <ClCompile Include="src\Glados\Renderer\Mesh.cpp" />
-    <ClCompile Include="src\Glados\Renderer\Uniform.cpp" />
-    <ClCompile Include="src\Glados\Renderer\Framebuffer.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\OpenGLFramebuffer.cpp" />
   </ItemGroup>
 </Project>

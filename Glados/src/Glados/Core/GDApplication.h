@@ -34,8 +34,9 @@ namespace Glados {
 		void PushLayer(Layer* layer);
 		void PushOverlay(Layer* overlay);
 
-		static float GetTime() { return s_Instance->GetWindow().GetWindowTime(); }
+		ImGuiLayer& GetImGuiLayer() const { return *m_ImGuiLayer; }
 
+		static float GetTime() { return s_Instance->GetWindow().GetWindowTime(); }
 		static inline Application& Get() { return *s_Instance; }
 		inline Window& GetWindow() { return *m_Window; }
 

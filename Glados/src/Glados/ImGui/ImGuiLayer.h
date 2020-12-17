@@ -10,7 +10,7 @@ namespace Glados {
 	{
 	private:
 		float m_Time;
-	protected:
+		EventCategory m_EventFilters;
 	public:
 		ImGuiLayer(const std::string& name = "ImGui Layer");
 		~ImGuiLayer();
@@ -18,12 +18,14 @@ namespace Glados {
 		void OnAttach() override;
 		void OnDetach() override;
 		void OnUpdate(Timestep ts) override;
+		void OnEvent(Event& e) override;
 
-#define IMGUI_SHOW_DEMO
 		void OnImGuiRender() override;
 
 		void Begin();
 		void End();
+
+		void SetEventFilter(EventCategory category) { m_EventFilters = category; }
 	};
 
 }
