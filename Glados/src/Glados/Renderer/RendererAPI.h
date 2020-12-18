@@ -5,12 +5,12 @@
 using namespace glm;
 namespace Glados {
 
-	using API = unsigned int;
-
 	class RendererAPI
 	{
+	public:
+		enum class API { None = 0, OpenGL };
 	private:
-		API s_API;
+		static API s_API;
 	public:
 		~RendererAPI() = default;
 

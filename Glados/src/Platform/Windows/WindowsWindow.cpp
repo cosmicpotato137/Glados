@@ -1,7 +1,5 @@
 #include "gladospch.h"
 #include "WindowsWindow.h"
-#include "Platform/OpenGL/OpenGLContext.h"
-
 #include "Glados/Events/ApplicationEvent.h"
 #include "Glados/Events/MouseEvent.h"
 #include "Glados/Events/KeyEvent.h"
@@ -59,10 +57,10 @@ namespace Glados {
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 		glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, true);
-
+		
 		m_GLFWWindow = glfwCreateWindow((int)props.Width, (int)props.Height, props.Title.c_str(), nullptr, nullptr);
 
-		m_Context = new OpenGLContext(m_GLFWWindow);
+		m_Context = GraphicsContext::Create(m_GLFWWindow);
 		m_Context->Init();
 
 		glfwSetWindowUserPointer(m_GLFWWindow, &m_Data);

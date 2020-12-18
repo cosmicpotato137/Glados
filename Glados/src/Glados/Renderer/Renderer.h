@@ -18,7 +18,7 @@ namespace Glados {
 		Renderer() = delete;
 		~Renderer() = delete;
 
-		static API GetRenderAPI() { return s_RendererAPI->GetAPI(); }
+		static RendererAPI::API GetRenderAPI() { return s_RendererAPI->GetAPI(); }
 		static ShaderLibrary& GetShaderLibrary() { return *s_ShaderLib; }
 		static std::string GetRendererAPIVersion() { return s_RendererAPI->GetVersion(); }
 

@@ -99,15 +99,7 @@ namespace Glados {
 
 	bool Application::OnKeyPressed(KeyPressedEvent& e)
 	{
-		switch (e.GetKeyCode())
-		{
-		case GD_KEY_ESCAPE:
-			m_Running = false;
-		default:
-			break;
-		}
-
-		return true;
+		return false;
 	}
 
 	void Application::PushLayer(Layer* layer)

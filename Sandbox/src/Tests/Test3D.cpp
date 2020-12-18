@@ -102,17 +102,13 @@ namespace test {
 	void Test3D::OnEvent(Event& e)
 	{
 		EventDispatcher dispatcher(e);
-		dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(Test3D::OnWindowResizeEvent));
 		dispatcher.Dispatch<KeyPressedEvent>(BIND_EVENT_FN(Test3D::OnKeyPressedEvent));
 	}
 
-	bool Test3D::OnWindowResizeEvent(WindowResizeEvent& e)
+	void Test3D::OnViewportResize(glm::vec2 viewportSize)
 	{
-		Window& window = Application::Get().GetWindow();
-		float aspect = (float)window.GetWidth() / (float)window.GetHeight();
+		float aspect = viewportSize.x / viewportSize.y;
 		m_Projection = perspective(radians(90.0f), aspect, 0.1f, 1500.0f);
-
-		return false;
 	}
 
 	bool Test3D::OnKeyPressedEvent(KeyPressedEvent& e)

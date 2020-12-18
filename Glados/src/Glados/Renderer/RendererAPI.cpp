@@ -5,13 +5,16 @@
 
 namespace Glados {
 
+	RendererAPI::API RendererAPI::s_API = RendererAPI::API::OpenGL;
+
 	Scope<RendererAPI> RendererAPI::Create()
 	{
-		switch (GD_GRAPHICS_API)
+		switch (s_API)
 		{
-		case GD_OPENGL_API:	return CreateScope<OpenGLRendererAPI>();
+		case RendererAPI::API::None:	GD_CORE_ASSERT(false, "RendererAPI::API::None is not currently supported!");
+		case RendererAPI::API::OpenGL:	return CreateScope<OpenGLRendererAPI>();
 		}
-		GD_CORE_ASSERT(false, "Unknown API!");
+		GD_CORE_ASSERT(false, "Unknown RendererAPI::API!");
 		return nullptr;
 	}
 

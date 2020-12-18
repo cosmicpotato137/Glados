@@ -1,17 +1,21 @@
 #include "gladospch.h"
 #include "Window.h"
+
+#ifdef GD_PLATFORM_WINDOWS
 #include "Platform/Windows/WindowsWindow.h"
+#endif
 
 namespace Glados {
 
+	// TODO: Make scope?
 	Window* Window::Create(const WindowProps& props)
 	{
-		switch (GD_WINDOW_API)
-		{
-		case GD_GLFW_API: return new WindowsWindow(props);
-		}
-		GD_CORE_ASSERT(false, "Unknown API!");
+#ifdef GD_PLATFORM_WINDOWS
+		return new WindowsWindow(props);
+#else
+		GD_CORE_ASSERT(false, "Unknown Platform!");
 		return nullptr;
+#endif
 	}
 
 }

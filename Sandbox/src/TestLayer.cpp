@@ -80,6 +80,7 @@ void TestLayer::OnImGuiRender()
 {
 	Dockspace();
 
+	// viewport window
 	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
 	ImGui::Begin("Viewport");
 	m_ViewportHovered = ImGui::IsWindowHovered();
@@ -87,18 +88,22 @@ void TestLayer::OnImGuiRender()
 	ImVec2 viewportSize = ImGui::GetContentRegionAvail();
 	if (m_ViewportSize != *(glm::vec2*) & viewportSize)
 	{
-		m_Framebuffer->Resize(viewportSize.x, viewportSize.y);
+		m_Framebuffer->Resize((int)viewportSize.x, (int)viewportSize.y);
 		m_ViewportSize = *(glm::vec2*) & viewportSize;
+		if (m_CurrentTest)
+			m_CurrentTest->OnViewportResize(m_ViewportSize);
 	}
 	uint32_t textureID = m_Framebuffer->GetColorAttachmentRendererID();
 	ImGui::Image((void*)textureID, ImVec2(viewportSize.x, viewportSize.y), ImVec2(0, 1), ImVec2(1, 0));
 	ImGui::End();
 	ImGui::PopStyleVar();
 
+	// demo window
 	static bool showDemo = true;
 	if (showDemo)
 		ImGui::ShowDemoWindow(&showDemo);
 
+	// test windows
 	ImGui::Begin("Test");
 	if (m_CurrentTest != m_TestMenu && ImGui::Button("<-"))
 	{

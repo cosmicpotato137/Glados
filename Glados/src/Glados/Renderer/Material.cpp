@@ -9,10 +9,10 @@ namespace Glados {
 	{
 		switch (u->Type)
 		{
-		case UniformType::Float:   ImGui::DragFloat(u->Name.c_str(), (float*)u->GetData(), 0.01);	 return;
-		case UniformType::Float2:  ImGui::DragFloat2(u->Name.c_str(), (float*)u->GetData(), 0.01); return;
-		case UniformType::Float3:  ImGui::DragFloat3(u->Name.c_str(), (float*)u->GetData(), 0.01); return;
-		case UniformType::Float4:  ImGui::DragFloat4(u->Name.c_str(), (float*)u->GetData(), 0.01); return;
+		case UniformType::Float:   ImGui::DragFloat(u->Name.c_str(), (float*)u->GetData(), 0.01f);	return;
+		case UniformType::Float2:  ImGui::DragFloat2(u->Name.c_str(), (float*)u->GetData(), 0.01f); return;
+		case UniformType::Float3:  ImGui::DragFloat3(u->Name.c_str(), (float*)u->GetData(), 0.01f); return;
+		case UniformType::Float4:  ImGui::DragFloat4(u->Name.c_str(), (float*)u->GetData(), 0.01f); return;
 		case UniformType::Int:     ImGui::DragInt(u->Name.c_str(), (int*)u->GetData());	return;
 		case UniformType::Int2:    ImGui::DragInt2(u->Name.c_str(), (int*)u->GetData()); return;
 		case UniformType::Int3:    ImGui::DragInt3(u->Name.c_str(), (int*)u->GetData()); return;

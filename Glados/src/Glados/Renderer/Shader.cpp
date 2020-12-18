@@ -7,21 +7,23 @@ namespace Glados {
 
 	Ref<Shader> Shader::Create(const std::string& filepath)
 	{
-		switch (GD_GRAPHICS_API)
+		switch (Renderer::GetRenderAPI())
 		{
-		case GD_OPENGL_API:	return CreateRef<OpenGLShader>(filepath);
+		case RendererAPI::API::None:	GD_CORE_ASSERT(false, "RendererAPI::API::None is not currently supported!");
+		case RendererAPI::API::OpenGL:	return CreateRef<OpenGLShader>(filepath);
 		}
-		GD_CORE_ASSERT(false, "Unknown API!");
+		GD_CORE_ASSERT(false, "Unknown RendererAPI::API!");
 		return nullptr;
 	}
 
 	Ref<Shader> Shader::Create(const std::string& name, const std::string& vertexsrc, const std::string& fragmentsrc)
 	{
-		switch (GD_GRAPHICS_API)
+		switch (Renderer::GetRenderAPI())
 		{
-		case GD_OPENGL_API:	return CreateRef<OpenGLShader>(name, vertexsrc, fragmentsrc);
+		case RendererAPI::API::None:	GD_CORE_ASSERT(false, "RendererAPI::API::None is not currently supported!");
+		case RendererAPI::API::OpenGL:	return CreateRef<OpenGLShader>(name, vertexsrc, fragmentsrc);
 		}
-		GD_CORE_ASSERT(false, "Unknown API!");
+		GD_CORE_ASSERT(false, "Unknown RendererAPI::API!");
 		return nullptr;
 	}
 

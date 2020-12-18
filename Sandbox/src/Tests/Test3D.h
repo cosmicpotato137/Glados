@@ -30,9 +30,9 @@ namespace test {
 		virtual void OnRender() override;
 		virtual void OnImGuiRender() override;
 		virtual void OnEvent(Event& e) override;
+		void OnViewportResize(glm::vec2 viewportSize) override;
 
 	private:
-		bool OnWindowResizeEvent(WindowResizeEvent& e);
 		bool OnKeyPressedEvent(KeyPressedEvent& e);
 	};
 

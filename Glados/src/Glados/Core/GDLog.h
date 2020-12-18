@@ -56,14 +56,6 @@ namespace Glados {
 #define GD_ERROR(...)	
 #endif
 
-// debug validations
-#ifdef GD_ENABLE_ASSERTS
-#define GD_VALIDATE(x, y, ...) { if (!(x)) { GD_WARN(__VA_ARGS__); y; } }
-#define GD_CORE_VALIDATE(x, y, ...) { if(!(x)) { GD_CORE_WARN(__VA_ARGS__); y; } }
-#else
-#define GD_VALIDATE(x, y, ...)
-#define GD_CORE_VALIDATE(x, y, ...)
-#endif
 
 // debug assertions
 #ifdef GD_ENABLE_ASSERTS
@@ -73,3 +65,7 @@ namespace Glados {
 #define GD_ASSERT(x, ...)
 #define GD_CORE_ASSERT(x, ...)
 #endif
+
+// debug validations
+#define GD_VALIDATE(x, y, ...) { if (!(x)) { GD_WARN(__VA_ARGS__); y; } }
+#define GD_CORE_VALIDATE(x, y, ...) { if(!(x)) { GD_CORE_WARN(__VA_ARGS__); y; } }

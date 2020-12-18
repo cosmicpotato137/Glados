@@ -1,6 +1,6 @@
 #pragma once
 // keycodes from glfw3.h
-// TODO: add lookup table
+// TODO: make enum class
 
 /* The unknown key */
 #define GD_KEY_UNKNOWN            -1
