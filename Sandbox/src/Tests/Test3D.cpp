@@ -58,12 +58,13 @@ namespace test {
 
 	void Test3D::OnUpdate(float timestep)
 	{
-		m_Model = mat4(1);
-		m_Model = m_Model * translate(mat4(1.0f), m_Position);
-		m_Model = m_Model * scale(mat4(1.0f), m_Scale);
-		m_Model = m_Model * rotate(mat4(1.0f), radians(m_Rotation.x), vec3(0.0f, 1.0f, 0.0f));
-		m_Model = m_Model * rotate(mat4(1.0f), radians(m_Rotation.y), vec3(0.0f, 0.0f, 1.0f));
-		m_Model = m_Model * rotate(mat4(1.0f), radians(m_Rotation.z), vec3(1.0f, 0.0f, 0.0f));
+		mat4 trans = translate(mat4(1.0f), m_Position);
+		mat4 rotx = rotate(mat4(1.0f), radians(m_Rotation.x), vec3(0.0f, 1.0f, 0.0f));
+		mat4 roty = rotate(mat4(1.0f), radians(m_Rotation.y), vec3(0.0f, 0.0f, 1.0f));
+		mat4 rotz = rotate(mat4(1.0f), radians(m_Rotation.z), vec3(1.0f, 0.0f, 0.0f));
+		mat4 scl = scale(mat4(1.0f), m_Scale);
+
+		m_Model = trans * rotx * roty * rotz * scl;
 		
 		m_Material->OnUpdate();
 		
@@ -93,6 +94,7 @@ namespace test {
 		ImGui::DragFloat3("Position", &m_Position[0]);
 		ImGui::DragFloat3("Rotation", &m_Rotation[0]);
 		ImGui::DragFloat3("Scale", &m_Scale[0]);
+		ImGui::DragFloat("Rotation Speed", &m_RotSpd);
 
 		m_Material->OnImGuiRender();
 	}
@@ -101,6 +103,7 @@ namespace test {
 	{
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(Test3D::OnWindowResizeEvent));
+		dispatcher.Dispatch<KeyPressedEvent>(BIND_EVENT_FN(Test3D::OnKeyPressedEvent));
 	}
 
 	bool Test3D::OnWindowResizeEvent(WindowResizeEvent& e)
@@ -108,6 +111,21 @@ namespace test {
 		Window& window = Application::Get().GetWindow();
 		float aspect = (float)window.GetWidth() / (float)window.GetHeight();
 		m_Projection = perspective(radians(90.0f), aspect, 0.1f, 1500.0f);
+
+		return false;
+	}
+
+	bool Test3D::OnKeyPressedEvent(KeyPressedEvent& e)
+	{
+		switch (e.GetKeyCode())
+		{
+		case GD_KEY_W: m_Rotation += m_RotSpd * vec3(0, 0, 1);  return true; 
+		case GD_KEY_S: m_Rotation += m_RotSpd * vec3(0, 0, -1); return true;
+		case GD_KEY_A: m_Rotation += m_RotSpd * vec3(1, 0, 0);  return true; 
+		case GD_KEY_D: m_Rotation += m_RotSpd * vec3(-1, 0, 0); return true; 
+		case GD_KEY_Q: m_Rotation += m_RotSpd * vec3(0, 1, 0);  return true; 
+		case GD_KEY_E: m_Rotation += m_RotSpd * vec3(0, -1, 0); return true; 
+		}
 
 		return false;
 	}

@@ -18,7 +18,30 @@ namespace Glados {
 		case UniformType::Int3:    ImGui::DragInt3(u->Name.c_str(), (int*)u->GetData()); return;
 		case UniformType::Int4:    ImGui::DragInt4(u->Name.c_str(), (int*)u->GetData()); return;
 		case UniformType::Bool:    ImGui::Checkbox(u->Name.c_str(), (bool*)u->GetData()); return;
+		// TODO: fix this!
+		//case UniformType::Mat3:
+		//{
+		//	glm::mat3 data = *(glm::mat3*)u->GetData();
+		//	ImGui::Text(u->Name.c_str());
+		//	ImGui::DragFloat3("a", &data[0][0], 0.01);
+		//	ImGui::DragFloat3("b", &data[1][0], 0.01);
+		//	ImGui::DragFloat3("b", &data[2][0], 0.01);
+		//	return;
+		//}
+		//case UniformType::Mat4:
+		//{
+		//	glm::mat4 data = *(glm::mat4*)u->GetData();
+		//	ImGui::Text(u->Name.c_str());
+		//	ImGui::DragFloat4("a", &data[0][0], 0.01);
+		//	ImGui::DragFloat4("b", &data[1][0], 0.01);
+		//	ImGui::DragFloat4("c", &data[2][0], 0.01);
+		//	ImGui::DragFloat4("d", &data[3][0], 0.01);
+		//	ImGui::EndGroup();
+		//	return;
+		//}
+
 		}
+		ImGui::Text(u->Name.c_str());
 		return;
 	}
 

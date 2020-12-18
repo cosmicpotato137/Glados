@@ -111,7 +111,7 @@ void TestLayer::OnImGuiRender()
 
 void TestLayer::OnEvent(Glados::Event& e)
 {
-	if (m_CurrentTest && !ImGui::IsAnyWindowHovered())
+	if (m_CurrentTest)
 		m_CurrentTest->OnEvent(e);
 }
 

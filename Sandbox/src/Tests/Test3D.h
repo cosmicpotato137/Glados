@@ -16,6 +16,7 @@ namespace test {
 
 		vec3 m_Position;
 		vec3 m_Rotation;
+		float m_RotSpd;
 		vec3 m_Scale;
 		mat4 m_Model;
 
@@ -32,6 +33,7 @@ namespace test {
 
 	private:
 		bool OnWindowResizeEvent(WindowResizeEvent& e);
+		bool OnKeyPressedEvent(KeyPressedEvent& e);
 	};
 
 }

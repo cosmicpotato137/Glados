@@ -68,7 +68,7 @@ namespace Glados {
 		template<typename T>
 		bool Dispatch(EventFn<T> func)
 		{
-			if (T::GetStaticType() == m_Event.GetEventType())
+			if (T::GetStaticType() == m_Event.GetEventType() && !m_Event.Handled)
 			{
 				GD_CORE_ASSERT(T::GetStaticType() == m_Event.GetEventType(), "something's wrong");
 				m_Event.Handled = func(*(T*)&m_Event);
