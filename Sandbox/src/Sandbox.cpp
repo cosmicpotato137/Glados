@@ -21,7 +21,7 @@ public:
 		: Application()
 	{
 		PushLayer(new TestLayer());
-		PushLayer(new EmptyLayer());
+		//PushLayer(new EmptyLayer());
 	}
 
 	~Sandbox()

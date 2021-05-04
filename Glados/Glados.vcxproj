@@ -169,6 +169,8 @@
     <ClInclude Include="src\Glados\Renderer\Texture.h" />
     <ClInclude Include="src\Glados\Renderer\Uniform.h" />
     <ClInclude Include="src\Glados\Renderer\VertexArray.h" />
+    <ClInclude Include="src\Glados\Scene\Entity.h" />
+    <ClInclude Include="src\Glados\Scene\Scene.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLFramebuffer.h" />
@@ -199,6 +201,9 @@
     <ClCompile Include="src\Glados\Renderer\Texture.cpp" />
     <ClCompile Include="src\Glados\Renderer\Uniform.cpp" />
     <ClCompile Include="src\Glados\Renderer\VertexArray.cpp" />
+    <ClCompile Include="src\Glados\Scene\Component.h" />
+    <ClCompile Include="src\Glados\Scene\Entity.cpp" />
+    <ClCompile Include="src\Glados\Scene\Scene.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLFramebuffer.cpp" />
@@ -226,4 +231,4 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
-</Project> 
+</Project>

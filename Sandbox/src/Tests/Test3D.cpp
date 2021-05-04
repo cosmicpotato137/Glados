@@ -39,15 +39,16 @@ namespace test {
 		}
 
 		Window& window = Application::Get().GetWindow();
-		float w = (float)window.GetWidth();
-		float h = (float)window.GetHeight();
-		float aspect = w / h;
-		m_Projection = perspective(radians(90.0f), aspect, 0.1f, 1500.0f);
+		//float w = (float)window.GetWidth();
+		//float h = (float)window.GetHeight();
+		//float aspect = w / h;
+		//m_Projection = perspective(radians(90.0f), aspect, 0.1f, 1500.0f);
 		//m_Projection = ortho(0.0f, (float)window.GetWidth(), 0.0f, (float)window.GetHeight());
 		m_View = lookAt(vec3(0.0f, 0.0f, 100.0f), vec3(0.0f), vec3(0.0f, 1.0f, 0.0f));
 
 		ShaderLibrary& lib = Renderer::GetShaderLibrary();
 		Ref<Shader> shader = lib.Get("basic");
+
 		m_Material = Material::Create("Material", shader);
 	}
 	
@@ -71,15 +72,15 @@ namespace test {
 		Ref<Shader> shader = m_Material->GetShader();
 
 		// TODO: abstract/clean up further
-		mat4 modelView = m_View * m_Model;
-		UniformMap um = shader->GetUniforms();
-		um.GetUniform("u_ModelView")->SetData(&modelView[0][0]);
-		um.GetUniform("u_Projection")->SetData(&m_Projection[0][0]);
+		mat4 m_ModelView = m_View * m_Model;
+		//UniformMap um = shader->GetUniforms();
+		//um.GetUniform("u_ModelView")->SetData(&m_ModelView[0][0]);
+		//um.GetUniform("u_Projection")->SetData(&m_Projection[0][0]);
 
-		shader->Bind();
-		shader->SetUniforms();
-		shader->Unbind();
-
+		//shader->Bind();
+		//shader->SetUniforms();
+		//shader->Unbind();
+		shader->SetMat4("u_ModelView", m_ModelView);
 	}
 
 	void Test3D::OnRender()

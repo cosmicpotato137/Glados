@@ -91,9 +91,7 @@ namespace Glados {
 			m_Minimized = true;
 			return true;
 		}
-
 		m_Minimized = false;
-		Renderer::SetViewport(0, 0, e.GetWidth(), e.GetHeight());
 		return false;
 	}
 

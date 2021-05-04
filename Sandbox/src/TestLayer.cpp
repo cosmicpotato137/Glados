@@ -33,14 +33,8 @@ void TestLayer::OnAttach()
 	lib.Load("res/shaders/Phong.shader");
 	lib.Load("res/shaders/textureTest.shader");
 
-	FramebufferSpecification spec;
-	spec.Width = 1280;
-	spec.Height = 720;
-	m_Framebuffer = Framebuffer::Create(spec);
-
 	int filter = EventCategory::EventCategoryApplication | EventCategory::EventCategoryInput;
 	bool outcome = EventCategory::EventCategoryApplication & filter;
-	GD_INFO("Test filter: {0}", outcome);
 }
 
 void TestLayer::OnDetach()
@@ -69,11 +63,9 @@ void TestLayer::OnUpdate(Timestep timestep)
 
 void TestLayer::OnRender()
 {
-	m_Framebuffer->Bind();
 	Renderer::Clear();
 	if (m_CurrentTest)
 		m_CurrentTest->OnRender();
-	m_Framebuffer->Unbind();
 }
 
 void TestLayer::OnImGuiRender()
@@ -85,19 +77,26 @@ void TestLayer::OnImGuiRender()
 	ImGui::Begin("Viewport");
 	m_ViewportHovered = ImGui::IsWindowHovered();
 	m_ViewportFocused = ImGui::IsWindowFocused();
+	ImVec2 viewportPos = ImGui::GetWindowPos();
 	ImVec2 viewportSize = ImGui::GetContentRegionAvail();
 	if (m_ViewportSize != *(glm::vec2*) & viewportSize)
 	{
-		m_Framebuffer->Resize((int)viewportSize.x, (int)viewportSize.y);
+		Renderer::SetViewport(0, 0, (int)viewportSize.x, (int)viewportSize.y);
 		m_ViewportSize = *(glm::vec2*) & viewportSize;
 		if (m_CurrentTest)
 			m_CurrentTest->OnViewportResize(m_ViewportSize);
 	}
-	uint32_t textureID = m_Framebuffer->GetColorAttachmentRendererID();
-	ImGui::Image((void*)textureID, ImVec2(viewportSize.x, viewportSize.y), ImVec2(0, 1), ImVec2(1, 0));
+	uint32_t textureID = Renderer::GetFramebufferID();
+
+	//ImDrawList* drawList = ImGui::GetWindowDrawList();
+	//drawList->AddImage((void*)textureID,
+	//	viewportPos,
+	//	ImVec2(viewportPos.x + viewportSize.x, viewportPos.y + viewportSize.y),
+	//	ImVec2(0, 1),
+	//	ImVec2(1, 0));
+	ImGui::Image((void*)textureID, viewportSize, ImVec2(0, 1), ImVec2(1, 0));
 	ImGui::End();
 	ImGui::PopStyleVar();
-
 	// demo window
 	static bool showDemo = true;
 	if (showDemo)
@@ -105,6 +104,7 @@ void TestLayer::OnImGuiRender()
 
 	// test windows
 	ImGui::Begin("Test");
+	ImGui::InputFloat2("Viewport Size", &m_ViewportSize[0]);
 	if (m_CurrentTest != m_TestMenu && ImGui::Button("<-"))
 	{
 		delete m_CurrentTest;

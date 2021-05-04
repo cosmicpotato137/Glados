@@ -309,7 +309,7 @@ namespace Glados {
 
     void OpenGLShader::SetInt(const std::string& name, int value)
     {
-		glUniform1i(m_UniformCache.GetUniform(name)->GetID(), value);
+		glUniform1i(glGetUniformLocation(m_RendererID, name.c_str()), value);
     }
 
 
@@ -319,7 +319,7 @@ namespace Glados {
 
     void OpenGLShader::SetFloat(const std::string& name, float value)
     {
-		glUniform1f(m_UniformCache.GetUniform(name)->GetID(), value);
+		glUniform1f(glGetUniformLocation(m_RendererID, name.c_str()), value);
     }
 
     void OpenGLShader::SetFloat3(const std::string& name, const glm::vec3& value)
@@ -329,22 +329,22 @@ namespace Glados {
 
 	void OpenGLShader::SetFloat3(const std::string& name, const float* value)
 	{
-		glUniform3fv(m_UniformCache.GetUniform(name)->GetID(), 1, value);
+		glUniform3fv(glGetUniformLocation(m_RendererID, name.c_str()), 1, value);
 	}
 
 	void OpenGLShader::SetFloat4(const std::string& name, const glm::vec4& value)
     {
-        glUniform4fv(m_UniformCache.GetUniform(name)->GetID(), 1, &value[0]);
+        glUniform4fv(glGetUniformLocation(m_RendererID, name.c_str()), 1, &value[0]);
     }
 
 	void OpenGLShader::SetFloat4(const std::string& name, const float* value)
 	{
-		glUniform4fv(m_UniformCache.GetUniform(name)->GetID(), 1, value);
+		glUniform4fv(glGetUniformLocation(m_RendererID, name.c_str()), 1, value);
 	}
 
 	void OpenGLShader::SetMat4(const std::string& name, const glm::mat4& value)
     {
-		glUniformMatrix4fv(m_UniformCache.GetUniform(name)->GetID(), 1, false, &value[0][0]);
+		glUniformMatrix4fv(glGetUniformLocation(m_RendererID, name.c_str()), 1, false, &value[0][0]);
     }
 
 	template<UniformType T> void OpenGLShader::SetUniform(Ref<Uniform> uniform)

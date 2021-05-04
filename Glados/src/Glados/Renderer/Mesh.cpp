@@ -11,7 +11,9 @@ namespace Glados {
 		// vertex buffer
 		{
 			BufferLayout layout(
-				{ Uniform(UniformType::Float3, "a_Position") }
+				{
+					Uniform(UniformType::Float3, "a_Position"),
+				}
 			);
 			Ref<VertexBuffer> vertexBuffer = VertexBuffer::Create(&meshData.Vertices[0][0], meshData.Vertices.size() * layout.GetStride());
 			vertexBuffer->SetLayout(layout);

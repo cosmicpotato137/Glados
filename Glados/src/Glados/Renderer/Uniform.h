@@ -15,6 +15,7 @@ namespace Glados {
 
 	static uint32_t UniformTypeSize(UniformType attrib);
 
+	// TODO: make abstract types
 	struct Uniform
 	{
 		std::string Name;

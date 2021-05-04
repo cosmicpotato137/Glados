@@ -26,9 +26,10 @@ namespace test {
 		virtual void OnUpdate(float deltaTime) override;
 		virtual void OnRender() override;
 		virtual void OnImGuiRender() override;
-		virtual void OnEvent(Event& e) override;
 
+		virtual void OnEvent(Event& e) override;
 		bool OnMouseButtonPressedEvent(MouseButtonPressedEvent& e);
+		void OnViewportResize(glm::vec2 viewportSize);
 	};
 
 }

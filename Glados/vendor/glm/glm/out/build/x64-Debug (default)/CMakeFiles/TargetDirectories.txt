@@ -1,0 +1,2 @@
+C:/NerdThings/VSSolutions/Glados/Glados/vendor/glm/glm/out/build/x64-Debug (default)/CMakeFiles/edit_cache.dir
+C:/NerdThings/VSSolutions/Glados/Glados/vendor/glm/glm/out/build/x64-Debug (default)/CMakeFiles/rebuild_cache.dir

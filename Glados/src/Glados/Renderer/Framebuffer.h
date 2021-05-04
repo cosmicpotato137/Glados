@@ -5,7 +5,8 @@ namespace Glados {
 
 	struct FramebufferSpecification
 	{
-		int Width, Height;
+		uint32_t Width = 1280;
+		uint32_t Height = 720;
 		// FramebufferFormat Format = ;
 		uint32_t Samples = 1;
 		bool SwapChainTarget = false;

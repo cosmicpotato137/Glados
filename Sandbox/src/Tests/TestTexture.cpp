@@ -7,7 +7,7 @@ namespace test {
 	TestTexture2D::TestTexture2D()
 		: m_Proj(glm::ortho(0.0f, 960.0f, 0.0f, 540.0f)), 
 		m_View(glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0))),
-		m_Model1(400, 200, 0), blend(false)
+		m_Position(-50, -50, 0), blend(false)
 	{
 		float positions[]{
 			0.0f,   0.0f,   0.0f, 0.0f,
@@ -39,18 +39,12 @@ namespace test {
 		m_VAO->SetIndexBuffer(m_IndexBuffer);
 		
 		m_Shader = Renderer::GetShaderLibrary().Get("textureTest");
-		m_Shader->Bind();
-		glm::vec4 color = { 1.0f, 1.0f, 1.0f, 1.0f };
-		m_Shader->SetFloat4("u_Color", color);
 
-		glm::mat4 model = glm::translate(glm::mat4(1.0f), m_Model1);
-		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
-		glm::mat4 mvp = m_Proj * m_View * model;
-		m_Shader->SetMat4("u_MVP", mvp);
+		m_Model = glm::mat4(1.0f);
+		m_Model = glm::scale(m_Model, glm::vec3(3.0f, 3.0f, 3.0f));
+		m_Model = glm::translate(m_Model, m_Position);
 
 		m_Texture = Texture::Create("res/textures/dirt.png");
-		m_Texture->Bind();
-		m_Shader->SetInt("u_Texture", 0);
 	}
 
 	TestTexture2D::~TestTexture2D()
@@ -59,11 +53,25 @@ namespace test {
 
 	void TestTexture2D::OnUpdate(float deltaTime)
 	{
+		m_Shader->Bind();
+		glm::vec4 color = { 1.0f, 1.0f, 1.0f, 1.0f };
+		m_Shader->SetFloat4("u_Color", color);
+		glm::mat4 mvp = m_Proj * m_View * m_Model;
+		m_Shader->SetMat4("u_MVP", mvp);
+
+		m_Texture->Bind();
+		m_Shader->SetInt("u_Texture", 0);
+		m_Texture->Unbind();
+		m_Shader->Unbind();
 	}
 
 	void TestTexture2D::OnRender()
 	{
+		m_Shader->Bind();
+		m_Texture->Bind();
 		Renderer::DrawIndexed(m_VAO);
+		m_Shader->Unbind();
+		m_Texture->Unbind();
 	}
 
 	void TestTexture2D::OnImGuiRender()
@@ -72,5 +80,23 @@ namespace test {
 			Renderer::SetBlend(blend);
 
 		ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+	}
+
+	void TestTexture2D::OnViewportResize(glm::vec2 viewportSize)
+	{
+		float aspect = viewportSize.x / viewportSize.y;
+		m_Proj = glm::mat4(glm::ortho(-aspect * viewportSize.y, aspect * viewportSize.y, -viewportSize.y, viewportSize.y));
+	}
+
+	void TestTexture2D::OnEvent(Event& e)
+	{
+		EventDispatcher dispatcher(e);
+		dispatcher.Dispatch<MouseScrollEvent>(BIND_EVENT_FN(TestTexture2D::OnMouseScrollEvent));
+	}
+
+	bool TestTexture2D::OnMouseScrollEvent(MouseScrollEvent& e)
+	{
+		m_Zoom += e.GetXOffset() * 5;
+		return false;
 	}
 }

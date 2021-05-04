@@ -9,7 +9,6 @@ class TestLayer : public Layer
 private:
 	Test* m_CurrentTest;
 	TestMenu* m_TestMenu;
-	Ref<Framebuffer> m_Framebuffer;
 	glm::vec2 m_ViewportSize = { 0, 0 };
 	bool m_ViewportHovered = false;
 	bool m_ViewportFocused = false;

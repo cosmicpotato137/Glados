@@ -37,7 +37,9 @@ namespace Glados {
 		ImGuiLayer& GetImGuiLayer() const { return *m_ImGuiLayer; }
 
 		static float GetTime() { return s_Instance->GetWindow().GetWindowTime(); }
+		// return appliaction reference
 		static inline Application& Get() { return *s_Instance; }
+		// return window reference
 		inline Window& GetWindow() { return *m_Window; }
 
 	private:

@@ -3,6 +3,7 @@
 #include "glm/glm.hpp"
 #include "VertexArray.h"
 #include "Shader.h"
+#include "Framebuffer.h"
 
 using namespace glm;
 
@@ -13,7 +14,8 @@ namespace Glados {
 	private:
 		static Scope<RendererAPI> s_RendererAPI;
 		static Scope<ShaderLibrary> s_ShaderLib;
-		static Ref<Shader> s_DefaultShader; 
+		static Ref<Shader> s_DefaultShader;
+		static Ref<Framebuffer> s_Framebuffer;
 	public:
 		Renderer() = delete;
 		~Renderer() = delete;
@@ -31,8 +33,9 @@ namespace Glados {
 		static void Clear();
 		static void DrawIndexed(const Ref<VertexArray> vertexArray, uint32_t count = 0);
 
-		static void SetDefaultShader(const Ref<Shader>& defaultShader);
-		static Ref<Shader> GetDefaultShader();
+		static void SetDefaultShader(const Ref<Shader>& defaultShader) { s_DefaultShader = defaultShader; }
+		static Ref<Shader> GetDefaultShader() { return s_DefaultShader; }
+		static uint32_t GetFramebufferID() { return s_Framebuffer->GetColorAttachmentRendererID(); }
 
 	};
 

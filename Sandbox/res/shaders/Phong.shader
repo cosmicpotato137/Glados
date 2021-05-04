@@ -54,7 +54,7 @@ vec4 ComputeLight(vec3 light_dir, vec4 light_col, vec3 normal, vec3 half_angle,
 	return lambert + phong;
 };
 
-void main()
+void main() 
 {
 	vec4 lighting = vec4(0, 0, 0, 0);
 	vec3 pos = v_Position.xyz / v_Position.w;
