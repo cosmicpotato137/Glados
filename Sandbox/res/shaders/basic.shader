@@ -5,13 +5,13 @@ layout(location = 0) in vec3 position;
 layout(location = 1) in vec2 texCoord;
 layout(location = 2) in vec3 normal;
 
-uniform mat4 u_ModelView;
-uniform mat4 u_Projection;
+uniform mat4 u_Transform;
+uniform mat4 u_ViewProjection;
 out vec2 v_TexCoord;
 
 void main()
 {
-	gl_Position = u_Projection * u_ModelView * vec4(position, 1.0f);
+	gl_Position = u_ViewProjection * u_Transform * vec4(position, 1.0f);
 	v_TexCoord = texCoord;
 };
 

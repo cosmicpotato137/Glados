@@ -16,13 +16,13 @@ TestLayer::~TestLayer()
 
 void TestLayer::OnAttach()
 {
-	m_TestMenu = new TestMenu(m_CurrentTest);
+	m_TestMenu = new TestMenu();
 	m_CurrentTest = m_TestMenu;
 
-	m_TestMenu->RegisterTest<TestClearColor>("Test Clear Color");
-	m_TestMenu->RegisterTest<TestVertexArray>("Test Vertex Array");
-	m_TestMenu->RegisterTest<TestTexture2D>("2D Texture Test");
-	m_TestMenu->RegisterTest<Test3D>("3D Test");
+	RegisterTest<TestClearColor>("Test Clear Color");
+	RegisterTest<TestVertexArray>("Test Vertex Array");
+	//m_TestMenu->RegisterTest<TestTexture2D>("2D Texture Test");
+	RegisterTest<Test3D>("3D Test");
 
 	// initiallize shaders
 	ShaderLibrary& lib = Renderer::GetShaderLibrary();
@@ -77,38 +77,46 @@ void TestLayer::OnImGuiRender()
 	ImGui::Begin("Viewport");
 	m_ViewportHovered = ImGui::IsWindowHovered();
 	m_ViewportFocused = ImGui::IsWindowFocused();
+
+	// change viewport size
 	ImVec2 viewportPos = ImGui::GetWindowPos();
 	ImVec2 viewportSize = ImGui::GetContentRegionAvail();
 	if (m_ViewportSize != *(glm::vec2*) & viewportSize)
 	{
-		Renderer::SetViewport(0, 0, (int)viewportSize.x, (int)viewportSize.y);
-		m_ViewportSize = *(glm::vec2*) & viewportSize;
+		Renderer::OnWindowResize(0, 0, (int)viewportSize.x, (int)viewportSize.y);
+		m_ViewportSize = *(glm::vec2*) &viewportSize;
 		if (m_CurrentTest)
 			m_CurrentTest->OnViewportResize(m_ViewportSize);
 	}
-	uint32_t textureID = Renderer::GetFramebufferID();
 
-	//ImDrawList* drawList = ImGui::GetWindowDrawList();
-	//drawList->AddImage((void*)textureID,
-	//	viewportPos,
-	//	ImVec2(viewportPos.x + viewportSize.x, viewportPos.y + viewportSize.y),
-	//	ImVec2(0, 1),
-	//	ImVec2(1, 0));
+	// write framebuffer to imgui window
+	uint32_t textureID = Renderer::GetFramebufferID();
 	ImGui::Image((void*)textureID, viewportSize, ImVec2(0, 1), ImVec2(1, 0));
 	ImGui::End();
 	ImGui::PopStyleVar();
+
 	// demo window
-	static bool showDemo = true;
+	static bool showDemo = false;
 	if (showDemo)
 		ImGui::ShowDemoWindow(&showDemo);
 
 	// test windows
 	ImGui::Begin("Test");
-	ImGui::InputFloat2("Viewport Size", &m_ViewportSize[0]);
 	if (m_CurrentTest != m_TestMenu && ImGui::Button("<-"))
 	{
 		delete m_CurrentTest;
 		m_CurrentTest = m_TestMenu;
+	}
+	else if (m_CurrentTest == m_TestMenu)
+	{
+		for (auto& test : m_Tests)
+		{
+			if (ImGui::Button(test.first.c_str()))
+			{
+				m_CurrentTest = test.second();
+				m_CurrentTest->OnViewportResize(m_ViewportSize);
+			}
+		}
 	}
 	m_CurrentTest->OnImGuiRender();
 	ImGui::End();
@@ -175,4 +183,12 @@ void TestLayer::Dockspace()
 	}
 
 	ImGui::End();
+}
+
+template<typename T>
+void TestLayer::RegisterTest(const std::string& name)
+{
+	GD_CORE_TRACE("Registering Test: {0}", name);
+
+	m_Tests.push_back(std::make_pair(name, []() { return new T(); }));
 }

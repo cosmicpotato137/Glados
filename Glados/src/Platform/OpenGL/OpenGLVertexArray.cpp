@@ -40,7 +40,7 @@ namespace Glados {
 
 	void OpenGLVertexArray::AddVertexBuffer(const Ref<VertexBuffer>& vertexBuffer)
 	{
-		m_VertexBuffers.push_back(vertexBuffer);
+		//m_VertexBuffers.push_back(vertexBuffer);
 		Bind();
 		vertexBuffer->Bind();
 		// list of all elements in m_Elements vector
@@ -69,6 +69,8 @@ namespace Glados {
 
 	void OpenGLVertexArray::SetIndexBuffer(Ref<IndexBuffer>& ib)
 	{
+		glBindVertexArray(m_RendererID);
+		ib->Bind();
 		m_IndexBuffer = ib;
 	}
 

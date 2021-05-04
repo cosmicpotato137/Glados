@@ -3,51 +3,54 @@
 
 namespace Glados {
 
-	Scope<RendererAPI> Renderer::s_RendererAPI = nullptr;
 	Scope<ShaderLibrary> Renderer::s_ShaderLib = CreateScope<ShaderLibrary>();
 	Ref<Shader> Renderer::s_DefaultShader = nullptr;
 	Ref<Framebuffer> Renderer::s_Framebuffer = nullptr;
 
 	void Renderer::Init()
 	{
-		s_RendererAPI = RendererAPI::Create();
-		s_RendererAPI->Init();
+		RendererCommand::Init();
 		s_DefaultShader = Shader::Create("res/shaders/default.shader");
 		s_Framebuffer = Framebuffer::Create(FramebufferSpecification());
 	}
 
 	void Renderer::Shutdown()
 	{
-		s_RendererAPI->Shutdown();
 	}
 
-	void Renderer::SetViewport(uint32_t x, uint32_t y, uint32_t width, uint32_t height)
+	void Renderer::OnWindowResize(uint32_t x, uint32_t y, uint32_t width, uint32_t height)
 	{
-		s_RendererAPI->SetViewport(x, y, width, height);
+		RendererCommand::SetViewport(x, y, width, height);
 		s_Framebuffer->Resize(width, height);
 	}
 
 	void Renderer::Clear()
 	{
 		s_Framebuffer->Bind();
-		s_RendererAPI->Clear();
+		RendererCommand::Clear();
 		s_Framebuffer->Unbind();
 	}
 
 	void Renderer::SetClearColor(const vec4& color)
 	{
-		s_RendererAPI->SetClearColor(color);
+		RendererCommand::SetClearColor(color);
 	}
 
 	void Renderer::SetBlend(bool blend)
 	{
-		s_RendererAPI->Blend(blend);
+		RendererCommand::SetBlend(blend);
 	}
 
-	void Renderer::DrawIndexed(const Ref<VertexArray> vertexArray, uint32_t count)
+	void Renderer::Submit(const Ref<Shader>& shader, const Ref<VertexArray>& vertexArray, const glm::mat4& transform)
 	{
 		s_Framebuffer->Bind();
-		s_RendererAPI->DrawIndexed(vertexArray, count);
+		shader->Bind();
+		// TODO: implement scene data
+		//shader->SetMat4("u_ViewProjection", s_SceneData->ViewProjectionMatrix);
+		//shader->SetMat4("u_Transform", transform);
+		vertexArray->Bind();
+		RendererCommand::DrawIndexed(vertexArray);
+		shader->Unbind();
 		s_Framebuffer->Unbind();
 	}
 

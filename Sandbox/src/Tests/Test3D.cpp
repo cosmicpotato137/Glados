@@ -21,9 +21,9 @@ namespace test {
 		
 		std::array<float, 4 * 3> positions{
 			0.0f, 0.0f, 0.0f,
-			1.0f, 0.0f,	0.0f,
-			1.0f, 1.0f,	0.0f,
-			0.0f, 1.0f,	0.0f
+			100.0f, 0.0f,	0.0f,
+			100.0f, 100.0f,	0.0f,
+			0.0f, 100.0f,	0.0f
 		};
 
 		std::array<uint32_t, 12> indices{
@@ -38,13 +38,27 @@ namespace test {
 			m_Mesh = Mesh::Create("res/models/Icosphere.obj", m_VertexArray);
 		}
 
-		Window& window = Application::Get().GetWindow();
-		m_View = lookAt(vec3(0.0f, 0.0f, 100.0f), vec3(0.0f), vec3(0.0f, 1.0f, 0.0f));
+		m_View = glm::lookAt(vec3(0, 0, 100), vec3(0, 0, 0), vec3(0, 1, 0));
 
 		ShaderLibrary& lib = Renderer::GetShaderLibrary();
-		Ref<Shader> shader = lib.Get("basic");
+		m_Shader = lib.Get("basic");
+		m_Shader->Bind();
+		m_Shader->SetFloat4("u_Color", glm::vec4(1, 1, 1, 0));
 
-		m_Material = Material::Create("Material", shader);
+		// triangle
+		//m_VertexArray = VertexArray::Create();
+		//{
+		//	BufferLayout layout({
+		//		Uniform(UniformType::Float2, "position")
+		//		});
+		//	m_VertexBuffer = VertexBuffer::Create(&positions[0], layout.GetStride() * 4);
+		//	m_VertexBuffer->SetLayout(layout);
+		//}
+
+		//m_VertexArray->AddVertexBuffer(m_VertexBuffer);
+
+		//m_IndexBuffer = IndexBuffer::Create(&indices[0], 6);
+		//m_VertexArray->SetIndexBuffer(m_IndexBuffer);
 	}
 	
 	Test3D::~Test3D()
@@ -60,29 +74,18 @@ namespace test {
 		mat4 rotz = rotate(mat4(1.0f), radians(m_Rotation.z), vec3(1.0f, 0.0f, 0.0f));
 		mat4 scl = scale(mat4(1.0f), m_Scale);
 
-		m_Model = trans * rotx * roty * rotz * scl;
+		m_Transform = trans * rotx * roty * rotz * scl;
 		
-		m_Material->OnUpdate();
 		
-		Ref<Shader> shader = m_Material->GetShader();
-
-		// TODO: abstract/clean up further
-		mat4 m_ModelView = m_View * m_Model;
-		//UniformMap um = shader->GetUniforms();
-		//um.GetUniform("u_ModelView")->SetData(&m_ModelView[0][0]);
-		//um.GetUniform("u_Projection")->SetData(&m_Projection[0][0]);
-
-		//shader->Bind();
-		//shader->SetUniforms();
-		//shader->Unbind();
-		shader->SetMat4("u_ModelView", m_ModelView);
+		m_Shader->Bind();
+		m_Shader->SetMat4("u_ViewProjection", m_Projection);
+		m_Shader->SetMat4("u_Transform", mat4(1));
+		m_Shader->Unbind();
 	}
 
 	void Test3D::OnRender()
 	{
-		m_Material->GetShader()->Bind();
-		Renderer::DrawIndexed(m_VertexArray);
-		m_Material->GetShader()->Unbind();
+		Renderer::Submit(m_Shader, m_VertexArray, m_Transform);
 	}
 
 	void Test3D::OnImGuiRender()
@@ -91,8 +94,6 @@ namespace test {
 		ImGui::DragFloat3("Rotation", &m_Rotation[0]);
 		ImGui::DragFloat3("Scale", &m_Scale[0]);
 		ImGui::DragFloat("Rotation Speed", &m_RotSpd);
-
-		m_Material->OnImGuiRender();
 	}
 
 	void Test3D::OnEvent(Event& e)
@@ -105,6 +106,7 @@ namespace test {
 	{
 		float aspect = viewportSize.x / viewportSize.y;
 		m_Projection = perspective(radians(90.0f), aspect, 0.1f, 1500.0f);
+		//m_Projection = glm::mat4(glm::ortho(-aspect * viewportSize.y, aspect * viewportSize.y, -viewportSize.y, viewportSize.y));
 	}
 
 	bool Test3D::OnKeyPressedEvent(KeyPressedEvent& e)

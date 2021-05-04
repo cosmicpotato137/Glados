@@ -1,5 +1,5 @@
 #pragma once
-#include "RendererAPI.h"
+#include "RendererCommand.h"
 #include "glm/glm.hpp"
 #include "VertexArray.h"
 #include "Shader.h"
@@ -12,7 +12,6 @@ namespace Glados {
 	class Renderer
 	{
 	private:
-		static Scope<RendererAPI> s_RendererAPI;
 		static Scope<ShaderLibrary> s_ShaderLib;
 		static Ref<Shader> s_DefaultShader;
 		static Ref<Framebuffer> s_Framebuffer;
@@ -20,18 +19,18 @@ namespace Glados {
 		Renderer() = delete;
 		~Renderer() = delete;
 
-		static RendererAPI::API GetRenderAPI() { return s_RendererAPI->GetAPI(); }
+		static RendererAPI::API GetRenderAPI() { return RendererCommand::GetAPI(); }
 		static ShaderLibrary& GetShaderLibrary() { return *s_ShaderLib; }
-		static std::string GetRendererAPIVersion() { return s_RendererAPI->GetVersion(); }
+		static std::string GetRendererAPIVersion() { return RendererCommand::GetVersion(); }
 
 		static void Init();
 		static void Shutdown();
-		static void SetViewport(uint32_t x, uint32_t y, uint32_t width, uint32_t height);
+		static void OnWindowResize(uint32_t x, uint32_t y, uint32_t width, uint32_t height);
 		static void SetClearColor(const vec4& color);
 		static void SetBlend(bool blend);
 
 		static void Clear();
-		static void DrawIndexed(const Ref<VertexArray> vertexArray, uint32_t count = 0);
+		static void Submit(const Ref<Shader>& shader, const Ref<VertexArray>& vertexArray, const glm::mat4& transform);
 
 		static void SetDefaultShader(const Ref<Shader>& defaultShader) { s_DefaultShader = defaultShader; }
 		static Ref<Shader> GetDefaultShader() { return s_DefaultShader; }

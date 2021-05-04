@@ -10,18 +10,14 @@
     <ClInclude Include="src\Tests\Test.h">
       <Filter>Tests</Filter>
     </ClInclude>
-    <ClInclude Include="src\Tests\Test3D.h">
-      <Filter>Tests</Filter>
-    </ClInclude>
     <ClInclude Include="src\Tests\TestClearColor.h">
-      <Filter>Tests</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Tests\TestTexture.h">
       <Filter>Tests</Filter>
     </ClInclude>
     <ClInclude Include="src\Tests\TestVertexArray.h">
       <Filter>Tests</Filter>
     </ClInclude>
+    <ClInclude Include="src\TestParticleSystem.h" />
+    <ClInclude Include="src\Tests\Test3D.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Sandbox.cpp" />
@@ -29,17 +25,13 @@
     <ClCompile Include="src\Tests\Test.cpp">
       <Filter>Tests</Filter>
     </ClCompile>
-    <ClCompile Include="src\Tests\Test3D.cpp">
-      <Filter>Tests</Filter>
-    </ClCompile>
     <ClCompile Include="src\Tests\TestClearColor.cpp">
-      <Filter>Tests</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Tests\TestTexture.cpp">
       <Filter>Tests</Filter>
     </ClCompile>
     <ClCompile Include="src\Tests\TestVertexArray.cpp">
       <Filter>Tests</Filter>
     </ClCompile>
+    <ClCompile Include="src\Tests\TestParticleSystem.cpp" />
+    <ClCompile Include="src\Tests\Test3D.cpp" />
   </ItemGroup>
 </Project>

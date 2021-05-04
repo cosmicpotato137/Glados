@@ -3,6 +3,7 @@
 #include "glm/glm.hpp"
 
 using namespace glm;
+
 namespace Glados {
 
 	class RendererAPI
@@ -15,7 +16,6 @@ namespace Glados {
 		~RendererAPI() = default;
 
 		virtual void Init() = 0;
-		virtual void Shutdown() = 0;
 		virtual void SetViewport(uint32_t x, uint32_t y, uint32_t width, uint32_t height) = 0;
 		virtual void SetClearColor(const vec4& color) = 0;
 		virtual void Blend(bool blend) = 0;
@@ -25,7 +25,7 @@ namespace Glados {
 		
 		virtual std::string GetVersion() = 0;
 
-		API GetAPI() const { return s_API; }
+		static API GetAPI() { return s_API; }
 
 		static Scope<RendererAPI> Create();
 	};

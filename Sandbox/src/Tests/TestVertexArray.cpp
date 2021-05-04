@@ -35,14 +35,12 @@ namespace test {
 		m_IndexBuffer = IndexBuffer::Create(&indices[0], 6);
 		m_VAO->SetIndexBuffer(m_IndexBuffer);
 
-		std::string name = "Basic";
 		std::string filepath = "res/shaders/basic2d.shader";
 
 		if (Renderer::GetShaderLibrary().Exists("basic2d"))
 			m_Shader = Renderer::GetShaderLibrary().Get("basic2d");
 		else
 			m_Shader = Renderer::GetShaderLibrary().Load(filepath);
-		m_Shader->Bind();
 	}
 
 	TestVertexArray::~TestVertexArray()
@@ -52,15 +50,16 @@ namespace test {
 
 	void TestVertexArray::OnUpdate(float deltaTime)
 	{
+		m_Shader->Bind();
 		m_Shader->SetFloat4("u_Color", m_Color);
-		m_Shader->SetMat4("u_VP", m_Proj);
-
+		m_Shader->SetMat4("u_ViewProjection", m_Proj);
+		m_Shader->SetMat4("u_Transform", glm::mat4(1));
+		m_Shader->Unbind();
 	}
 
 	void TestVertexArray::OnRender()
 	{
-		m_Shader->Bind();
-		Renderer::DrawIndexed(m_VAO);
+		Renderer::Submit(m_Shader, m_VAO, glm::mat4(1));
 	}
 
 	void TestVertexArray::OnImGuiRender()

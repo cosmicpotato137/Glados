@@ -21,7 +21,7 @@ namespace Glados {
 	private:
 		std::string m_Filepath;
 	public:
-		Mesh(const std::string& filepath, const Ref<VertexArray> vertexArray);
+		Mesh(const std::string& filepath, const Ref<VertexArray>& vertexArray);
 		~Mesh();
 
 		void LoadMesh();
@@ -30,7 +30,7 @@ namespace Glados {
 		void FlatNormals();
 		void SmoothNormals();
 
-		static Ref<Mesh> Create(const std::string& filepath, const Ref<VertexArray> vertexArray);
+		static Ref<Mesh> Create(const std::string& filepath, const Ref<VertexArray>& vertexArray);
 
 	private:
 		MeshData Parse(const std::string& filepath);

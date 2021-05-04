@@ -140,6 +140,9 @@
       <Filter>Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\gladospch.h" />
+    <ClInclude Include="src\Glados\Scene\Entity.h" />
+    <ClInclude Include="src\Glados\Scene\Scene.h" />
+    <ClInclude Include="src\Glados\Renderer\RendererCommand.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Glados\Core\GDApplication.cpp">
@@ -224,5 +227,9 @@
       <Filter>Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\gladospch.cpp" />
+    <ClCompile Include="src\Glados\Scene\Component.h" />
+    <ClCompile Include="src\Glados\Scene\Entity.cpp" />
+    <ClCompile Include="src\Glados\Scene\Scene.cpp" />
+    <ClCompile Include="src\Glados\Renderer\RendererCommand.cpp" />
   </ItemGroup>
 </Project>
