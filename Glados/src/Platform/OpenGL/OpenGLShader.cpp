@@ -173,6 +173,87 @@ namespace Glados {
 		return shaderSources;
 	}
 
+	ShaderIDs OpenGLShader::Compile(ShaderSources shaderSources)
+	{
+		int shaderIndex = 0;
+		ShaderIDs shaderIDs;
+		shaderIDs.reserve(shaderSources.size());
+
+		for (auto shaderSource : shaderSources)
+		{
+			// create an empty shader object to hold shader strings
+			GLenum type = shaderSource.first;
+			const char* src = shaderSource.second.c_str();
+			GLint id = glCreateShader(type);
+
+			glShaderSource(id, 1, &src, nullptr); // add source code for shader
+
+			glCompileShader(id); // compile the shader
+
+			// get compilation status
+			int result;
+			glGetShaderiv(id, GL_COMPILE_STATUS, &result);
+
+			if (result == GL_FALSE)
+			{
+				int length; // get number of characters in the info log
+				glGetShaderiv(id, GL_INFO_LOG_LENGTH, &length); // allocate memory on the stack for chars
+				char* message = (char*)_malloca(length * sizeof(char)); // assign message memory
+				glGetShaderInfoLog(id, length, &length, message); // get relevant data
+
+				GD_CORE_ERROR("{0}({1}) failed to compile:\n{2}", m_Filepath, type == GL_VERTEX_SHADER ? "vertex" : "fragment", message);
+
+				for (int id : shaderIDs)
+					glDeleteShader(id);
+
+				shaderIDs.clear();
+				return shaderIDs;
+			}
+			shaderIDs.push_back(id);
+			shaderIndex++;
+		}
+		return shaderIDs;
+	}
+
+	GLint OpenGLShader::Link(ShaderIDs shaderIDs)
+	{
+		if (!shaderIDs.size())
+			return 0;
+
+		GLint program = glCreateProgram();
+
+		// attaches shaders to the current program
+		for (auto shaderID : shaderIDs)
+			glAttachShader(program, shaderID);
+
+		glLinkProgram(program);
+
+		// get linking errors
+		GLint result;
+		glGetProgramiv(program, GL_LINK_STATUS, &result);
+		if (result == GL_FALSE)
+		{
+			GLint length; // get number of characters in the info log
+			glGetProgramiv(program, GL_INFO_LOG_LENGTH, &length); // allocate memory on the stack for chars
+			char* message = (char*)_malloca(length * sizeof(char)); // assign message memory
+			glGetProgramInfoLog(program, length, &length, message); // get relevant data
+
+			GD_CORE_ERROR("{0}: Failed to link program:\n{1}", m_Filepath, message);
+
+			glDeleteProgram(program);
+			return 0;
+		}
+
+		// delete shaders after linking
+		for (auto shaderID : shaderIDs)
+		{
+			glDetachShader(program, shaderID);
+			glDeleteShader(shaderID);
+		}
+
+		return program;
+	}
+
 	//void OpenGLShader::CompileOrGetVulkanBinaries(const std::unordered_map<GLenum, std::string>& shaderSources)
 	//{
 	//	GLuint program = glCreateProgram();
