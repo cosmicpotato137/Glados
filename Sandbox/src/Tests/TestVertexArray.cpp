@@ -36,11 +36,7 @@ namespace test {
 		m_VAO->SetIndexBuffer(m_IndexBuffer);
 
 		std::string filepath = "res/shaders/basic2d.shader";
-
-		if (Renderer::GetShaderLibrary().Exists("basic2d"))
-			m_Shader = Renderer::GetShaderLibrary().Get("basic2d");
-		else
-			m_Shader = Renderer::GetShaderLibrary().Load(filepath);
+		m_Shader = Shader::Create(filepath);
 	}
 
 	TestVertexArray::~TestVertexArray()
