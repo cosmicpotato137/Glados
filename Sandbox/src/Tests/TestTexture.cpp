@@ -38,7 +38,7 @@ namespace test {
 		m_IndexBuffer = IndexBuffer::Create(&indices[0], 6);
 		m_VAO->SetIndexBuffer(m_IndexBuffer);
 		
-		m_Shader = Renderer::GetShaderLibrary().Get("textureTest");
+		m_Shader = Shader::Create("res/shaders/textureTest.shader");
 
 		m_Model = glm::mat4(1.0f);
 		m_Model = glm::scale(m_Model, glm::vec3(3.0f, 3.0f, 3.0f));

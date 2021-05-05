@@ -142,6 +142,7 @@
     <ClInclude Include="src\Glados\Renderer\EditorCamera.h" />
     <ClInclude Include="src\Glados\Archives\Scene.h" />
     <ClInclude Include="src\Glados\Archives\Entity.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLUniformBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Glados\Core\GDApplication.cpp">
@@ -228,6 +229,7 @@
     <ClCompile Include="src\Glados\Archives\Entity.cpp" />
     <ClCompile Include="src\Glados\Archives\Scene.cpp" />
     <ClCompile Include="src\Glados\Renderer\EditorCamera.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLUniformBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\quad.shader" />

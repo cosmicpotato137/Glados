@@ -23,6 +23,7 @@
 #include "Glados/Renderer/Buffer.h"
 #include "Glados/Renderer/VertexArray.h"
 #include "Glados/Renderer/Shader.h"
-#include "Glados/Renderer/Material.h"
+//#include "Glados/Renderer/Material.h"
 #include "Glados/Renderer/Mesh.h"
 #include "Glados/Renderer/Texture.h"
+#include "Glados/Renderer/OrthographicCamera.h"

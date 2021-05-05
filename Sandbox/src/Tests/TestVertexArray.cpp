@@ -5,7 +5,7 @@ namespace test {
 
 	TestVertexArray::TestVertexArray()
 		: m_View(glm::lookAt(vec3(0,0,1),vec3(0,0,0), vec3(0, 1, 0))),
-		m_Model(200, 200, 0), m_Camera(0, 0, 0), m_Color(1.0f, 0.5f, 1.0f, 1.0f)
+		m_Model(200, 200, 0), m_Color(1.0f, 0.5f, 1.0f, 1.0f), m_Camera(OrthographicCamera(0, 0, 0, 0))
 	{
 		float positions[]{
 			0.0f,   0.0f,
@@ -60,7 +60,7 @@ namespace test {
 	void TestVertexArray::OnRender()
 	{
 		//Renderer::Submit(m_Shader, m_VAO, glm::mat4(1));
-		Renderer2D::BeginScene(m_Proj);
+		Renderer2D::BeginScene(m_Camera);
 		Renderer2D::DrawQuad(glm::scale(glm::mat4(1), glm::vec3(100, 100, 100)), glm::vec4(1));
 		Renderer2D::EndScene();
 	}
@@ -80,6 +80,7 @@ namespace test {
 	{
 		float aspect = viewportSize.x / viewportSize.y;
 		m_Proj = glm::mat4(glm::ortho(-aspect * viewportSize.y, aspect * viewportSize.y, -viewportSize.y, viewportSize.y));
+		m_Camera = OrthographicCamera(-aspect * viewportSize.y, aspect * viewportSize.y, -viewportSize.y, viewportSize.y);
 	}
 
 	void TestVertexArray::OnEvent(Event& e)

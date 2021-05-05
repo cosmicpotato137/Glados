@@ -10,9 +10,9 @@ namespace test {
 	{
 	private:
 		mat4 m_Proj;
+		OrthographicCamera m_Camera;
 		mat4 m_View;
 		vec3 m_Model;
-		vec3 m_Camera;
 		vec4 m_Color;
 
 		Ref<VertexArray>	m_VAO;
