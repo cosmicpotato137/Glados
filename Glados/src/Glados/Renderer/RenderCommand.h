@@ -3,7 +3,7 @@
 
 namespace Glados {
 
-	class RendererCommand
+	class RenderCommand
 	{
 	private:
 		static Scope<RendererAPI> s_RendererAPI;

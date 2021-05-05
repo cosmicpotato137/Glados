@@ -1,53 +1,70 @@
 #include "gladospch.h"
-#include "Shader.h"
-#include "Platform/OpenGL/OpenGLShader.h"
-#include "Glados/Renderer/Renderer.h"
+#include "Glados/Renderer/Shader.h"
 
-namespace Glados {
+#include "Glados/Renderer/Renderer.h"
+#include "Platform/OpenGL/OpenGLShader.h"
+
+namespace Glados{
 
 	Ref<Shader> Shader::Create(const std::string& filepath)
 	{
 		switch (Renderer::GetRenderAPI())
 		{
-		case RendererAPI::API::None:	GD_CORE_ASSERT(false, "RendererAPI::API::None is not currently supported!");
-		case RendererAPI::API::OpenGL:	return CreateRef<OpenGLShader>(filepath);
+			case RendererAPI::API::None:    GD_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
+			case RendererAPI::API::OpenGL:  return CreateRef<OpenGLShader>(filepath);
 		}
-		GD_CORE_ASSERT(false, "Unknown RendererAPI::API!");
+
+		GD_CORE_ASSERT(false, "Unknown RendererAPI!");
 		return nullptr;
 	}
 
-	Ref<Shader> Shader::Create(const std::string& name, const std::string& vertexsrc, const std::string& fragmentsrc)
+	Ref<Shader> Shader::Create(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc)
 	{
 		switch (Renderer::GetRenderAPI())
 		{
-		case RendererAPI::API::None:	GD_CORE_ASSERT(false, "RendererAPI::API::None is not currently supported!");
-		case RendererAPI::API::OpenGL:	return CreateRef<OpenGLShader>(name, vertexsrc, fragmentsrc);
+			case RendererAPI::API::None:    GD_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
+			case RendererAPI::API::OpenGL:  return CreateRef<OpenGLShader>(name, vertexSrc, fragmentSrc);
 		}
-		GD_CORE_ASSERT(false, "Unknown RendererAPI::API!");
+
+		GD_CORE_ASSERT(false, "Unknown RendererAPI!");
 		return nullptr;
+	}
+
+	void ShaderLibrary::Add(const std::string& name, const Ref<Shader>& shader)
+	{
+		GD_CORE_ASSERT(!Exists(name), "Shader already exists!");
+		m_Shaders[name] = shader;
 	}
 
 	void ShaderLibrary::Add(const Ref<Shader>& shader)
 	{
-		GD_CORE_VALIDATE(!Exists(shader->GetName()), return, "Shader: {0} already exists!", shader->GetName());
-		m_Shaders[shader->GetName()] = shader;
+		auto& name = shader->GetName();
+		Add(name, shader);
 	}
 
-	Glados::Ref<Glados::Shader> ShaderLibrary::Load(const std::string& filepath)
+	Ref<Shader> ShaderLibrary::Load(const std::string& filepath)
 	{
-		Ref<Shader> shader = Shader::Create(filepath);
+		auto shader = Shader::Create(filepath);
 		Add(shader);
 		return shader;
 	}
 
-	bool ShaderLibrary::Exists(const std::string& name)
+	Ref<Shader> ShaderLibrary::Load(const std::string& name, const std::string& filepath)
 	{
-		return m_Shaders.find(name) != m_Shaders.end();
+		auto shader = Shader::Create(filepath);
+		Add(name, shader);
+		return shader;
 	}
 
 	Ref<Shader> ShaderLibrary::Get(const std::string& name)
 	{
-		GD_CORE_VALIDATE(Exists(name), return Renderer::GetDefaultShader(), "Shader: {0} doesn't exist!", name);
+		GD_CORE_ASSERT(Exists(name), "Shader not found!");
 		return m_Shaders[name];
 	}
+
+	bool ShaderLibrary::Exists(const std::string& name) const
+	{
+		return m_Shaders.find(name) != m_Shaders.end();
+	}
+
 }

@@ -4,7 +4,7 @@
 namespace test {
 
 	TestVertexArray::TestVertexArray()
-		: m_View(glm::lookAt(vec3(0,0,100),vec3(0,0,0), vec3(0, 1, 0))),
+		: m_View(glm::lookAt(vec3(0,0,1),vec3(0,0,0), vec3(0, 1, 0))),
 		m_Model(200, 200, 0), m_Camera(0, 0, 0), m_Color(1.0f, 0.5f, 1.0f, 1.0f)
 	{
 		float positions[]{
@@ -24,7 +24,7 @@ namespace test {
 		m_VAO = VertexArray::Create();
 		{
 			BufferLayout layout({
-				Uniform(UniformType::Float2, "position")
+				{ ShaderDataType::Float2, "position" }
 				});
 			m_VertexBuffer = VertexBuffer::Create(&positions[0], layout.GetStride() * 4);
 			m_VertexBuffer->SetLayout(layout);
@@ -59,7 +59,10 @@ namespace test {
 
 	void TestVertexArray::OnRender()
 	{
-		Renderer::Submit(m_Shader, m_VAO, glm::mat4(1));
+		//Renderer::Submit(m_Shader, m_VAO, glm::mat4(1));
+		Renderer2D::BeginScene(m_Proj);
+		Renderer2D::DrawQuad(glm::scale(glm::mat4(1), glm::vec3(100, 100, 100)), glm::vec4(1));
+		Renderer2D::EndScene();
 	}
 
 	void TestVertexArray::OnImGuiRender()

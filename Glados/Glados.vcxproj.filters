@@ -85,9 +85,6 @@
     <ClInclude Include="src\Glados\Renderer\GraphicsContext.h">
       <Filter>Glados\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="src\Glados\Renderer\Material.h">
-      <Filter>Glados\Renderer</Filter>
-    </ClInclude>
     <ClInclude Include="src\Glados\Renderer\Mesh.h">
       <Filter>Glados\Renderer</Filter>
     </ClInclude>
@@ -104,9 +101,6 @@
       <Filter>Glados\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Glados\Renderer\Texture.h">
-      <Filter>Glados\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Glados\Renderer\Uniform.h">
       <Filter>Glados\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Glados\Renderer\VertexArray.h">
@@ -140,9 +134,14 @@
       <Filter>Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\gladospch.h" />
-    <ClInclude Include="src\Glados\Scene\Entity.h" />
-    <ClInclude Include="src\Glados\Scene\Scene.h" />
-    <ClInclude Include="src\Glados\Renderer\RendererCommand.h" />
+    <ClInclude Include="src\Glados\Renderer\Renderer2D.h" />
+    <ClInclude Include="src\Glados\Renderer\RenderCommand.h" />
+    <ClInclude Include="src\Glados\Renderer\OrthographicCamera.h" />
+    <ClInclude Include="src\Glados\Renderer\UniformBuffer.h" />
+    <ClInclude Include="src\Glados\Renderer\Camera.h" />
+    <ClInclude Include="src\Glados\Renderer\EditorCamera.h" />
+    <ClInclude Include="src\Glados\Archives\Scene.h" />
+    <ClInclude Include="src\Glados\Archives\Entity.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Glados\Core\GDApplication.cpp">
@@ -175,9 +174,6 @@
     <ClCompile Include="src\Glados\Renderer\GraphicsContext.cpp">
       <Filter>Glados\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="src\Glados\Renderer\Material.cpp">
-      <Filter>Glados\Renderer</Filter>
-    </ClCompile>
     <ClCompile Include="src\Glados\Renderer\Mesh.cpp">
       <Filter>Glados\Renderer</Filter>
     </ClCompile>
@@ -191,9 +187,6 @@
       <Filter>Glados\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Glados\Renderer\Texture.cpp">
-      <Filter>Glados\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Glados\Renderer\Uniform.cpp">
       <Filter>Glados\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Glados\Renderer\VertexArray.cpp">
@@ -227,9 +220,16 @@
       <Filter>Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\gladospch.cpp" />
-    <ClCompile Include="src\Glados\Scene\Component.h" />
-    <ClCompile Include="src\Glados\Scene\Entity.cpp" />
-    <ClCompile Include="src\Glados\Scene\Scene.cpp" />
-    <ClCompile Include="src\Glados\Renderer\RendererCommand.cpp" />
+    <ClCompile Include="src\Glados\Renderer\Renderer2D.cpp" />
+    <ClCompile Include="src\Glados\Renderer\RenderCommand.cpp" />
+    <ClCompile Include="src\Glados\Renderer\OrthographicCamera.cpp" />
+    <ClCompile Include="src\Glados\Renderer\UniformBuffer.cpp" />
+    <ClCompile Include="src\Glados\Archives\Component.h" />
+    <ClCompile Include="src\Glados\Archives\Entity.cpp" />
+    <ClCompile Include="src\Glados\Archives\Scene.cpp" />
+    <ClCompile Include="src\Glados\Renderer\EditorCamera.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\shaders\quad.shader" />
   </ItemGroup>
 </Project>

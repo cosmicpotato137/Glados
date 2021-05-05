@@ -1,6 +1,6 @@
 #pragma once
 
-//for use by Hazel applications
+//for use by Glados applications
 
 #include "Glados/Core/Core.h"
 
@@ -18,6 +18,7 @@
 //-------Renderer---------
 
 #include "Glados/Renderer/Renderer.h"
+#include "Glados/Renderer/Renderer2D.h"
 #include "Glados/Renderer/Framebuffer.h"
 #include "Glados/Renderer/Buffer.h"
 #include "Glados/Renderer/VertexArray.h"

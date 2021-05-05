@@ -1,5 +1,5 @@
 #pragma once
-#include "RendererCommand.h"
+#include "RenderCommand.h"
 #include "glm/glm.hpp"
 #include "VertexArray.h"
 #include "Shader.h"
@@ -19,9 +19,9 @@ namespace Glados {
 		Renderer() = delete;
 		~Renderer() = delete;
 
-		static RendererAPI::API GetRenderAPI() { return RendererCommand::GetAPI(); }
+		static RendererAPI::API GetRenderAPI() { return RenderCommand::GetAPI(); }
 		static ShaderLibrary& GetShaderLibrary() { return *s_ShaderLib; }
-		static std::string GetRendererAPIVersion() { return RendererCommand::GetVersion(); }
+		static std::string GetRendererAPIVersion() { return RenderCommand::GetVersion(); }
 
 		static void Init();
 		static void Shutdown();

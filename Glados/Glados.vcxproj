@@ -158,20 +158,23 @@
     <ClInclude Include="src\Glados\Events\MouseEvent.h" />
     <ClInclude Include="src\Glados\ImGui\ImGuiLayer.h" />
     <ClInclude Include="src\Glados\Renderer\Buffer.h" />
+    <ClInclude Include="src\Glados\Renderer\Camera.h" />
+    <ClInclude Include="src\Glados\Renderer\EditorCamera.h" />
     <ClInclude Include="src\Glados\Renderer\Framebuffer.h" />
     <ClInclude Include="src\Glados\Renderer\GraphicsContext.h" />
-    <ClInclude Include="src\Glados\Renderer\Material.h" />
     <ClInclude Include="src\Glados\Renderer\Mesh.h" />
+    <ClInclude Include="src\Glados\Renderer\OrthographicCamera.h" />
     <ClInclude Include="src\Glados\Renderer\Renderer.h" />
+    <ClInclude Include="src\Glados\Renderer\Renderer2D.h" />
     <ClInclude Include="src\Glados\Renderer\RendererAPI.h" />
-    <ClInclude Include="src\Glados\Renderer\RendererCommand.h" />
+    <ClInclude Include="src\Glados\Renderer\RenderCommand.h" />
     <ClInclude Include="src\Glados\Renderer\Shader.h" />
     <ClInclude Include="src\Glados\Renderer\StbImageImpl.h" />
     <ClInclude Include="src\Glados\Renderer\Texture.h" />
-    <ClInclude Include="src\Glados\Renderer\Uniform.h" />
+    <ClInclude Include="src\Glados\Renderer\UniformBuffer.h" />
     <ClInclude Include="src\Glados\Renderer\VertexArray.h" />
-    <ClInclude Include="src\Glados\Scene\Entity.h" />
-    <ClInclude Include="src\Glados\Scene\Scene.h" />
+    <ClInclude Include="src\Glados\Archives\Entity.h" />
+    <ClInclude Include="src\Glados\Archives\Scene.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLFramebuffer.h" />
@@ -192,20 +195,22 @@
     <ClCompile Include="src\Glados\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\Glados\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\Glados\Renderer\Bufer.cpp" />
+    <ClCompile Include="src\Glados\Renderer\EditorCamera.cpp" />
     <ClCompile Include="src\Glados\Renderer\Framebuffer.cpp" />
     <ClCompile Include="src\Glados\Renderer\GraphicsContext.cpp" />
-    <ClCompile Include="src\Glados\Renderer\Material.cpp" />
     <ClCompile Include="src\Glados\Renderer\Mesh.cpp" />
+    <ClCompile Include="src\Glados\Renderer\OrthographicCamera.cpp" />
     <ClCompile Include="src\Glados\Renderer\Renderer.cpp" />
+    <ClCompile Include="src\Glados\Renderer\Renderer2D.cpp" />
     <ClCompile Include="src\Glados\Renderer\RendererAPI.cpp" />
-    <ClCompile Include="src\Glados\Renderer\RendererCommand.cpp" />
+    <ClCompile Include="src\Glados\Renderer\RenderCommand.cpp" />
     <ClCompile Include="src\Glados\Renderer\Shader.cpp" />
     <ClCompile Include="src\Glados\Renderer\Texture.cpp" />
-    <ClCompile Include="src\Glados\Renderer\Uniform.cpp" />
+    <ClCompile Include="src\Glados\Renderer\UniformBuffer.cpp" />
     <ClCompile Include="src\Glados\Renderer\VertexArray.cpp" />
-    <ClCompile Include="src\Glados\Scene\Component.h" />
-    <ClCompile Include="src\Glados\Scene\Entity.cpp" />
-    <ClCompile Include="src\Glados\Scene\Scene.cpp" />
+    <ClCompile Include="src\Glados\Archives\Component.h" />
+    <ClCompile Include="src\Glados\Archives\Entity.cpp" />
+    <ClCompile Include="src\Glados\Archives\Scene.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLFramebuffer.cpp" />
@@ -229,6 +234,9 @@
     <ProjectReference Include="vendor\Glad\Glad.vcxproj">
       <Project>{BDD6857C-A90D-870D-52FA-6C103E10030F}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\shaders\quad.shader" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

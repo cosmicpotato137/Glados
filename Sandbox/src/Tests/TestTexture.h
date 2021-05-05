@@ -26,7 +26,7 @@ namespace test {
 		Ref<VertexArray> m_VAO;
 		Ref<IndexBuffer> m_IndexBuffer;
 		Ref<Shader> m_Shader;
-		Ref<Texture> m_Texture;
+		Ref<Texture2D> m_Texture;
 
 		glm::mat4 m_Proj, m_View, m_Model;
 		glm::vec3 m_Position;

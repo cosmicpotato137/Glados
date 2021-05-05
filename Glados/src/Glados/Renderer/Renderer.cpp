@@ -1,5 +1,6 @@
 #include "gladospch.h"
 #include "Renderer.h"
+#include "Renderer2D.h"
 
 namespace Glados {
 
@@ -9,36 +10,38 @@ namespace Glados {
 
 	void Renderer::Init()
 	{
-		RendererCommand::Init();
+		RenderCommand::Init();
+		Renderer2D::Init();
 		s_DefaultShader = Shader::Create("res/shaders/default.shader");
 		s_Framebuffer = Framebuffer::Create(FramebufferSpecification());
 	}
 
 	void Renderer::Shutdown()
 	{
+		Renderer2D::Shutdown();
 	}
 
 	void Renderer::OnWindowResize(uint32_t x, uint32_t y, uint32_t width, uint32_t height)
 	{
-		RendererCommand::SetViewport(x, y, width, height);
+		RenderCommand::SetViewport(x, y, width, height);
 		s_Framebuffer->Resize(width, height);
 	}
 
 	void Renderer::Clear()
 	{
 		s_Framebuffer->Bind();
-		RendererCommand::Clear();
+		RenderCommand::Clear();
 		s_Framebuffer->Unbind();
 	}
 
 	void Renderer::SetClearColor(const vec4& color)
 	{
-		RendererCommand::SetClearColor(color);
+		RenderCommand::SetClearColor(color);
 	}
 
 	void Renderer::SetBlend(bool blend)
 	{
-		RendererCommand::SetBlend(blend);
+		RenderCommand::SetBlend(blend);
 	}
 
 	void Renderer::Submit(const Ref<Shader>& shader, const Ref<VertexArray>& vertexArray, const glm::mat4& transform)
@@ -49,7 +52,7 @@ namespace Glados {
 		//shader->SetMat4("u_ViewProjection", s_SceneData->ViewProjectionMatrix);
 		//shader->SetMat4("u_Transform", transform);
 		vertexArray->Bind();
-		RendererCommand::DrawIndexed(vertexArray);
+		RenderCommand::DrawIndexed(vertexArray);
 		shader->Unbind();
 		s_Framebuffer->Unbind();
 	}

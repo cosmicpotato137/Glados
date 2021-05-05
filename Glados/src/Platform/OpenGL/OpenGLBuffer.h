@@ -38,26 +38,4 @@ namespace Glados {
 		virtual BufferLayout GetLayout() const override;
 	};
 
-
-	class OpenGLUniformBuffer : public UniformBuffer
-	{
-	private:
-		uint32_t m_RendererID;
-		BufferLayout m_Layout;
-	public:
-		OpenGLUniformBuffer(size_t size);
-		OpenGLUniformBuffer(float* vertices, size_t size);
-
-		virtual void Bind() const override;
-		virtual void Unbind() const override;
-
-		virtual void SetData(const void* data, uint32_t offset, size_t size) override;
-		virtual float GetData(uint32_t offset, size_t size) const override;
-
-		virtual void SetLayout(const BufferLayout& layout) override;
-		virtual BufferLayout GetLayout() const override;
-
-		virtual void BindUniformBlock(const std::string& name, Ref<Shader> shader) override;
-	};
-
 }

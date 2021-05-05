@@ -21,7 +21,7 @@ void TestLayer::OnAttach()
 
 	RegisterTest<TestClearColor>("Test Clear Color");
 	RegisterTest<TestVertexArray>("Test Vertex Array");
-	//m_TestMenu->RegisterTest<TestTexture2D>("2D Texture Test");
+	RegisterTest<TestTexture2D>("2D Texture Test");
 	RegisterTest<Test3D>("3D Test");
 
 	// initiallize shaders
@@ -103,6 +103,7 @@ void TestLayer::OnImGuiRender()
 
 	// test windows
 	ImGui::Begin("Test");
+	ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 	if (m_CurrentTest != m_TestMenu && ImGui::Button("<-"))
 	{
 		delete m_CurrentTest;
@@ -176,7 +177,8 @@ void TestLayer::Dockspace()
 		{
 			// Disabling fullscreen would allow the window to be moved to the front of other windows,
 			// which we can't undo at the moment without finer window depth/z control.
-			ImGui::MenuItem("Exit");
+			if (ImGui::MenuItem("Exit"))
+				Application::Get().Close();
 
 			ImGui::EndMenu();
 		}

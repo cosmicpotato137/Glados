@@ -27,11 +27,11 @@ namespace test {
 		m_VAO = VertexArray::Create();
 
 		BufferLayout layout({
-			Uniform(UniformType::Float2, "position"),
-			Uniform(UniformType::Float2, "texcoord")
+			{ ShaderDataType::Float2, "position" },
+			{ ShaderDataType::Float2, "texcoord" }
 			});
 
-		m_VertexBuffer = VertexBuffer::Create(positions, layout.GetStride() * 4);
+		m_VertexBuffer = VertexBuffer::Create(positions, sizeof(positions));
 		m_VertexBuffer->SetLayout(layout);
 		m_VAO->AddVertexBuffer(m_VertexBuffer);
 
@@ -44,7 +44,8 @@ namespace test {
 		m_Model = glm::scale(m_Model, glm::vec3(3.0f, 3.0f, 3.0f));
 		m_Model = glm::translate(m_Model, m_Position);
 
-		m_Texture = Texture::Create("res/textures/dirt.png");
+		m_Texture = Texture2D::Create("res/textures/particle.png");
+		m_Texture->Bind(0);
 	}
 
 	TestTexture2D::~TestTexture2D()
@@ -59,27 +60,20 @@ namespace test {
 		glm::mat4 mvp = m_Proj * m_View * m_Model;
 		m_Shader->SetMat4("u_MVP", mvp);
 
-		m_Texture->Bind();
 		m_Shader->SetInt("u_Texture", 0);
-		m_Texture->Unbind();
 		m_Shader->Unbind();
 	}
 
 	void TestTexture2D::OnRender()
 	{
-		m_Shader->Bind();
-		m_Texture->Bind();
-		Renderer::DrawIndexed(m_VAO);
+		Renderer::Submit(m_Shader, m_VAO, mat4(1));
 		m_Shader->Unbind();
-		m_Texture->Unbind();
 	}
 
 	void TestTexture2D::OnImGuiRender()
 	{
 		if (ImGui::Checkbox("Enable Blending", &blend))
 			Renderer::SetBlend(blend);
-
-		ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 	}
 
 	void TestTexture2D::OnViewportResize(glm::vec2 viewportSize)

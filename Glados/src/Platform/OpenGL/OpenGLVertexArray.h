@@ -10,7 +10,7 @@ namespace Glados
 		uint32_t m_RendererID;
 		Ref<IndexBuffer> m_IndexBuffer;
 		std::vector<Ref<VertexBuffer>> m_VertexBuffers;
-		uint32_t m_VertexBufferCount;
+		uint32_t m_VertexBufferIndex = 0;
 	public:
 		OpenGLVertexArray();
 		~OpenGLVertexArray();

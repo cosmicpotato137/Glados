@@ -10,11 +10,9 @@ namespace Glados {
 
 		// vertex buffer
 		{
-			BufferLayout layout(
-				{
-					Uniform(UniformType::Float3, "a_Position"),
-				}
-			);
+			BufferLayout layout({
+				{ ShaderDataType::Float3, "a_Position" },
+				});
 			Ref<VertexBuffer> vertexBuffer = VertexBuffer::Create(&meshData.Vertices[0][0], meshData.Vertices.size() * layout.GetStride());
 			vertexBuffer->SetLayout(layout);
 			vertexArray->AddVertexBuffer(vertexBuffer);
@@ -22,9 +20,9 @@ namespace Glados {
 
 		// texture coordinate buffer
 		{
-			BufferLayout layout(
-				{ Uniform(UniformType::Float2, "a_Texture") }
-			);
+			BufferLayout layout({
+				{ ShaderDataType::Float2, "a_Texture" }
+				});
 			Ref<VertexBuffer> texCoordBuffer = VertexBuffer::Create(&meshData.TexCoords[0][0], meshData.TexCoords.size() * layout.GetStride());
 			texCoordBuffer->SetLayout(layout);
 			vertexArray->AddVertexBuffer(texCoordBuffer);
@@ -32,9 +30,9 @@ namespace Glados {
 
 		// normal buffer
 		{
-			BufferLayout layout(
-				{ Uniform(UniformType::Float3, "a_Normal") }
-			);
+			BufferLayout layout({
+				{ ShaderDataType::Float3, "a_Normal" }
+				});
 			Ref<VertexBuffer> normalBuffer = VertexBuffer::Create(&meshData.Normals[0][0], meshData.Normals.size() * layout.GetStride());
 			normalBuffer->SetLayout(layout);
 			vertexArray->AddVertexBuffer(normalBuffer);

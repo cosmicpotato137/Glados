@@ -59,6 +59,7 @@ namespace Glados {
 		}
 	}
 
+	// quit application
 	void Application::Close()
 	{
 		m_Running = false;
