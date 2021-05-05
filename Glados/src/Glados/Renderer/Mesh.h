@@ -21,7 +21,7 @@ namespace Glados {
 	private:
 		std::string m_Filepath;
 	public:
-		Mesh(const std::string& filepath, const Ref<VertexArray>& vertexArray);
+		Mesh(const std::string& filepath, Ref<VertexArray> vertexArray);
 		~Mesh();
 
 		void LoadMesh();

@@ -27,6 +27,7 @@ void TestLayer::OnAttach()
 	// initiallize shaders
 	ShaderLibrary& lib = Renderer::GetShaderLibrary();
 	lib.Load("res/shaders/basic.shader");
+	lib.Load("res/shaders/basic2d.shader");
 	lib.Load("res/shaders/debug.shader");
 	lib.Load("res/shaders/forcefield.shader");
 	lib.Load("res/shaders/Gourad.shader");

@@ -40,8 +40,7 @@ namespace Glados {
 
 	void OpenGLVertexArray::AddVertexBuffer(const Ref<VertexBuffer>& vertexBuffer)
 	{
-		//m_VertexBuffers.push_back(vertexBuffer);
-		Bind();
+		glBindVertexArray(m_RendererID);
 		vertexBuffer->Bind();
 		// list of all elements in m_Elements vector
 		BufferLayout layout = vertexBuffer->GetLayout();

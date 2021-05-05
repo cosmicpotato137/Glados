@@ -4,7 +4,7 @@
 
 namespace Glados {
 
-	Mesh::Mesh(const std::string& filepath, const Ref<VertexArray>& vertexArray)
+	Mesh::Mesh(const std::string& filepath, Ref<VertexArray> vertexArray)
 	{
 		MeshData meshData = Parse(filepath);
 
