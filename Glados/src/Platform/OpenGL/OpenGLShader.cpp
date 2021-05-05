@@ -75,13 +75,13 @@ namespace Glados {
 	}
 
 	OpenGLShader::OpenGLShader(const std::string& filepath)
-		: m_FilePath(filepath)
+		: m_FilePath(filepath), m_RendererID(0)
 	{
 
 		//Utils::CreateCacheDirectoryIfNeeded();
 
-		std::string source = ReadFile(filepath);
-		auto shaderSources = PreProcess(source);
+		//std::string source = ReadFile(filepath);
+		//auto shaderSources = PreProcess(source);
 
 		//{
 		//	Timer timer;
@@ -97,11 +97,13 @@ namespace Glados {
 		auto lastDot = filepath.rfind('.');
 		auto count = lastDot == std::string::npos ? filepath.size() - lastSlash : lastDot - lastSlash;
 		m_Name = filepath.substr(lastSlash, count);
+
 		CreateProgram();
 	}
 
+	// doesn't do anything yet!
 	OpenGLShader::OpenGLShader(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc)
-		: m_Name(name)
+		: m_Name(name), m_RendererID(0)
 	{
 		
 
@@ -148,9 +150,9 @@ namespace Glados {
 		return result;
 	}
 
-	std::unordered_map<GLenum, std::string> OpenGLShader::PreProcess(const std::string& source)
+	ShaderSources OpenGLShader::PreProcess(const std::string& source)
 	{
-		std::unordered_map<GLenum, std::string> shaderSources;
+		ShaderSources shaderSources;
 
 		const char* typeToken = "#shader";
 		size_t typeTokenLength = strlen(typeToken);
@@ -201,7 +203,7 @@ namespace Glados {
 				char* message = (char*)_malloca(length * sizeof(char)); // assign message memory
 				glGetShaderInfoLog(id, length, &length, message); // get relevant data
 
-				GD_CORE_ERROR("{0}({1}) failed to compile:\n{2}", m_Filepath, type == GL_VERTEX_SHADER ? "vertex" : "fragment", message);
+				GD_CORE_ERROR("{0}({1}) failed to compile:\n{2}", m_FilePath, type == GL_VERTEX_SHADER ? "vertex" : "fragment", message);
 
 				for (int id : shaderIDs)
 					glDeleteShader(id);
@@ -215,7 +217,7 @@ namespace Glados {
 		return shaderIDs;
 	}
 
-	GLint OpenGLShader::Link(ShaderIDs shaderIDs)
+	uint32_t OpenGLShader::Link(ShaderIDs shaderIDs)
 	{
 		if (!shaderIDs.size())
 			return 0;
@@ -238,7 +240,7 @@ namespace Glados {
 			char* message = (char*)_malloca(length * sizeof(char)); // assign message memory
 			glGetProgramInfoLog(program, length, &length, message); // get relevant data
 
-			GD_CORE_ERROR("{0}: Failed to link program:\n{1}", m_Filepath, message);
+			GD_CORE_ERROR("{0}: Failed to link program:\n{1}", m_FilePath, message);
 
 			glDeleteProgram(program);
 			return 0;
@@ -371,44 +373,60 @@ namespace Glados {
 
 	void OpenGLShader::CreateProgram()
 	{
-		GLuint program = glCreateProgram();
+        GD_CORE_VALIDATE(&m_FilePath, return, "{0}: Unable to load shader! No filepath specified.", m_FilePath);
 
-		std::vector<GLuint> shaderIDs;
-		for (auto&& [stage, spirv] : m_OpenGLSPIRV)
-		{
-			GLuint shaderID = shaderIDs.emplace_back(glCreateShader(stage));
-			glShaderBinary(1, &shaderID, GL_SHADER_BINARY_FORMAT_SPIR_V, spirv.data(), spirv.size() * sizeof(uint32_t));
-			glSpecializeShader(shaderID, "main", 0, nullptr, nullptr);
-			glAttachShader(program, shaderID);
-		}
+        if (m_RendererID)
+        {
+            glDeleteProgram(m_RendererID);
+            m_RendererID = 0;
+        }
 
-		glLinkProgram(program);
-
-		GLint isLinked;
-		glGetProgramiv(program, GL_LINK_STATUS, &isLinked);
-		if (isLinked == GL_FALSE)
-		{
-			GLint maxLength;
-			glGetProgramiv(program, GL_INFO_LOG_LENGTH, &maxLength);
-
-			std::vector<GLchar> infoLog(maxLength);
-			glGetProgramInfoLog(program, maxLength, &maxLength, infoLog.data());
-			GD_CORE_ERROR("Shader linking failed ({0}):\n{1}", m_FilePath, infoLog.data());
-
-			glDeleteProgram(program);
-
-			for (auto id : shaderIDs)
-				glDeleteShader(id);
-		}
-
-		for (auto id : shaderIDs)
-		{
-			glDetachShader(program, id);
-			glDeleteShader(id);
-		}
-
-		m_RendererID = program;
+        std::string source = ReadFile(m_FilePath);
+		ShaderSources shaderSources = PreProcess(source);
+        ShaderIDs shaderIDs = Compile(shaderSources);
+		m_RendererID = Link(shaderIDs);
 	}
+		
+	//void OpenGLShader::CreateProgram()
+	//{
+	//	GLuint program = glCreateProgram();
+
+	//	std::vector<GLuint> shaderIDs;
+	//	for (auto&& [stage, spirv] : m_OpenGLSPIRV)
+	//	{
+	//		GLuint shaderID = shaderIDs.emplace_back(glCreateShader(stage));
+	//		glShaderBinary(1, &shaderID, GL_SHADER_BINARY_FORMAT_SPIR_V, spirv.data(), spirv.size() * sizeof(uint32_t));
+	//		glSpecializeShader(shaderID, "main", 0, nullptr, nullptr);
+	//		glAttachShader(program, shaderID);
+	//	}
+
+	//	glLinkProgram(program);
+
+	//	GLint isLinked;
+	//	glGetProgramiv(program, GL_LINK_STATUS, &isLinked);
+	//	if (isLinked == GL_FALSE)
+	//	{
+	//		GLint maxLength;
+	//		glGetProgramiv(program, GL_INFO_LOG_LENGTH, &maxLength);
+
+	//		std::vector<GLchar> infoLog(maxLength);
+	//		glGetProgramInfoLog(program, maxLength, &maxLength, infoLog.data());
+	//		GD_CORE_ERROR("Shader linking failed ({0}):\n{1}", m_FilePath, infoLog.data());
+
+	//		glDeleteProgram(program);
+
+	//		for (auto id : shaderIDs)
+	//			glDeleteShader(id);
+	//	}
+
+	//	for (auto id : shaderIDs)
+	//	{
+	//		glDetachShader(program, id);
+	//		glDeleteShader(id);
+	//	}
+
+	//	m_RendererID = program;
+	//}
 
 	//void OpenGLShader::Reflect(GLenum stage, const std::vector<uint32_t>& shaderData)
 	//{

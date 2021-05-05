@@ -8,6 +8,9 @@ typedef unsigned int GLenum;
 
 namespace Glados {
 
+	using ShaderSources = std::unordered_map<GLenum, std::string>;
+	using ShaderIDs = std::vector<int>;
+
 	class OpenGLShader : public Shader
 	{
 	public:
@@ -40,9 +43,11 @@ namespace Glados {
 		void UploadUniformMat4(const std::string& name, const glm::mat4& matrix);
 	private:
 		std::string ReadFile(const std::string& filepath);
-		std::unordered_map<GLenum, std::string> PreProcess(const std::string& source);
+		ShaderSources PreProcess(const std::string& source);
 
 		void CreateProgram();
+		ShaderIDs Compile(ShaderSources shaderSources);
+		uint32_t Link(ShaderIDs shaderIDs);
 		//void Reflect(GLenum stage, const std::vector<uint32_t>& shaderData);
 	private:
 		uint32_t m_RendererID;
