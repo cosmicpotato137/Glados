@@ -4,9 +4,11 @@ This is me learning graphics programming by building my own renderer using OpenG
 # Build Instructions
 
 - Start by cloning the repository with git clone 
-- '''
-- $--recursive https://github.com/msunde137/Glados
-- '''
+```
+$ cd ../lorem
+$ npm install
+$ npm start
+```
 - Run GenerateGlados.bat to make the project files
 
 # Features:
