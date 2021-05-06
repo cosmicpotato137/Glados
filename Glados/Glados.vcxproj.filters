@@ -231,7 +231,4 @@
     <ClCompile Include="src\Glados\Renderer\EditorCamera.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLUniformBuffer.cpp" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="res\shaders\quad.shader" />
-  </ItemGroup>
 </Project>

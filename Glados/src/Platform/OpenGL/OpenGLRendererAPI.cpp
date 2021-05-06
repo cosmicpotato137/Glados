@@ -79,10 +79,7 @@ namespace Glados {
 	void OpenGLRendererAPI::DrawIndexed(const Ref<VertexArray>& vertexArray, uint32_t count)
 	{
 		// TODO: delete comments
-		//IndexBuffer& indexBuffer = vertexArray->GetIndexBuffer();
-		//GD_CORE_ASSERT(&indexBuffer, "No IndexBuffer assigned to vertexArray");
-		//vertexArray->Bind();
-		//indexBuffer.Bind();
+		vertexArray->Bind();
 		uint32_t c = count ? count : vertexArray->GetIndexBuffer().GetCount();
 		glDrawElements(GL_TRIANGLES, c, GL_UNSIGNED_INT, nullptr);
 	}

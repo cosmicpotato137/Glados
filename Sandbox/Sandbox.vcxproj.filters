@@ -36,4 +36,7 @@
     <ClCompile Include="src\Tests\Test3D.cpp" />
     <ClCompile Include="src\Tests\TestTexture.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="res\shaders\Texture.shader" />
+  </ItemGroup>
 </Project>

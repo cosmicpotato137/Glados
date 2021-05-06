@@ -17,7 +17,6 @@ namespace test {
 
 		Ref<VertexArray>	m_VAO;
 		Ref<VertexBuffer>	m_VertexBuffer;
-		Ref<IndexBuffer>	m_IndexBuffer;
 		Ref<Shader>			m_Shader;
 	public:
 		TestVertexArray();

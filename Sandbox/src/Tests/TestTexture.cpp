@@ -5,9 +5,9 @@ namespace test {
 	using namespace Glados;
 
 	TestTexture2D::TestTexture2D()
-		: m_Proj(glm::ortho(0.0f, 960.0f, 0.0f, 540.0f)), 
+		: m_Proj(glm::ortho(0.0f, 960.0f, 0.0f, 540.0f)),
 		m_View(glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0))),
-		m_Position(-50, -50, 0), blend(false)
+		m_Position(-50, -50, 0), blend(false), m_Camera(OrthographicCamera(0, 0, 0, 0))
 	{
 		float positions[]{
 			0.0f,   0.0f,   0.0f, 0.0f,
@@ -22,7 +22,7 @@ namespace test {
 		};
 
 		// define blend function
-		Renderer::SetBlend(blend);
+		RenderCommand::SetBlend(blend);
 
 		m_VAO = VertexArray::Create();
 
@@ -54,32 +54,36 @@ namespace test {
 
 	void TestTexture2D::OnUpdate(float deltaTime)
 	{
-		m_Shader->Bind();
-		glm::vec4 color = { 1.0f, 1.0f, 1.0f, 1.0f };
-		m_Shader->SetFloat4("u_Color", color);
-		glm::mat4 mvp = m_Proj * m_View * m_Model;
-		m_Shader->SetMat4("u_MVP", mvp);
+		//m_Shader->Bind();
+		//glm::vec4 color = { 1.0f, 1.0f, 1.0f, 1.0f };
+		//m_Shader->SetFloat4("u_Color", color);
+		//glm::mat4 mvp = m_Proj * m_View * m_Model;
+		//m_Shader->SetMat4("u_MVP", mvp);
 
-		m_Shader->SetInt("u_Texture", 0);
-		m_Shader->Unbind();
+		//m_Shader->SetInt("u_Texture", 0);
+		//m_Shader->Unbind();
 	}
 
 	void TestTexture2D::OnRender()
 	{
-		Renderer::Submit(m_Shader, m_VAO, mat4(1));
-		m_Shader->Unbind();
+		//Renderer::Submit(m_Shader, m_VAO, mat4(1));
+		Renderer2D::BeginScene(m_Camera);
+		Renderer2D::DrawQuad(scale(mat4(1), vec3(300)), m_Texture, 1.0f, vec4(1,0,0,1));
+		Renderer2D::DrawQuad(translate(mat4(1), vec3(300,0,0)) * scale(mat4(1), vec3(300)), vec4(0,1,.5,1));
+		Renderer2D::EndScene();
 	}
 
 	void TestTexture2D::OnImGuiRender()
 	{
 		if (ImGui::Checkbox("Enable Blending", &blend))
-			Renderer::SetBlend(blend);
+			RenderCommand::SetBlend(blend);
 	}
 
 	void TestTexture2D::OnViewportResize(glm::vec2 viewportSize)
 	{
 		float aspect = viewportSize.x / viewportSize.y;
 		m_Proj = glm::mat4(glm::ortho(-aspect * viewportSize.y, aspect * viewportSize.y, -viewportSize.y, viewportSize.y));
+		m_Camera = OrthographicCamera(-aspect * viewportSize.y, aspect * viewportSize.y, -viewportSize.y, viewportSize.y);
 	}
 
 	void TestTexture2D::OnEvent(Event& e)

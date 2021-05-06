@@ -14,7 +14,6 @@ namespace Glados {
 	private:
 		static Scope<ShaderLibrary> s_ShaderLib;
 		static Ref<Shader> s_DefaultShader;
-		static Ref<Framebuffer> s_Framebuffer;
 	public:
 		Renderer() = delete;
 		~Renderer() = delete;
@@ -25,17 +24,11 @@ namespace Glados {
 
 		static void Init();
 		static void Shutdown();
-		static void OnWindowResize(uint32_t x, uint32_t y, uint32_t width, uint32_t height);
-		static void SetClearColor(const vec4& color);
-		static void SetBlend(bool blend);
-
-		static void Clear();
+		static void OnWindowResize(uint32_t width, uint32_t height);
 		static void Submit(const Ref<Shader>& shader, const Ref<VertexArray>& vertexArray, const glm::mat4& transform);
 
 		static void SetDefaultShader(const Ref<Shader>& defaultShader) { s_DefaultShader = defaultShader; }
 		static Ref<Shader> GetDefaultShader() { return s_DefaultShader; }
-		static uint32_t GetFramebufferID() { return s_Framebuffer->GetColorAttachmentRendererID(); }
-
 	};
 
 }

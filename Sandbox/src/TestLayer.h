@@ -11,6 +11,7 @@ private:
 	TestMenu* m_TestMenu;
 	TestStack m_Tests;
 	glm::vec2 m_ViewportSize = { 0, 0 };
+	Ref<Framebuffer> m_Framebuffer;
 	bool m_ViewportHovered = false;
 	bool m_ViewportFocused = false;
 public:

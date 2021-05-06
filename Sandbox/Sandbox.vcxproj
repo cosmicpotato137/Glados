@@ -154,6 +154,9 @@
       <Project>{BF8856B5-AB2A-818B-94E5-94DF802608DC}</Project>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="res\shaders\Texture.shader" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

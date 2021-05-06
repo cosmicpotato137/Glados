@@ -29,9 +29,9 @@ namespace test {
 		Ref<Texture2D> m_Texture;
 
 		glm::mat4 m_Proj, m_View, m_Model;
+		OrthographicCamera m_Camera;
 		glm::vec3 m_Position;
 		float m_Zoom;
-
 		bool blend;
 	};
 }

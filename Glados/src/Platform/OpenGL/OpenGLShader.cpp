@@ -454,22 +454,16 @@ namespace Glados {
 
 	void OpenGLShader::Bind() const
 	{
-		
-
 		glUseProgram(m_RendererID);
 	}
 
 	void OpenGLShader::Unbind() const
 	{
-		
-
 		glUseProgram(0);
 	}
 
 	void OpenGLShader::SetInt(const std::string& name, int value)
 	{
-		
-
 		UploadUniformInt(name, value);
 	}
 
@@ -480,8 +474,6 @@ namespace Glados {
 
 	void OpenGLShader::SetFloat(const std::string& name, float value)
 	{
-		
-
 		UploadUniformFloat(name, value);
 	}
 

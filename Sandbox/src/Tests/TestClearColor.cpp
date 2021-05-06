@@ -13,7 +13,7 @@ namespace test {
 
 	void TestClearColor::OnUpdate(float deltaTime)
 	{
-		Renderer::SetClearColor(m_ClearColor);
+		RenderCommand::SetClearColor(m_ClearColor);
 	}
 
 	void TestClearColor::OnRender()

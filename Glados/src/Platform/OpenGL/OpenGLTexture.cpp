@@ -1,6 +1,5 @@
 #include "gladospch.h"
 #include "OpenGLTexture.h"
-#include "glad/glad.h"
 #include "Glados/Renderer/StbImageImpl.h"
 
 namespace Glados {
@@ -8,6 +7,8 @@ namespace Glados {
 	OpenGLTexture2D::OpenGLTexture2D(uint32_t width, uint32_t height)
 		: m_Width(width), m_Height(height)
 	{
+
+
 		m_InternalFormat = GL_RGBA8;
 		m_DataFormat = GL_RGBA;
 
@@ -79,7 +80,10 @@ namespace Glados {
 
 	void OpenGLTexture2D::Bind(uint32_t slot) const
 	{
-		glBindTextureUnit(slot, m_RendererID);
+		uint32_t tex0 = GL_TEXTURE0;
+		GD_CORE_ASSERT(tex0 + slot < tex0 + 32, "OpenGL supports 32 texture slots!");
+		glActiveTexture(tex0 + slot);
+		glBindTexture(GL_TEXTURE_2D, m_RendererID);
 	}
 
 }

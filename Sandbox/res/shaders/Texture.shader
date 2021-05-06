@@ -1,4 +1,3 @@
-
 // Basic Texture Shader
 
 #shader vertex
@@ -23,7 +22,7 @@ void main()
 	v_TexCoord = a_TexCoord;
 	v_TexIndex = a_TexIndex;
 	v_TilingFactor = a_TilingFactor;
-	gl_Position = vec4(a_Position, 1.0);
+	gl_Position = u_ViewProjection * vec4(a_Position, 1.0);
 }
 
 #shader fragment
@@ -76,5 +75,5 @@ void main()
 	case 30: texColor *= texture(u_Textures[30], v_TexCoord * v_TilingFactor); break;
 	case 31: texColor *= texture(u_Textures[31], v_TexCoord * v_TilingFactor); break;
 	}
-	color = vec4(1,1,1,1);
+	color = texColor;
 }

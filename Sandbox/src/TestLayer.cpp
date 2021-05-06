@@ -36,6 +36,11 @@ void TestLayer::OnAttach()
 
 	int filter = EventCategory::EventCategoryApplication | EventCategory::EventCategoryInput;
 	bool outcome = EventCategory::EventCategoryApplication & filter;
+
+	FramebufferSpecification fbSpec;
+	fbSpec.Width = 1280;
+	fbSpec.Height = 720;
+	m_Framebuffer = Framebuffer::Create(fbSpec);
 }
 
 void TestLayer::OnDetach()
@@ -47,6 +52,15 @@ void TestLayer::OnDetach()
 
 void TestLayer::OnUpdate(Timestep timestep)
 {
+	// Resize
+	if (FramebufferSpecification spec = m_Framebuffer->GetSpecification();
+		m_ViewportSize.x > 0.0f && m_ViewportSize.y > 0.0f && // zero sized framebuffer is invalid
+		(spec.Width != m_ViewportSize.x || spec.Height != m_ViewportSize.y))
+	{
+		m_Framebuffer->Resize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
+		m_CurrentTest->OnViewportResize(glm::vec2(m_ViewportSize.x, m_ViewportSize.y));
+	}
+
 	if (m_CurrentTest)
 		m_CurrentTest->OnUpdate(0.0f);
 
@@ -64,9 +78,11 @@ void TestLayer::OnUpdate(Timestep timestep)
 
 void TestLayer::OnRender()
 {
-	Renderer::Clear();
+	m_Framebuffer->Bind();
+	RenderCommand::Clear();
 	if (m_CurrentTest)
 		m_CurrentTest->OnRender();
+	m_Framebuffer->Unbind();
 }
 
 void TestLayer::OnImGuiRender()
@@ -84,14 +100,14 @@ void TestLayer::OnImGuiRender()
 	ImVec2 viewportSize = ImGui::GetContentRegionAvail();
 	if (m_ViewportSize != *(glm::vec2*) & viewportSize)
 	{
-		Renderer::OnWindowResize(0, 0, (int)viewportSize.x, (int)viewportSize.y);
+		Renderer::OnWindowResize((int)viewportSize.x, (int)viewportSize.y);
 		m_ViewportSize = *(glm::vec2*) &viewportSize;
 		if (m_CurrentTest)
 			m_CurrentTest->OnViewportResize(m_ViewportSize);
 	}
 
 	// write framebuffer to imgui window
-	uint32_t textureID = Renderer::GetFramebufferID();
+	uint32_t textureID = m_Framebuffer->GetColorAttachmentRendererID();
 	ImGui::Image((void*)textureID, viewportSize, ImVec2(0, 1), ImVec2(1, 0));
 	ImGui::End();
 	ImGui::PopStyleVar();

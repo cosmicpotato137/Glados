@@ -7,57 +7,22 @@ namespace test {
 		: m_View(glm::lookAt(vec3(0,0,1),vec3(0,0,0), vec3(0, 1, 0))),
 		m_Model(200, 200, 0), m_Color(1.0f, 0.5f, 1.0f, 1.0f), m_Camera(OrthographicCamera(0, 0, 0, 0))
 	{
-		float positions[]{
-			0.0f,   0.0f,
-			100.0f, 0.0f,
-			100.0f, 100.0f,
-			0.0f,   100.0f,
-		};
-
-		unsigned int indices[]{
-			0, 1, 2,
-			0, 2, 3
-		};
-
-		Renderer::SetClearColor(vec4(0.8, 0.2, 0.8, 1));
-
-		m_VAO = VertexArray::Create();
-		{
-			BufferLayout layout({
-				{ ShaderDataType::Float2, "position" }
-				});
-			m_VertexBuffer = VertexBuffer::Create(&positions[0], layout.GetStride() * 4);
-			m_VertexBuffer->SetLayout(layout);
-		}
-
-		m_VAO->AddVertexBuffer(m_VertexBuffer);
-
-		m_IndexBuffer = IndexBuffer::Create(&indices[0], 6);
-		m_VAO->SetIndexBuffer(m_IndexBuffer);
-
-		std::string filepath = "res/shaders/basic2d.shader";
-		m_Shader = Shader::Create(filepath);
 	}
 
 	TestVertexArray::~TestVertexArray()
 	{
-
 	}
 
 	void TestVertexArray::OnUpdate(float deltaTime)
 	{
-		m_Shader->Bind();
-		m_Shader->SetFloat4("u_Color", m_Color);
-		m_Shader->SetMat4("u_ViewProjection", m_Proj);
-		m_Shader->SetMat4("u_Transform", glm::mat4(1));
-		m_Shader->Unbind();
 	}
 
 	void TestVertexArray::OnRender()
 	{
-		//Renderer::Submit(m_Shader, m_VAO, glm::mat4(1));
 		Renderer2D::BeginScene(m_Camera);
-		Renderer2D::DrawQuad(glm::scale(glm::mat4(1), glm::vec3(100, 100, 100)), glm::vec4(1));
+		mat4 transf = scale(mat4(1), vec3(100));
+		Renderer2D::DrawQuad(transf, m_Color);
+		Renderer2D::DrawQuad(translate(mat4(1), vec3(105, 0, 0)) * transf, 1.0f / m_Color); 
 		Renderer2D::EndScene();
 	}
 

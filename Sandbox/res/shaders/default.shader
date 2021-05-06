@@ -2,13 +2,14 @@
 #version 330 core
 
 layout(location = 0) in vec3 position;
-
-uniform mat4 u_ModelView;
-uniform mat4 u_Projection;
+layout(location = 1) in vec4 color;
+out vec4 v_Color;
+uniform mat4 u_ViewProjection;
 
 void main()
 {
-	gl_Position = u_Projection * u_ModelView * vec4(position, 1.0f);
+	v_Color = color;
+	gl_Position = u_ViewProjection * vec4(position, 1.0f);
 };
 
 #shader fragment
@@ -16,7 +17,9 @@ void main()
 
 layout(location = 0) out vec4 color;
 
+in vec4 v_Color;
+
 void main()
 {
-	color = vec4(1, 1, 1, 1);
+	color = v_Color;
 };
