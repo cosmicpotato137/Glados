@@ -3,12 +3,7 @@ This is me learning graphics programming by building my own renderer using OpenG
 
 # Build Instructions
 
-- Start by cloning the repository with git clone 
-```
-$ cd ../lorem
-$ npm install
-$ npm start
-```
+- Start by cloning the repository with git clone `$ git clone --recursive https://github.com/TheCherno/Hazel`
 - Run GenerateGlados.bat to make the project files
 
 # Features:
