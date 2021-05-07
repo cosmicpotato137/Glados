@@ -3,7 +3,7 @@ This is me learning graphics programming by building my own renderer using OpenG
 
 # Build Instructions
 
-- Start by cloning the repository with git clone `git clone --recursive https://github.com/msunde137/Glados`
+- Start by cloning the repository with git clone `git clone --branch FinalProject --recursive https://github.com/msunde137/Glados`
 - Run GenerateGlados.bat to make the project files
 
 # Features:
