@@ -1,5 +1,5 @@
 # Glados
-This is me learning graphics programming by building my own renderer using OpenGL and ImGui. Most of this code can be found at: https://github.com/TheCherno/Hazel
+This is me learning graphics programming by building my own renderer using OpenGL and ImGui. Most of this code is pulled directly from: https://github.com/TheCherno/Hazel
 
 # Build Instructions
 
