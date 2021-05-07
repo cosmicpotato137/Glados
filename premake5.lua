@@ -1,7 +1,7 @@
 
 -- workspace settings
 workspace "Glados"
-	startupproject "Sandbox"
+	startproject "Sandbox"
 
 	configurations { "Debug", "Release", "Dist" }
 	platforms { "x32" } -- only support Win32 for now
