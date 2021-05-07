@@ -3,6 +3,7 @@
 #include "Tests/TestVertexArray.h"
 #include "Tests/TestTexture.h"
 #include "Tests/Test3D.h"
+#include "Tests/TestParticleSystem.h"
 //#include "Tests/TestPhong.h"
 
 TestLayer::TestLayer()
@@ -23,6 +24,7 @@ void TestLayer::OnAttach()
 	RegisterTest<TestVertexArray>("Test Vertex Array");
 	RegisterTest<TestTexture2D>("2D Texture Test");
 	RegisterTest<Test3D>("3D Test");
+	RegisterTest<TestParticleSystem>("Particle System 1");
 
 	// initiallize shaders
 	ShaderLibrary& lib = Renderer::GetShaderLibrary();

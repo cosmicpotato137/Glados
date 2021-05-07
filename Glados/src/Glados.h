@@ -26,4 +26,5 @@
 //#include "Glados/Renderer/Material.h"
 #include "Glados/Renderer/Mesh.h"
 #include "Glados/Renderer/Texture.h"
+#include "Glados/Renderer/EditorCamera.h"
 #include "Glados/Renderer/OrthographicCamera.h"
