@@ -3,4 +3,4 @@
 	url = https://github.com/msunde137/imgui
 [submodule "Glados/vendor/GLFW"]
 	path = Glados/vendor/GLFW
-	url = https://github.com/glfw/glfw
+	url = https://github.com/msunde137/glfw
