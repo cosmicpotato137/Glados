@@ -61,14 +61,37 @@ namespace Glados {
 		glClearColor(color.r, color.g, color.b, color.a);
 	}
 
-	void OpenGLRendererAPI::Blend(bool blend)
+	void OpenGLRendererAPI::Blend(BlendMode mode)
 	{
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		switch (mode)
+		{
+			case DEFAULT:
+			{
+				glDisable(GL_BLEND); return;
+			}
+			case ADD:
+			{
+				glEnable(GL_BLEND);
+				glBlendFunc(GL_SRC_ALPHA, GL_ONE);// Additive blend
+				return;
+			}
+			case ALPHA:
+			{
+				glEnable(GL_BLEND);
+				glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); //Alpha blend
+				return;
+			}
+		}
+		GD_CORE_WARN("BlendMode not recognized!");
+		glDisable(GL_BLEND);
+	}
 
-		if (blend)
-			glEnable(GL_BLEND);
+	void OpenGLRendererAPI::SetFaceCull(bool mode)
+	{
+		if (mode)
+			glEnable(GL_CULL_FACE);
 		else
-			glDisable(GL_BLEND);
+			glDisable(GL_CULL_FACE);
 	}
 
 	void OpenGLRendererAPI::Clear()

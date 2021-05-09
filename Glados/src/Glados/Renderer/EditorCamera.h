@@ -19,6 +19,9 @@ namespace Glados{
 
 		const glm::mat4& GetViewMatrix() const { return m_ViewMatrix; }
 		glm::mat4 GetViewProjectionMatrix() const { return m_Projection * m_ViewMatrix; }
+		const glm::vec3& GetViewPosition() const { return m_Position; }
+		const glm::vec3& GetViewForward() const { return m_Forward; }
+		const glm::vec3& GetViewUp() const { return m_Up; }
 
 		void OnUpdate(Timestep ts);
 		void OnEvent(Event& e);

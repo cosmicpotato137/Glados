@@ -8,7 +8,7 @@ namespace test {
 	Test3D::Test3D()
 		: m_Position(0, 0, -100), m_Rotation(45, 45, 45), m_Scale(20)
 	{
-		RenderCommand::SetBlend(true);
+		RenderCommand::SetBlend(BlendMode::ALPHA);
 
 		m_Shader = Shader::Create("res/shaders/basic.shader");
 		m_Shader->Bind();

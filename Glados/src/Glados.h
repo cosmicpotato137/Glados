@@ -3,6 +3,7 @@
 //for use by Glados applications
 
 #include "Glados/Core/Core.h"
+#include "Glados/Core/GDMath.h"
 
 #include "Glados/Core/GDApplication.h"
 #include "Glados/Core/GDLog.h"
@@ -28,3 +29,6 @@
 #include "Glados/Renderer/Texture.h"
 #include "Glados/Renderer/EditorCamera.h"
 #include "Glados/Renderer/OrthographicCamera.h"
+
+//-------Features---------
+#include "Glados/Features/ParticleSystem.h"

@@ -142,6 +142,7 @@ namespace Glados {
 
 	void Renderer2D::BeginScene(const EditorCamera& camera)
 	{
+		// TODO: uniform buffers
 		//s_Data.CameraBuffer.ViewProjection = camera.GetViewProjectionMatrix();
 		//s_Data.CameraUniformBuffer->SetData(&s_Data.CameraBuffer, sizeof(Renderer2DData::CameraData));
 		

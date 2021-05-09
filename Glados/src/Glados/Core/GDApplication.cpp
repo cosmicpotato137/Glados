@@ -37,6 +37,7 @@ namespace Glados {
 		{
 			float time = GetTime();
 			Timestep timestep = time - m_LastFrameTime;
+			m_LastFrameTime = time; // update last frame
 
 			// update per layer
 			if (!m_Minimized)

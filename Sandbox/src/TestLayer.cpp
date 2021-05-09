@@ -64,7 +64,7 @@ void TestLayer::OnUpdate(Timestep timestep)
 	}
 
 	if (m_CurrentTest)
-		m_CurrentTest->OnUpdate(0.0f);
+		m_CurrentTest->OnUpdate(timestep);
 
 	// event blocking
 	int filter = EventCategory::None;

@@ -20,15 +20,15 @@ namespace Glados {
 	
 	void EditorCamera::OnUpdate(Timestep ts)
 	{
+		const glm::vec2& mouse{ Input::GetMouseX(), Input::GetMouseY() };
 		if (Input::IsMouseButtonPressed(GD_MOUSE_BUTTON_LEFT))
 		{
-			const glm::vec2& mouse{ Input::GetMouseX(), Input::GetMouseY() };
 			glm::vec2 delta = (m_InitialMousePosition - mouse) * .003f;
-			m_InitialMousePosition = mouse;
 
 			MouseRotate(delta);
 			UpdateView();
 		}
+		m_InitialMousePosition = mouse;
 	}
 
 	void EditorCamera::OnEvent(Event& e)

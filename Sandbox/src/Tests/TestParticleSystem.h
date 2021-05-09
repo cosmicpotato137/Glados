@@ -1,6 +1,9 @@
 #pragma once
 #include "Test.h"
 #include "glm/glm.hpp"
+// TODO: add Sandbox/src to includedirs
+#include "../ParticleSystems/Confetti.h"
+#include "../ParticleSystems/BoidTest.h"
 
 using namespace glm;
 
@@ -10,6 +13,7 @@ namespace test {
 	{
 	private:
 		EditorCamera m_Camera;
+		BoidTest m_Particles;
 
 	public:
 		TestParticleSystem();

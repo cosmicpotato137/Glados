@@ -26,9 +26,14 @@ namespace Glados {
 		s_RendererAPI->SetClearColor(color);
 	}
 
-	void RenderCommand::SetBlend(bool blend)
+	void RenderCommand::SetBlend(BlendMode blend)
 	{
 		s_RendererAPI->Blend(blend);
+	}
+
+	void RenderCommand::SetFaceCull(bool mode)
+	{
+		s_RendererAPI->SetFaceCull(mode);
 	}
 
 	void RenderCommand::DrawIndexed(const Ref<VertexArray> vertexArray, uint32_t count)
