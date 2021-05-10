@@ -43,6 +43,10 @@ void TestLayer::OnAttach()
 	fbSpec.Width = 1280;
 	fbSpec.Height = 720;
 	m_Framebuffer = Framebuffer::Create(fbSpec);
+
+	// font size
+	ImGuiIO& io = ImGui::GetIO();
+	io.FontGlobalScale = 1.5;
 }
 
 void TestLayer::OnDetach()
