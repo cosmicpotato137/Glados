@@ -23,7 +23,7 @@ void TestLayer::OnAttach()
 	RegisterTest<TestClearColor>("Test Clear Color");
 	RegisterTest<TestVertexArray>("Test Vertex Array");
 	RegisterTest<TestTexture2D>("2D Texture Test");
-	RegisterTest<Test3D>("3D Test");
+	//RegisterTest<Test3D>("3D Test");
 	RegisterTest<TestParticleSystem>("Particle System 1");
 
 	// initiallize shaders
