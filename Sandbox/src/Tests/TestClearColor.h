@@ -1,6 +1,8 @@
 #pragma once
 #include "Test.h"
 #include "glm/glm.hpp"
+#include "Glados/DataStructures/KdTree.h"
+#include "Glados/DataStructures/Agent.h"
 
 namespace test {
 	
@@ -16,5 +18,7 @@ namespace test {
 
 	private:
 		glm::vec4 m_ClearColor;
+		KdTree tree;
+		std::vector<Agent*> agents;
 	};
 }

@@ -37,12 +37,14 @@ namespace Glados {
 		{
 			float time = GetTime();
 			Timestep timestep = time - m_LastFrameTime;
+			m_LastFrameTime = time; // update last frame
 
 			// update per layer
 			if (!m_Minimized)
 			{
 				for (Layer* layer : m_LayerStack)
 				{
+					// TODO: get rid of render method
 					layer->OnUpdate(timestep);
 					layer->OnRender();
 				}

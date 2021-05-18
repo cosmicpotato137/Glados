@@ -15,7 +15,6 @@ namespace test {
 		mat4 m_Transform;
 		mat4 m_View, m_Projection;
 		Ref<Shader> m_Shader;
-
 		vec3 m_Position;
 		vec3 m_Rotation;
 		float m_RotSpd;

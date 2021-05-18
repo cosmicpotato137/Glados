@@ -3,6 +3,9 @@
 #include "Tests/TestVertexArray.h"
 #include "Tests/TestTexture.h"
 #include "Tests/Test3D.h"
+#include "Tests/TestBoid.h"
+#include "Tests/TestBoid2.h"
+#include "Tests/TestConfetti.h"
 //#include "Tests/TestPhong.h"
 
 TestLayer::TestLayer()
@@ -22,7 +25,10 @@ void TestLayer::OnAttach()
 	RegisterTest<TestClearColor>("Test Clear Color");
 	RegisterTest<TestVertexArray>("Test Vertex Array");
 	RegisterTest<TestTexture2D>("2D Texture Test");
-	RegisterTest<Test3D>("3D Test");
+	//RegisterTest<Test3D>("3D Test");
+	RegisterTest<TestBoid>("Particle System 1");
+	RegisterTest<TestBoid2>("Particle System 2");
+	RegisterTest<TestConfetti>("Confetti Particle System");
 
 	// initiallize shaders
 	ShaderLibrary& lib = Renderer::GetShaderLibrary();
@@ -41,6 +47,10 @@ void TestLayer::OnAttach()
 	fbSpec.Width = 1280;
 	fbSpec.Height = 720;
 	m_Framebuffer = Framebuffer::Create(fbSpec);
+
+	// font size
+	ImGuiIO& io = ImGui::GetIO();
+	io.FontGlobalScale = 1.5;
 }
 
 void TestLayer::OnDetach()
@@ -62,7 +72,7 @@ void TestLayer::OnUpdate(Timestep timestep)
 	}
 
 	if (m_CurrentTest)
-		m_CurrentTest->OnUpdate(0.0f);
+		m_CurrentTest->OnUpdate(timestep);
 
 	// event blocking
 	int filter = EventCategory::None;

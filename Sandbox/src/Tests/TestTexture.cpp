@@ -22,7 +22,7 @@ namespace test {
 		};
 
 		// define blend function
-		RenderCommand::SetBlend(blend);
+		RenderCommand::SetBlend(BlendMode::DEFAULT);
 
 		m_VAO = VertexArray::Create();
 
@@ -76,7 +76,7 @@ namespace test {
 	void TestTexture2D::OnImGuiRender()
 	{
 		if (ImGui::Checkbox("Enable Blending", &blend))
-			RenderCommand::SetBlend(blend);
+			RenderCommand::SetBlend(blend ? BlendMode::ALPHA : BlendMode::DEFAULT);
 	}
 
 	void TestTexture2D::OnViewportResize(glm::vec2 viewportSize)

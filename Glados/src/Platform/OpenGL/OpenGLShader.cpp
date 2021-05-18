@@ -500,8 +500,6 @@ namespace Glados {
 
 	void OpenGLShader::SetMat4(const std::string& name, const glm::mat4& value)
 	{
-		
-
 		UploadUniformMat4(name, value);
 	}
 
