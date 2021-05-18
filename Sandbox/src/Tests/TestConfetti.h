@@ -3,21 +3,20 @@
 #include "glm/glm.hpp"
 // TODO: add Sandbox/src to includedirs
 #include "../ParticleSystems/Confetti.h"
-#include "../ParticleSystems/BoidTest.h"
 
 using namespace glm;
 
 namespace test {
 
-	class TestParticleSystem : public Test
+	class TestConfetti : public Test
 	{
 	private:
 		EditorCamera m_Camera;
-		BoidTest m_Particles;
+		Confetti m_Particles;
 
 	public:
-		TestParticleSystem();
-		~TestParticleSystem();
+		TestConfetti();
+		~TestConfetti();
 
 		virtual void OnUpdate(float timestep) override;
 		virtual void OnRender() override;

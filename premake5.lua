@@ -86,6 +86,7 @@ project "Glados"
 	includedirs
 	{
 		"%{prj.name}/src",
+		"%{prj.name}/vendor/KdTree",
 		"%{prj.name}/src/Glados/ObjScripts",
 		"%{prj.name}/vendor/spdlog/include",
 		"%{IncludeDir.GLFW}",

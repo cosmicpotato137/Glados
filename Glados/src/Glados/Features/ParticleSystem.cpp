@@ -19,6 +19,7 @@ namespace Glados {
     {
         m_Specs = specs;
         CreateParticles(m_Specs.StartingParticles);
+        m_KdTree = KdTree(m_Particles);
     }
 
     void ParticleSystem::OnRender(const EditorCamera& camera)
@@ -32,15 +33,15 @@ namespace Glados {
             frame = mat4(fa, fb, fc, vec4(0, 0, 0, 1));
         }
 
-        // get draw order
+        //get draw order
         std::vector<uint32_t> drawStack;
         for (uint32_t j = 0; j < m_Particles.size(); j++)
         {
             bool pushed = false;
-            float dist = glm::dot(m_Particles[j].position - camera.GetViewPosition(), camera.GetViewForward());
+            float dist = glm::dot(m_Particles[j]->position - camera.GetViewPosition(), camera.GetViewForward());
             for (uint32_t i = 0; i < drawStack.size(); i++)
             {
-                float dist1 = glm::dot(m_Particles[drawStack[i]].position - camera.GetViewPosition(), camera.GetViewForward());
+                float dist1 = glm::dot(m_Particles[drawStack[i]]->position - camera.GetViewPosition(), camera.GetViewForward());
                 if (dist <= dist1)
                 {
                     pushed = true;
@@ -50,12 +51,14 @@ namespace Glados {
             }
             if (!pushed)
                 drawStack.push_back(j);
-        }
+        } 
+
+        //auto particleOrder = m_KdTree.OrderInDirection(camera.GetViewForward());
 
         RenderCommand::SetBlend(m_Specs.Blend);
         for (int i = m_Particles.size()-1; i >= 0; i--)
         {
-            Particle p = m_Particles[drawStack[i]];
+            Particle p = *(Particle*)m_Particles[drawStack[i]];
             glm::mat4 pos = glm::translate(glm::mat4(1), p.position);
             glm::mat4 scl = glm::scale(glm::mat4(1), p.scale);
             glm::mat4 transf = pos * scl * frame * glm::translate(mat4(1), vec3(-.5, -.5, 0));
@@ -79,11 +82,15 @@ namespace Glados {
             m_Particles.clear();
             m_DrawStack.clear();
             CreateParticles(m_Specs.StartingParticles);
+            m_KdTree = KdTree(m_Particles);
             m_Restart = false;
         }
         // for children
         if (m_Running)
+        {
+            m_KdTree.BuildAgentTree();
             Update(ts.GetSeconds());
+        }
     }
 
     void ParticleSystem::OnImGuiRender()

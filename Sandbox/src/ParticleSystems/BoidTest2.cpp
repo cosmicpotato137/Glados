@@ -1,17 +1,17 @@
 #include "Glados.h"
-#include "BoidTest.h"
+#include "BoidTest2.h"
 #include "imgui/imgui.h"
 
 using namespace Glados;
 using namespace glm;
 using namespace gdm;
 
-void BoidTest::CreateParticles(int size)
+void BoidTest2::CreateParticles(int size)
 {
 	for (int i = 0; i < size && m_Particles.size() < m_Specs.MaxParticles; i++)
 	{
-		vec3 vel = Random::RandomUnitSphere() * .5f * vec3(1,1,0);
-		vec3 pos = Random::RandomUnitCube() * vec3(1,1,0);
+		vec3 vel = Random::RandomUnitSphere() * .5f * vec3(1,1,1);
+		vec3 pos = Random::RandomUnitCube() * vec3(1,1,1);
 		vec3 acc = vec3(0, -1, 0);
 		float lifetime = Random::RandomFloat(5, 10);
 		vec4 col = vec4(Random::RandomVec3(), 1.0f);
@@ -19,7 +19,7 @@ void BoidTest::CreateParticles(int size)
 	}
 }
 
-void BoidTest::Update(float dt)
+void BoidTest2::Update(float dt)
 {
 	// update particles
 	for (uint32_t i = 0; i < m_Particles.size(); i++)
@@ -120,7 +120,7 @@ void BoidTest::Update(float dt)
 	}
 }
 
-void BoidTest::ImGuiRender()
+void BoidTest2::ImGuiRender()
 {
 	ImGui::DragFloat("Max Speed", &m_MaxSpeed);
 	ImGui::DragFloat("Attraction Range", &m_AttractionRange, 0.01f, 0.0f);

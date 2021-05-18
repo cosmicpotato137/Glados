@@ -14,7 +14,7 @@ void Confetti::CreateParticles(int size)
 		vec3 acc = vec3(0, -1, 0);
 		float lifetime = Random::RandomFloat(5, 10);
 		vec4 col = vec4(Random::RandomVec3(), 1.0f);
-		m_Particles.push_back({ lifetime, pos, vec3(0), vec3(.25), vel, acc, col, 1 });
+		m_Particles.push_back(new Particle{ lifetime, pos, vec3(0), vec3(.25), vel, acc, col, 1 });
 	}
 }
 
@@ -23,11 +23,11 @@ void Confetti::Update(float dt)
 	// update particles
 	for (uint32_t i = 0; i < m_Particles.size(); i++)
 	{
-		Particle& p(m_Particles[i]);
+		Particle& p = *(Particle*)m_Particles[i];
 
 		// death condition
 		p.age += dt;
-		if (p.age > p.lifetime && p.lifetime > 0)
+		if (p.age > p.GetLifetime() && p.GetLifetime() > 0)
 		{
 			p.color += glm::vec4(1, 1, 1, -1) * dt;
 			p.color = glm::clamp(p.color, 0.0f, 1.0f);

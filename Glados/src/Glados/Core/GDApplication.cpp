@@ -44,6 +44,7 @@ namespace Glados {
 			{
 				for (Layer* layer : m_LayerStack)
 				{
+					// TODO: get rid of render method
 					layer->OnUpdate(timestep);
 					layer->OnRender();
 				}
