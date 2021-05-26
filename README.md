@@ -8,7 +8,7 @@ This is me learning graphics programming by building my own renderer using OpenG
 
 # CS312 Final Project
 
-![](Figures/Glados-Renderer-2021-05-26-16-26 (2).gif)
+<img src="Figures/Glados-Renderer-2021-05-26-16-26 (2).gif" alt="My Project GIF" width="500" height="600">
 
 ## Project Description
 
