@@ -51,7 +51,7 @@ The ImGui tools were helpful in understanding how the boids work. For example, c
 
 Or, when the Repulsion and Repulsion range are set higher, the particles will spread out more evenly across the bounding area.
 
-<img src="Glados-Renderer-2021-05-26-17-22.gif" alt="My Project GIF" width="640" height="360">
+<img src="Figures/Glados-Renderer-2021-05-26-17-22.gif" alt="My Project GIF" width="640" height="360">
 
 
 
