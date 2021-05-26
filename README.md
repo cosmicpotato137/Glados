@@ -45,7 +45,13 @@ Implemented in the boid subclasses:
 
 The boids that I experimented with as a part of the project worked out well. The ammount of time I spent setting everything up, limmited how creative I was able to be with the particle systems themselves, but what I have now behaves exactly as exptected. With the addition of the kd-tree, I am able to simulate 400 boid particles at around 20fps.
 
-The ImGui tools were helpful in understanding how the boids work.
+The ImGui tools were helpful in understanding how the boids work. For example, changing the attraction difference will form larger groups of particles.
 
 <img src="Figures/Glados-Renderer-2021-05-26-16-26 (2).gif" alt="My Project GIF" width="640" height="360">
+
+Or, when the Repulsion and Repulsion range are set higher, the particles will spread out more evenly across the bounding area.
+
+<img src="Glados-Renderer-2021-05-26-17-22.gif" alt="My Project GIF" width="640" height="360">
+
+
 
