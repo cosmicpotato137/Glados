@@ -8,7 +8,7 @@ This is me learning graphics programming by building my own renderer using OpenG
 
 # CS312 Final Project
 
-![](Figures/Particles1.png)
+![](Figures/Particles1.PNG)
 
 ## Project Description
 
@@ -20,7 +20,7 @@ For this project I added support for particle systems into the preexisting Glado
 
 I have implemented an abstract particle class with Update, Render, and ImGuiRender methods that will be partially overwritten by subclasses. When using the boid demos, the ImGui controlls will look like this:
 
-![](Figures/Menu.png)
+![](Figures/Menu.PNG)
 
 Implemented in the base class:
 
