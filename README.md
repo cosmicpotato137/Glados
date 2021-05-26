@@ -8,7 +8,7 @@ This is me learning graphics programming by building my own renderer using OpenG
 
 # CS312 Final Project
 
-<img src="Figures/Glados-Renderer-2021-05-26-16-26 (2).gif" alt="My Project GIF" width="500" height="600">
+![](Figures/Particles1.PNG)
 
 ## Project Description
 
@@ -44,3 +44,8 @@ Implemented in the boid subclasses:
 ## Results
 
 The boids that I experimented with as a part of the project worked out well. The ammount of time I spent setting everything up, limmited how creative I was able to be with the particle systems themselves, but what I have now behaves exactly as exptected. With the addition of the kd-tree, I am able to simulate 400 boid particles at around 20fps.
+
+The ImGui tools were helpful in understanding how the boids work.
+
+<img src="Figures/Glados-Renderer-2021-05-26-16-26 (2).gif" alt="My Project GIF" width="640" height="360">
+
